@@ -11,12 +11,21 @@ import { useRef } from "react";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [projetos, posts] = await Promise.all([
-      getProjetos(),
-      getPosts()
-    ]);
-    return { projetos: projetos?.slice(0, 3), posts: posts?.slice(0, 3) };
+    try {
+      const [projetos, posts] = await Promise.all([
+        getProjetos().catch(() => []),
+        getPosts().catch(() => [])
+      ]);
+      return { 
+        projetos: (projetos || [])?.slice(0, 3), 
+        posts: (posts || [])?.slice(0, 3) 
+      };
+    } catch (e) {
+      console.error("Loader error:", e);
+      return { projetos: [], posts: [] };
+    }
   },
+
   head: () => ({
     meta: [
       { title: "IPAG — Transformando vidas em São Mateus" },
