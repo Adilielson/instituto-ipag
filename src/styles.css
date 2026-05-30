@@ -18,8 +18,10 @@
   --secondary: #FDBA36;
   --accent: #F57C2B;
   --foreground: #2A2A2B;
-  --background: #F7F8FA;
+  --background: #FFFFFF;
   --muted: #8E8E8F;
+  --primary-foreground: #FFFFFF;
+  --border: rgba(0,0,0,0.06);
 }
 
 html {
@@ -48,6 +50,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .gf-heading-xl {
+  font-family: var(--font-heading);
   font-size: clamp(3.5rem, 10vw, 8rem);
   line-height: 0.9;
   font-weight: 900;
@@ -56,51 +59,59 @@ h1, h2, h3, h4, h5 {
 }
 
 .gf-heading-lg {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 1;
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
   font-weight: 900;
   letter-spacing: -0.02em;
 }
 
-.gf-button {
-  @apply inline-flex items-center justify-center rounded-full px-10 py-5 text-base font-bold uppercase tracking-widest transition-all duration-300 relative overflow-hidden;
+.text-gradient-flame {
+  @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
 }
 
-.gf-button::after {
-  content: '';
-  @apply absolute inset-0 bg-white/20 translate-y-full transition-transform duration-300 ease-out;
+.gradient-flame {
+  @apply bg-gradient-to-br from-primary to-accent;
 }
 
-.gf-button:hover::after {
-  @apply translate-y-0;
-}
-
-.gf-button-primary {
-  @apply bg-primary text-white shadow-xl hover:shadow-2xl hover:-translate-y-1;
-}
-
-.premium-card {
-  @apply rounded-[32px] bg-white border border-black/5 shadow-premium transition-all duration-500 overflow-hidden;
+.gradient-flame-soft {
+  @apply bg-gradient-to-br from-bg via-white to-bg;
 }
 
 .shadow-premium {
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
 }
 
+.shadow-card {
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+}
+
+.shadow-warm {
+  box-shadow: 0 20px 50px -15px rgba(247, 155, 52, 0.15);
+}
+
+.gf-button {
+  @apply inline-flex items-center justify-center rounded-full px-10 py-5 text-sm font-bold uppercase tracking-widest transition-all duration-300 relative overflow-hidden;
+}
+
+.gf-button-primary {
+  @apply bg-primary text-white shadow-xl hover:shadow-warm hover:-translate-y-1 active:translate-y-0 active:scale-95;
+}
+
+.gf-button-outline {
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+}
+
+.premium-card {
+  @apply rounded-[40px] bg-white border border-black/5 shadow-premium transition-all duration-700 overflow-hidden;
+}
+
 .hover-lift {
-  @apply transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl;
+  @apply transition-all duration-500 hover:-translate-y-3 hover:shadow-warm;
 }
 
-.image-parallax {
-  @apply transition-transform duration-1000 ease-out;
-}
-
-.reveal-stagger > * {
-  @apply opacity-0 translate-y-10;
-}
-
-.reveal-stagger.active > * {
-  @apply opacity-100 translate-y-0 transition-all duration-700 ease-out;
+.glass-morphism {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
 }
 
 @keyframes scroll {
@@ -109,9 +120,34 @@ h1, h2, h3, h4, h5 {
 }
 
 .animate-scroll {
-  animation: scroll 40s linear infinite;
+  animation: scroll 60s linear infinite;
   display: flex;
   width: max-content;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Page Transitions & Utilities */
+.page-fade-enter {
+  opacity: 0;
+}
+.page-fade-enter-active {
+  opacity: 1;
+  transition: opacity 400ms ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
 }
 
 

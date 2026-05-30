@@ -173,15 +173,15 @@ function Home() {
       </section>
 
       {/* PROJETOS - Premium Cards */}
-      <section className="py-40 bg-bg">
+      <section className="py-40 bg-white">
         <div className="max-container">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-12 mb-24 border-b border-black/5 pb-12">
+            <div className="flex flex-wrap items-end justify-between gap-12 mb-24 border-b border-border pb-12">
               <div className="max-w-3xl">
                 <span className="text-primary font-black uppercase tracking-[0.3em] mb-6 block text-sm">Frentes de Ação</span>
                 <h2 className="gf-heading-lg uppercase text-dark">Onde nossa rede atua</h2>
               </div>
-              <Button asChild variant="ghost" className="text-primary font-black tracking-widest hover:bg-transparent group">
+              <Button asChild variant="ghost" className="text-primary font-black tracking-widest hover:bg-transparent group h-auto">
                 <Link to="/projetos" className="flex items-center gap-3">
                   VER TODOS OS PROJETOS <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                 </Link>
