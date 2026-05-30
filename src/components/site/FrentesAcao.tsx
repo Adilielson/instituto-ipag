@@ -132,13 +132,13 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
               ))}
             </div>
           </div>
-
+          
           {/* Fixed COMUNIDADE GLOBAL Highlight Card */}
           <div className="absolute right-0 top-0 z-20 w-[400px] h-full pointer-events-none">
             <div className="sticky top-32 pointer-events-auto">
               <div className="bg-dark rounded-[40px] p-12 flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
                 {/* Background Accent */}
-              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
               
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
