@@ -132,12 +132,10 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
               ))}
             </div>
 
-            {/* Floating Navigation Arrows - Hidden here as they are now in the fixed card */}
-          </div>
-
           {/* Fixed COMUNIDADE GLOBAL Highlight Card */}
-          <div className="lg:sticky lg:top-32 z-20">
-            <div className="bg-dark rounded-[40px] p-12 flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
+          <div className="absolute right-0 top-0 z-20 w-[400px] h-full pointer-events-none">
+            <div className="sticky top-32 pointer-events-auto">
+              <div className="bg-dark rounded-[40px] p-12 flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
               {/* Background Accent */}
               <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
               
