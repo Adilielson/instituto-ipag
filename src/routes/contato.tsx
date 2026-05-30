@@ -37,7 +37,7 @@ function Contato() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-container grid gap-24 lg:grid-cols-5">
           <Reveal className="lg:col-span-2" direction="up">
             <div className="space-y-10">
