@@ -97,13 +97,13 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
             <div 
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 pt-2 px-8"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              className="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 pt-2 px-6 md:px-8"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollSnapType: 'x mandatory' }}
             >
               {loopedProjetos.map((p, i) => (
                 <div 
                   key={`${p.slug}-${i}`} 
-                  className="snap-start shrink-0 w-[85vw] md:w-[400px]"
+                  className="snap-center md:snap-start shrink-0 w-[85vw] md:w-[400px]"
                 >
                   <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
                     <div className="relative h-64 overflow-hidden bg-gray/10">
