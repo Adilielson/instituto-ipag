@@ -268,18 +268,18 @@ function Home() {
             </div>
           </Reveal>
           <div className="mt-20 grid gap-10 md:grid-cols-3">
-            {POSTS.map((post, i) => (
+            {Route.useLoaderData().posts?.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.1} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-border bg-background shadow-sm transition-all hover:-translate-y-2 hover:shadow-premium">
                   <div className="aspect-[16/10] bg-muted overflow-hidden">
                     <div className="h-full w-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
                   </div>
                   <div className="p-10">
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{post.category}</span>
-                    <h3 className="mt-4 text-2xl font-extrabold leading-tight group-hover:text-primary transition-colors">{post.title}</h3>
-                    <p className="mt-4 text-muted-foreground leading-relaxed">{post.excerpt}</p>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{post.categoria}</span>
+                    <h3 className="mt-4 text-2xl font-extrabold leading-tight group-hover:text-primary transition-colors">{post.titulo}</h3>
+                    <p className="mt-4 text-muted-foreground leading-relaxed">{post.resumo}</p>
                     <div className="mt-8 flex items-center justify-between">
-                      <span className="text-sm font-bold text-muted-foreground/50">{post.date}</span>
+                      <span className="text-sm font-bold text-muted-foreground/50">{new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
                       <ArrowRight className="h-5 w-5 text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
                     </div>
                   </div>
