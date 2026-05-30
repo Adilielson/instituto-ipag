@@ -30,50 +30,44 @@ function Home() {
           aria-hidden
           className="pointer-events-none absolute -right-32 -top-20 h-[600px] w-[600px] opacity-[0.08] md:opacity-[0.12]"
         />
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-20 pt-16 md:px-8 md:pt-24 lg:grid-cols-12 lg:pb-32">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-background/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur">
+        <div className="mx-auto grid max-w-7xl gap-16 px-4 pb-32 pt-20 md:px-8 md:pt-32 lg:grid-cols-12 lg:pb-48">
+          <div className="lg:col-span-8">
+            <Reveal direction="down">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-primary backdrop-blur-sm">
                 <Sparkles className="h-3.5 w-3.5" /> Desde 2006 em São Mateus – ES
               </span>
             </Reveal>
-            <Reveal delay={0.1}>
-              <h1 className="mt-6 text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
+            <Reveal delay={0.2}>
+              <h1 className="mt-8 text-6xl font-extrabold leading-[1.1] tracking-tight text-foreground md:text-7xl lg:text-8xl">
                 Transformando vidas através da{" "}
-                <span className="text-gradient-flame">educação, cultura e desenvolvimento social</span>.
+                <span className="text-primary italic">educação e cultura</span>.
               </h1>
             </Reveal>
-            <Reveal delay={0.2}>
-              <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+            <Reveal delay={0.4}>
+              <p className="mt-8 max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
                 Há quase duas décadas, o IPAG promove projetos que fortalecem famílias, desenvolvem talentos
-                e geram impacto positivo na comunidade.
+                e geram impacto positivo na comunidade com excelência e propósito.
               </p>
             </Reveal>
-            <Reveal delay={0.3}>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="gradient-flame text-primary-foreground shadow-warm hover:opacity-95">
+            <Reveal delay={0.6}>
+              <div className="mt-12 flex flex-wrap gap-5">
+                <Button asChild size="lg" className="h-14 px-10 text-base font-bold">
                   <Link to="/projetos">
-                    Conheça nossos projetos <ArrowRight className="ml-1.5 h-4 w-4" />
+                    Nossos Projetos <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-foreground/20">
-                  <Link to="/parceiros">Seja um parceiro</Link>
+                <Button asChild size="lg" variant="outline" className="h-14 border-2 px-10 text-base font-bold">
+                  <Link to="/parceiros">Seja um Parceiro</Link>
                 </Button>
               </div>
             </Reveal>
           </div>
 
-          <div className="lg:col-span-5">
-            <Reveal delay={0.2}>
-              <div className="relative rounded-3xl gradient-flame p-1 shadow-warm">
-                <div className="rounded-[1.4rem] bg-background p-7 md:p-9">
-                  <Heart className="h-9 w-9 text-primary" />
-                  <p className="mt-5 text-2xl font-display font-semibold leading-snug">
-                    "A transformação de uma comunidade acontece quando pessoas se unem em torno de um propósito maior."
-                  </p>
-                  <p className="mt-5 text-sm font-medium text-muted-foreground">
-                    — Pastor Antonio Gomes <span className="text-primary">(Pastor Toninho)</span>
-                  </p>
+          <div className="hidden lg:col-span-4 lg:block">
+            <Reveal delay={0.4} direction="right">
+              <div className="relative aspect-[3/4] rounded-[32px] bg-primary/10 p-2 shadow-premium">
+                <div className="flex h-full w-full items-center justify-center rounded-[28px] bg-background">
+                  <img src={logoSymbol} alt="" className="h-48 w-48 opacity-20 grayscale" />
                 </div>
               </div>
             </Reveal>
