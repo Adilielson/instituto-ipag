@@ -5,9 +5,13 @@ export const SITE = {
   fullName: "Instituto de Desenvolvimento Social Pastor Antonio Gomes",
   city: "São Mateus – ES",
   address: "Avenida João XXIII, Boa Vista, São Mateus – ES",
-  email: "contato@ipag.org.br",
-  phone: "(27) 0000-0000",
-  whatsapp: "(27) 00000-0000",
+  email: "instituto.ipag@gmail.com",
+  phone: "(28) 99983-3567",
+  whatsapp: "+55 28 99983-3567",
+  links: {
+    facebook: "https://www.facebook.com/profile.php?id=100071497621251",
+    instagram: "https://www.instagram.com/ipag.ofc/",
+  }
 };
 
 export const NAV = [
