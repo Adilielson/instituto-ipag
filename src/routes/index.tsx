@@ -146,7 +146,8 @@ function HomeHero({ heroRef }: { heroRef: any }) {
 
 function Home() {
   const heroRef = useRef(null);
-  const loaderData = Route.useLoaderData();
+  const loaderData = Route.useLoaderData() || { projetos: [], posts: [] };
+
 
   return (
     <div className="bg-white">
