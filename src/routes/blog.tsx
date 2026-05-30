@@ -1,8 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/site/Reveal";
-import { POSTS } from "@/data/site";
+import { getPosts } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/blog")({
+  loader: async () => {
+    const posts = await getPosts();
+    return { posts };
+  },
   head: () => ({
     meta: [
       { title: "Blog — IPAG" },
