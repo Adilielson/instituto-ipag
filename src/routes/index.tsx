@@ -45,6 +45,7 @@ const ICON_MAP: Record<string, any> = {
   'DESENVOLVIMENTO SOCIAL': HeartHandshake,
   'SOLIDARIEDADE': Heart,
   'Saúde': Brain,
+  'SAÚDE': Brain,
   'Capacitação': Scissors,
   'Vida': LifeBuoy,
 };
