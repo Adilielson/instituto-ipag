@@ -318,7 +318,7 @@ function Home() {
       <section className="py-24 bg-bg">
         <div className="max-container">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[80px] bg-dark min-h-[700px] flex items-center p-16 md:p-32 shadow-3xl group">
+            <div className="relative overflow-hidden rounded-[80px] bg-dark min-h-[700px] flex items-center p-16 md:p-32 shadow-2xl group">
               <div className="absolute inset-0 z-0">
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}
@@ -332,7 +332,7 @@ function Home() {
 
               <div className="relative z-10 max-w-4xl">
                 <div className="inline-flex items-center gap-6 mb-12">
-                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
+                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-warm/20">
                       <Heart className="w-7 h-7 fill-white" />
                    </div>
                    <span className="text-primary font-black uppercase tracking-[0.5em] text-xs">Apoio Direto & Sustentabilidade</span>
