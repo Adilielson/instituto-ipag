@@ -48,22 +48,15 @@ const ICON_MAP: Record<string, any> = {
 };
 
 function Home() {
-  const [isClient, setIsClient] = useState(false);
   const heroRef = useRef(null);
-  
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   const loaderData = Route.useLoaderData();
+
+  return (
+    <div className="bg-white">
+      {/* HERO - Cinematic Premium Layout */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark">
+        <HomeHero heroRef={heroRef} />
+
 
 
 
