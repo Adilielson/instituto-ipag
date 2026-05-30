@@ -37,8 +37,8 @@ function Projetos() {
         <div className="max-container relative z-10">
           <Reveal>
             <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Nossos projetos</span>
-            <h1 className="gf-heading-lg text-dark max-w-4xl">
-              SEIS FRENTES QUE <br />
+            <h1 className="gf-heading-lg text-dark max-w-4xl uppercase">
+              PROJETOS QUE <br />
               <span className="text-gradient-flame">TRANSFORMAM VIDAS</span>
             </h1>
           </Reveal>
