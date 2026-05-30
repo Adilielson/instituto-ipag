@@ -73,11 +73,12 @@ function Home() {
             <Reveal direction="right" delay={0.4}>
               <div className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://i.imgur.com/iiJLmgU.jpeg" 
+                  src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop" 
                   alt="IPAG Ação" 
                   className="w-full h-full object-cover aspect-[4/5] lg:aspect-auto"
                 />
               </div>
+
               {/* Decorative elements */}
               <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary rounded-full -z-10 opacity-20 blur-2xl" />
               <div className="absolute -top-10 -right-10 w-60 h-60 bg-primary rounded-full -z-10 opacity-10 blur-3xl" />
@@ -120,11 +121,12 @@ function Home() {
           <Reveal direction="left">
             <div className="relative rounded-[40px] overflow-hidden shadow-premium aspect-square">
               <img 
-                src="https://i.imgur.com/iiJLmgU.jpeg" 
+                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" 
                 alt="Nossa Essência" 
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
               />
             </div>
+
           </Reveal>
           <Reveal delay={0.2} direction="right">
             <span className="text-primary font-bold uppercase tracking-[0.3em] mb-4 block">Nossa Essência</span>
@@ -195,12 +197,13 @@ function Home() {
             <div className="relative overflow-hidden rounded-[40px] bg-dark min-h-[500px] flex items-center p-12 md:p-24 shadow-2xl">
               <div className="absolute inset-0 z-0">
                 <img 
-                  src="https://i.imgur.com/iiJLmgU.jpeg" 
+                  src="https://images.unsplash.com/photo-1459183885447-df53d17ee2ab?q=80&w=2070&auto=format&fit=crop" 
                   alt="Bazar" 
                   className="w-full h-full object-cover opacity-30"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent" />
               </div>
+
               
               <div className="relative z-10 max-w-2xl">
                 <span className="text-primary font-bold uppercase tracking-[0.3em] mb-6 block">Solidariedade</span>
@@ -240,11 +243,12 @@ function Home() {
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                   <div className="aspect-[16/10] overflow-hidden">
                     <img 
-                      src="https://i.imgur.com/iiJLmgU.jpeg" 
+                      src={post.imagem_destaque || "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop"} 
                       alt={post.titulo} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
+
                   <div className="p-8">
                     <span className="text-xs font-bold uppercase tracking-widest text-primary mb-4 block">{post.categoria}</span>
                     <h3 className="text-xl font-bold mb-4 leading-tight group-hover:text-primary transition-colors line-clamp-2 uppercase">{post.titulo}</h3>
