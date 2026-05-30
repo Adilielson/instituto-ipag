@@ -201,7 +201,5 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
         </div>
       </div>
     </section>
-      </div>
-    </section>
   );
 }
