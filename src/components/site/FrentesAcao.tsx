@@ -92,8 +92,7 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
             {/* Left fade effect */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
             
-            {/* Right fade effect - agora totalmente transparente para mostrar o carrossel passando por baixo */}
-            <div className="absolute right-[400px] top-0 bottom-0 w-64 bg-gradient-to-l from-transparent to-transparent z-10 pointer-events-none" />
+            {/* O efeito de fade da direita foi removido para garantir transparência total onde o carrossel passa */}
 
             <div 
               ref={scrollRef}
