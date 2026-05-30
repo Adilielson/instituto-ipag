@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 export const getProjetos = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await supabase
@@ -13,7 +14,7 @@ export const getProjetos = createServerFn({ method: "GET" }).handler(async () =>
 });
 
 export const getProjetoBySlug = createServerFn({ method: "GET" })
-  .validator((data: unknown) => data as { slug: string })
+  .inputValidator(z.object({ slug: z.string() }))
   .handler(async ({ data }) => {
     const { data: project, error } = await supabase
       .from("projetos")
@@ -38,7 +39,7 @@ export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
 });
 
 export const getPostBySlug = createServerFn({ method: "GET" })
-  .validator((data: unknown) => data as { slug: string })
+  .inputValidator(z.object({ slug: z.string() }))
   .handler(async ({ data }) => {
     const { data: post, error } = await supabase
       .from("posts")
