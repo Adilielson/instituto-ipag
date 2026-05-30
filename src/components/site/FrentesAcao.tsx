@@ -9,7 +9,8 @@ interface Projeto {
   id?: string;
   titulo: string;
   resumo: string;
-  imagem: string;
+  imagem?: string;
+  imagem_destaque?: string;
   categoria: string;
   slug: string;
 }
@@ -84,7 +85,7 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                   <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
                     <div className="relative h-64 overflow-hidden">
                       <img 
-                        src={p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
+                        src={p.imagem_destaque || p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
                         alt={p.titulo}
                         className="w-full h-full object-cover"
                       />
