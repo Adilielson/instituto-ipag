@@ -148,6 +148,19 @@ h1, h2, h3, h4, h5 {
   @apply bg-white/80 backdrop-blur-md border border-white/20;
 }
 
+.shadow-warm-utility {
+  box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
+}
+
+.shadow-premium-utility {
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+}
+
+.shadow-card-utility {
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+}
+
+
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
