@@ -30,10 +30,10 @@
   --color-card: #FFFFFF;
   --color-card-foreground: #2A2A2B;
 
-  /* Shadows */
+  /* Shadows - Use native theme variables */
   --shadow-premium: 0 20px 40px -10px rgba(0,0,0,0.05);
-  --shadow-card-utility: 0 10px 30px -10px rgba(0,0,0,0.04);
-  --shadow-warm-utility: 0 8px 32px rgba(247, 155, 52, 0.35);
+  --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.04);
+  --shadow-warm: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
 :root {
@@ -101,7 +101,6 @@ h1, h2, h3, h4, h5 {
   @apply bg-gradient-to-br from-bg via-white to-bg;
 }
 
-
 .gf-button {
   @apply inline-flex items-center justify-center rounded-full px-10 py-5 text-sm font-bold uppercase tracking-widest transition-all duration-300 relative overflow-hidden;
 }
@@ -112,12 +111,11 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
 }
+
 .gf-button-primary:hover {
   box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
   transform: translateY(-4px);
 }
-
-
 
 .gf-button-outline {
   @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
@@ -132,23 +130,21 @@ h1, h2, h3, h4, h5 {
   overflow: hidden;
 }
 
-
-
 .hover-lift {
   transition: all 0.5s;
 }
+
 .hover-lift:hover {
   transform: translateY(-12px);
   box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
-
-
 .glass-morphism {
   @apply bg-white/80 backdrop-blur-md border border-white/20;
 }
 
-.shadow-warm-utility-utility {
+/* Custom Shadow Utilities for JSX */
+.shadow-warm-utility {
   box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
@@ -156,10 +152,9 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
 }
 
-.shadow-card-utility-utility {
+.shadow-card-utility {
   box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
 }
-
 
 @keyframes scroll {
   0% { transform: translateX(0); }
@@ -196,6 +191,3 @@ h1, h2, h3, h4, h5 {
 ::-webkit-scrollbar-thumb {
   @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
 }
-
-
-
