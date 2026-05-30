@@ -17,8 +17,9 @@ export const Route = createFileRoute("/")({
         getPosts().catch(() => [])
       ]);
       return { 
-        projetos: (projetos || [])?.slice(0, 3), 
+        projetos: (projetos || [])?.slice(0, 6), 
         posts: (posts || [])?.slice(0, 3) 
+
       };
     } catch (e) {
       console.error("Loader error:", e);
