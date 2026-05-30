@@ -79,7 +79,7 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
               {projetos.map((p, i) => (
                 <div 
                   key={p.slug || i} 
-                  className="snap-start shrink-0 w-[85vw] md:w-[450px]"
+                  className="snap-start shrink-0 w-[85vw] md:w-[400px]"
                 >
                   <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
                     <div className="relative h-64 overflow-hidden">
