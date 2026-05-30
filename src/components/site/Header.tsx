@@ -41,7 +41,7 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button asChild className="gradient-flame text-primary-foreground shadow-warm hover:opacity-95">
+          <Button asChild className="h-11 px-8 font-bold shadow-premium">
             <Link to="/parceiros">Seja Parceiro</Link>
           </Button>
         </div>
