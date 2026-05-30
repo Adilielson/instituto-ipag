@@ -368,9 +368,8 @@ function Home() {
         </div>
       </section>
 
-
       {/* PARTNERS - Premium Stripe */}
-      <section className="py-32 bg-bg overflow-hidden">
+      <section className="py-32 bg-white overflow-hidden border-t border-border">
         <div className="max-container text-center mb-20">
           <Reveal direction="up">
              <span className="text-primary font-black uppercase tracking-[0.4em] mb-4 block text-xs">REDE DE APOIO</span>
