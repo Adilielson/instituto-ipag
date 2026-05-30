@@ -54,20 +54,36 @@ function Projetos() {
                 <Link
                   to="/projetos/$slug"
                   params={{ slug: p.slug }}
-                  className="group relative flex h-[500px] flex-col overflow-hidden rounded-[40px] bg-white p-10 shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility border border-black/5"
+                  className="group relative flex h-[600px] flex-col overflow-hidden rounded-[40px] bg-white shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility border border-black/5"
                 >
-                  <div className="relative z-10">
-                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl gradient-flame text-white shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
-                      <Icon className="h-8 w-8" />
+                  <div className="relative h-64 overflow-hidden bg-gray/10">
+                    <img 
+                      src={(p.imagem_destaque && p.imagem_destaque.startsWith('http')) ? p.imagem_destaque : "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
+                      alt={p.titulo}
+                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                    />
+                    <div className="absolute top-6 left-6 z-20">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/90 backdrop-blur-md text-primary shadow-lg transition-transform duration-500 group-hover:scale-110">
+                        <Icon className="h-6 w-6" />
+                      </div>
                     </div>
-                    <h3 className="mt-8 text-3xl font-black uppercase tracking-tight text-dark leading-none group-hover:text-primary transition-colors">{p.titulo}</h3>
-                    <p className="mt-6 text-lg text-gray/70 leading-relaxed line-clamp-4 font-light">{p.resumo}</p>
+                    <div className="absolute top-6 right-6 z-20">
+                      <span className="bg-primary text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
+                        {p.categoria}
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   </div>
                   
-                  <div className="mt-auto relative z-10">
-                    <span className="inline-flex items-center text-xs font-black uppercase tracking-[0.2em] text-dark group-hover:text-primary transition-all group-hover:gap-4 gap-2">
-                      VER DETALHES <ArrowRight className="h-4 w-4" />
-                    </span>
+                  <div className="p-10 flex flex-col flex-grow relative z-10">
+                    <h3 className="text-2xl font-black uppercase tracking-tight text-dark leading-none group-hover:text-primary transition-colors">{p.titulo}</h3>
+                    <p className="mt-6 text-lg text-gray/70 leading-relaxed line-clamp-4 font-light">{p.resumo}</p>
+                    
+                    <div className="mt-auto">
+                      <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-dark group-hover:text-primary transition-all group-hover:gap-4 gap-2">
+                        VER DETALHES <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </div>
                   </div>
 
                   <div className="absolute -bottom-10 -right-10 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-700">
