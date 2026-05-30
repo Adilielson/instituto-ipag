@@ -91,12 +91,6 @@ function HomeHero({ heroRef }: { heroRef: any }) {
         <div className="max-w-5xl">
           <Reveal direction="down">
             <div className="inline-flex items-center gap-4 mb-10">
-              <motion.span 
-                initial={{ width: 0 }}
-                animate={{ width: 64 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                className="h-[2px] bg-primary" 
-              />
               <span className="text-primary font-black uppercase tracking-[0.4em] text-sm md:text-base">
                 IPAG | INSTITUTO PASTOR ANTONIO GOMES
               </span>
