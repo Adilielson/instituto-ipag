@@ -1,21 +1,21 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, HeartHandshake, Music, GraduationCap, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
-import { PROJECTS } from "@/data/site";
+import { getProjetoBySlug } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/projetos/$slug")({
-  loader: ({ params }) => {
-    const project = PROJECTS.find((p) => p.slug === params.slug);
+  loader: async ({ params }) => {
+    const project = await getProjetoBySlug({ data: { slug: params.slug } });
     if (!project) throw notFound();
     return { project };
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.project.title ?? "Projeto"} — IPAG` },
-      { name: "description", content: loaderData?.project.short ?? "" },
-      { property: "og:title", content: loaderData?.project.title ?? "" },
-      { property: "og:description", content: loaderData?.project.short ?? "" },
+      { title: `${loaderData?.project?.titulo ?? "Projeto"} — IPAG` },
+      { name: "description", content: loaderData?.project?.resumo ?? "" },
+      { property: "og:title", content: loaderData?.project?.titulo ?? "" },
+      { property: "og:description", content: loaderData?.project?.resumo ?? "" },
     ],
   }),
   notFoundComponent: () => (
@@ -26,6 +26,15 @@ export const Route = createFileRoute("/projetos/$slug")({
   ),
   component: ProjetoDetalhe,
 });
+
+const ICON_MAP: Record<string, any> = {
+  'Cultura': Music,
+  'Educação': GraduationCap,
+  'Social': HeartHandshake,
+  'Saúde': Brain,
+  'Capacitação': Scissors,
+  'Vida': LifeBuoy,
+};
 
 function ProjetoDetalhe() {
   const { project } = Route.useLoaderData();
