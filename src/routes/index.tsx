@@ -57,57 +57,73 @@ function HomeHero({ heroRef }: { heroRef: any }) {
   });
 
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const y1 = useSpring(useTransform(scrollYProgress, [0, 1], [0, 200]), springConfig);
+  const y1 = useSpring(useTransform(scrollYProgress, [0, 1], [0, 300]), springConfig);
   const opacity = useSpring(useTransform(scrollYProgress, [0, 0.8], [1, 0]), springConfig);
+  const scale = useSpring(useTransform(scrollYProgress, [0, 1], [1.1, 1.3]), springConfig);
 
   return (
     <>
       <motion.div 
-        style={isClient ? { y: y1, opacity } : { y: 0, opacity: 1 }}
-        className="absolute inset-0 z-0"
+        style={isClient ? { y: y1, opacity, scale } : { y: 0, opacity: 1, scale: 1.1 }}
+        className="absolute inset-0 z-0 overflow-hidden"
       >
-
-        <img 
+        <motion.img 
+          initial={{ scale: 1.2, opacity: 0 }}
+          animate={{ scale: 1.1, opacity: 0.4 }}
+          transition={{ duration: 3, ease: "easeOut" }}
           src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop" 
           alt="IPAG Background" 
-          className="w-full h-full object-cover opacity-40 scale-110"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark" />
       </motion.div>
 
       <div className="max-container relative z-10 pt-20">
-        <div className="max-w-4xl">
+        <div className="max-w-5xl">
           <Reveal direction="down">
-            <div className="inline-flex items-center gap-3 mb-8">
-              <span className="h-[2px] w-12 bg-primary" />
-              <span className="text-primary font-black uppercase tracking-[0.3em] text-sm md:text-base">
+            <div className="inline-flex items-center gap-4 mb-10">
+              <motion.span 
+                initial={{ width: 0 }}
+                animate={{ width: 64 }}
+                transition={{ delay: 0.5, duration: 1 }}
+                className="h-[2px] bg-primary" 
+              />
+              <span className="text-primary font-black uppercase tracking-[0.4em] text-sm md:text-base">
                 IPAG — INSTITUTO PASTOR ANTONIO GOMES
               </span>
             </div>
           </Reveal>
           
           <Reveal delay={0.2} direction="up">
-            <h1 className="gf-heading-xl text-white mb-10">
+            <h1 className="gf-heading-xl text-white mb-10 leading-[0.85]">
               TRANSFORMANDO <br />
-              A REALIDADE EM <span className="text-primary">REDE</span>
+              REALIDADES EM <span className="text-primary relative inline-block">
+                REDE
+                <motion.span 
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                  className="absolute -bottom-2 left-0 h-2 bg-primary/20"
+                />
+              </span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.4} direction="up">
-            <p className="text-xl md:text-3xl text-white/80 mb-12 max-w-2xl font-light leading-relaxed">
+            <p className="text-2xl md:text-4xl text-white/90 mb-16 max-w-3xl font-light leading-tight tracking-tight">
               Quase duas décadas promovendo educação, cultura e dignidade humana em São Mateus – ES.
             </p>
           </Reveal>
 
           <Reveal delay={0.6} direction="up">
-            <div className="flex flex-wrap gap-6">
-              <Button asChild className="gf-button gf-button-primary h-auto group">
-                <Link to="/projetos" className="flex items-center gap-3">
-                  CONHEÇA NOSSAS FRENTES <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+            <div className="flex flex-wrap gap-8 items-center">
+              <Button asChild className="gf-button gf-button-primary h-auto group px-12 py-7">
+                <Link to="/projetos" className="flex items-center gap-4 text-base tracking-widest">
+                  CONHEÇA NOSSAS FRENTES <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="gf-button border-2 border-white text-white hover:bg-white/10 h-auto">
-                <Link to="/quem-somos">NOSSA HISTÓRIA</Link>
+              <Button asChild variant="outline" className="gf-button border-2 border-white/20 text-white hover:bg-white/10 h-auto px-12 py-7">
+                <Link to="/quem-somos" className="text-base tracking-widest">NOSSA HISTÓRIA</Link>
               </Button>
             </div>
           </Reveal>
@@ -115,11 +131,14 @@ function HomeHero({ heroRef }: { heroRef: any }) {
       </div>
 
       <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block"
+        animate={{ y: [0, 15, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 hidden md:block"
       >
-        <div className="w-[1px] h-20 bg-gradient-to-b from-primary to-transparent" />
+        <div className="flex flex-col items-center gap-4">
+          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 rotate-180 [writing-mode:vertical-lr]">SCROLL</span>
+          <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-primary/50 to-transparent" />
+        </div>
       </motion.div>
     </>
   );
