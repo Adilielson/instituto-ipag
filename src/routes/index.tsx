@@ -270,9 +270,9 @@ function Home() {
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  src="https://images.unsplash.com/photo-1459183885447-df53d17ee2ab?q=80&w=2070&auto=format&fit=crop" 
+                  src="https://i.ibb.co/KpnYrxHV/image.png" 
                   alt="Bazar Solidário" 
-                  className="w-full h-full object-cover opacity-20"
+                  className="w-full h-full object-cover opacity-40"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent" />
               </div>
