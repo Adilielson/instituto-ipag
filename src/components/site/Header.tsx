@@ -32,8 +32,8 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
-              activeProps={{ className: "text-primary" }}
+              className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/60 transition-all hover:text-primary hover:tracking-[0.3em]"
+              activeProps={{ className: "text-primary tracking-[0.3em]" }}
             >
               {item.label}
             </Link>
