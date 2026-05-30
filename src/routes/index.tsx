@@ -114,23 +114,24 @@ function Home() {
       </section>
 
 
-      {/* QUEM SOMOS */}
-      <section className="section-padding overflow-hidden">
+      {/* QUEM SOMOS - Modern Editorial Style */}
+      <section className="py-32 overflow-hidden bg-bg">
         <div className="mx-auto grid max-w-7xl gap-20 px-4 md:px-8 lg:grid-cols-2 lg:items-center">
           <Reveal direction="left">
-            <div className="relative aspect-square overflow-hidden rounded-[40px] bg-muted shadow-premium">
-              <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-3xl">
-                <img src={logoSymbol} alt="" className="h-64 w-64 opacity-10 grayscale" />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent" />
+            <div className="relative rounded-[40px] overflow-hidden shadow-premium aspect-square">
+              <img 
+                src="https://i.imgur.com/iiJLmgU.jpeg" 
+                alt="Nossa Essência" 
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+              />
             </div>
           </Reveal>
           <Reveal delay={0.2} direction="right">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Nossa Essência</span>
-            <h2 className="mt-6 text-5xl font-extrabold leading-tight md:text-6xl">
-              Um instituto nascido para servir com excelência.
+            <span className="text-primary font-bold uppercase tracking-[0.3em] mb-4 block">Nossa Essência</span>
+            <h2 className="gf-heading-lg mb-8">
+              NASCEU PARA SERVIR COM <span className="text-primary">EXCELÊNCIA</span>
             </h2>
-            <div className="mt-8 space-y-6 text-lg text-muted-foreground">
+            <div className="space-y-6 text-lg text-gray leading-relaxed font-medium">
               <p>
                 O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes de promover desenvolvimento e inclusão em São Mateus.
               </p>
@@ -138,31 +139,29 @@ function Home() {
                 Hoje, somos referência em projetos sociais que unem modernidade e cuidado humano, preservando um legado de transformação contínua.
               </p>
             </div>
-            <Button asChild className="mt-12 h-14 px-10 font-bold" size="lg">
-              <Link to="/quem-somos">Conheça Nossa História <ArrowRight className="ml-2 h-5 w-5" /></Link>
+            <Button asChild className="gf-button gf-button-primary mt-12">
+              <Link to="/quem-somos">SAIBA MAIS</Link>
             </Button>
           </Reveal>
         </div>
       </section>
 
-      {/* PROJETOS */}
-      <section className="bg-white/50 py-32 md:py-48">
+      {/* PROJETOS - Grid with GF Cards style */}
+      <section className="py-32 bg-white">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-10">
-              <div className="max-w-3xl">
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Nossos Projetos</span>
-                <h2 className="mt-6 text-5xl font-extrabold leading-tight md:text-6xl">
-                  Frentes de ação que renovam a esperança.
-                </h2>
+            <div className="flex flex-wrap items-end justify-between gap-10 mb-20">
+              <div className="max-w-2xl">
+                <span className="text-primary font-bold uppercase tracking-[0.3em] mb-4 block">Nossos Projetos</span>
+                <h2 className="gf-heading-lg">FRENTES DE AÇÃO</h2>
               </div>
-              <Button asChild variant="outline" className="h-14 border-2 px-8 font-bold">
-                <Link to="/projetos">Explorar Tudo <ArrowRight className="ml-2 h-5 w-5" /></Link>
+              <Button asChild variant="outline" className="gf-button border-2 border-primary text-primary hover:bg-primary/5">
+                <Link to="/projetos">EXPLORAR TUDO</Link>
               </Button>
             </div>
           </Reveal>
 
-          <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {Route.useLoaderData().projetos?.map((p: any, i: number) => {
               const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
               return (
@@ -170,15 +169,15 @@ function Home() {
                   <Link
                     to="/projetos/$slug"
                     params={{ slug: p.slug }}
-                    className="group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-background p-10 shadow-premium transition-all hover:-translate-y-2"
+                    className="gf-card group relative flex h-full flex-col p-10 overflow-hidden"
                   >
-                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white mb-8">
                       <Icon className="h-8 w-8" />
                     </div>
-                    <h3 className="mt-8 text-2xl font-extrabold leading-tight">{p.titulo}</h3>
-                    <p className="mt-4 flex-1 text-muted-foreground leading-relaxed">{p.resumo}</p>
-                    <div className="mt-8 flex items-center font-bold text-primary">
-                      Detalhes do projeto <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
+                    <h3 className="text-2xl font-extrabold mb-4 uppercase tracking-tight">{p.titulo}</h3>
+                    <p className="flex-1 text-gray leading-relaxed mb-8">{p.resumo}</p>
+                    <div className="flex items-center font-bold text-primary group-hover:gap-4 transition-all uppercase tracking-wider text-sm">
+                      VER PROJETO <ArrowRight className="ml-2 h-4 w-4" />
                     </div>
                   </Link>
                 </Reveal>
@@ -187,6 +186,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* BAZAR */}
       <section className="section-padding">
