@@ -5,7 +5,7 @@ import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
 import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
 import { getProjetos, getPosts } from "@/lib/api/cms";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
@@ -56,9 +56,9 @@ function HomeHero({ heroRef }: { heroRef: any }) {
     offset: ["start start", "end start"]
   });
 
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const y1 = useSpring(useTransform(scrollYProgress, [0, 1], [0, 200]), springConfig);
+  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.8], [1, 0]), springConfig);
 
   return (
     <>
