@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
+import { Variants } from "framer-motion";
+
 export function Reveal({ 
   children, 
   delay = 0, 
@@ -12,7 +14,7 @@ export function Reveal({
   className?: string;
   direction?: "up" | "down" | "left" | "right" | "fade"
 }) {
-  const variants = {
+  const variants: Variants = {
     hidden: { 
       opacity: 0, 
       y: direction === "up" ? 40 : direction === "down" ? -40 : 0,
@@ -25,7 +27,7 @@ export function Reveal({
       transition: { 
         duration: 0.8, 
         delay, 
-        ease: [0.22, 1, 0.36, 1] 
+        ease: "easeOut" 
       }
     }
   };
