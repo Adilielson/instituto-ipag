@@ -63,9 +63,10 @@ function HomeHero({ heroRef }: { heroRef: any }) {
   return (
     <>
       <motion.div 
-        style={{ y: y1, opacity }}
+        style={isClient ? { y: y1, opacity } : { y: 0, opacity: 1 }}
         className="absolute inset-0 z-0"
       >
+
         <img 
           src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop" 
           alt="IPAG Background" 
