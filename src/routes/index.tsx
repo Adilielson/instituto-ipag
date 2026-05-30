@@ -177,25 +177,28 @@ function Home() {
       </section>
 
       {/* BAZAR */}
-      <section className="py-24 md:py-32">
+      <section className="section-padding">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-3xl gradient-flame p-10 text-primary-foreground shadow-warm md:p-16">
-              <img src={logoSymbol} alt="" aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-80 w-80 opacity-15" />
-              <div className="relative max-w-2xl">
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">Bazar Solidário IPAG</span>
-                <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
-                  Transforme o que você não usa em esperança para quem precisa.
+          <Reveal direction="fade">
+            <div className="relative overflow-hidden rounded-[48px] bg-foreground p-12 text-background shadow-premium md:p-24">
+              <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-primary/20 blur-[100px]" />
+              <div className="relative max-w-3xl">
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Solidariedade</span>
+                <h2 className="mt-8 text-5xl font-extrabold leading-tight md:text-6xl">
+                  Transforme o que você não usa em esperança.
                 </h2>
-                <p className="mt-5 text-lg text-primary-foreground/90">
-                  Doe roupas, calçados, brinquedos e livros em bom estado. Sua doação financia diretamente nossos projetos.
+                <p className="mt-8 text-xl text-background/60 leading-relaxed">
+                  Doe roupas, calçados e livros em bom estado. Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
                 </p>
-                <p className="mt-6 text-sm text-primary-foreground/80">
-                  <strong className="font-semibold">Ponto de entrega:</strong> {SITE.address}
-                </p>
-                <Button asChild size="lg" variant="secondary" className="mt-7 bg-background text-foreground hover:bg-background/90">
-                  <Link to="/bazar">Como doar</Link>
-                </Button>
+                <div className="mt-12 flex flex-wrap gap-8 items-center">
+                  <Button asChild size="lg" className="h-14 px-10 font-bold bg-primary text-white hover:bg-primary/90">
+                    <Link to="/bazar">Saiba Como Doar</Link>
+                  </Button>
+                  <div className="text-sm">
+                    <p className="text-background/40 uppercase tracking-widest font-bold">Ponto de entrega</p>
+                    <p className="mt-1 font-semibold">{SITE.address}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </Reveal>
