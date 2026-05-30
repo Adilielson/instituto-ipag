@@ -36,9 +36,22 @@ function Blog() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {Route.useLoaderData().posts?.map((post: any, i: number) => (
-            <Reveal key={post.slug} delay={i * 0.1} direction="up">
+        <div className="max-container">
+          <div className="mb-12 flex flex-wrap gap-4 items-center justify-between">
+             <div className="relative max-w-md w-full">
+                <input 
+                  type="text" 
+                  placeholder="Buscar artigos..." 
+                  className="w-full pl-12 pr-6 py-4 rounded-full border border-black/5 bg-bg text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  onChange={(e) => {/* Implementar busca local ou server-side se quiser */}}
+                />
+                <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+             </div>
+          </div>
+
+          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+            {Route.useLoaderData().posts?.map((post: any, i: number) => (
+              <Reveal key={post.slug} delay={i * 0.1} direction="up">
               <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-black/5 bg-white shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility">
                 <div className="aspect-[16/10] overflow-hidden relative">
                   <img 
@@ -70,7 +83,8 @@ function Blog() {
                 </div>
               </Link>
             </Reveal>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
     </>

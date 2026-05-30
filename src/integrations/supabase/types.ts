@@ -66,6 +66,8 @@ export type Database = {
           id: string
           imagem_destaque: string | null
           resumo: string | null
+          seo_description: string | null
+          seo_title: string | null
           slug: string
           status: string
           titulo: string
@@ -80,6 +82,8 @@ export type Database = {
           id?: string
           imagem_destaque?: string | null
           resumo?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
           slug: string
           status?: string
           titulo: string
@@ -94,6 +98,8 @@ export type Database = {
           id?: string
           imagem_destaque?: string | null
           resumo?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
           slug?: string
           status?: string
           titulo?: string

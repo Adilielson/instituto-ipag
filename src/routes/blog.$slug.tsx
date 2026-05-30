@@ -2,13 +2,15 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { motion } from "framer-motion";
-import { getPostBySlug } from "@/lib/api/cms";
+import { getPostBySlug, getPosts } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
     const post = await getPostBySlug({ data: { slug: params.slug } });
+    const allPosts = await getPosts();
+    const relatedPosts = (allPosts || []).filter((p: any) => p.slug !== params.slug && p.categoria === post?.categoria).slice(0, 3);
     if (!post) throw notFound();
-    return { post };
+    return { post, relatedPosts };
   },
   head: ({ loaderData }) => ({
     meta: [
@@ -28,7 +30,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPost() {
-  const { post } = Route.useLoaderData();
+  const { post, relatedPosts } = Route.useLoaderData();
   if (!post) return null;
   
   return (
@@ -79,6 +81,31 @@ function BlogPost() {
           </div>
         </div>
       </section>
+
+      {relatedPosts && relatedPosts.length > 0 && (
+        <section className="py-32 bg-bg/30">
+          <div className="max-container">
+            <Reveal>
+              <h2 className="text-3xl font-black uppercase tracking-tight mb-16">Artigos Relacionados</h2>
+            </Reveal>
+            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((related: any, i: number) => (
+                <Reveal key={related.slug} delay={i * 0.1} direction="up">
+                  <Link to="/blog/$slug" params={{ slug: related.slug }} className="group block bg-white rounded-[30px] overflow-hidden border border-black/5 shadow-premium-utility transition-all hover:shadow-warm-utility h-full">
+                    <div className="aspect-video overflow-hidden">
+                      <img src={related.imagem_destaque || ""} alt={related.titulo} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    </div>
+                    <div className="p-8">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-primary mb-4 block">{related.categoria}</span>
+                      <h3 className="text-xl font-black uppercase tracking-tight text-dark group-hover:text-primary transition-colors line-clamp-2">{related.titulo}</h3>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </article>
   );
 }
