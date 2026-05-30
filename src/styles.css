@@ -1,5 +1,4 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -67,9 +66,6 @@
   --ring: oklch(0.75 0.18 55);
 
   --radius: 16px;
-  
-  --shadow-premium: 0 10px 40px -15px oklch(0.25 0.01 260 / 0.1);
-  --shadow-glow: 0 0 20px oklch(0.75 0.18 55 / 0.3);
 }
 
 @layer base {
@@ -102,7 +98,7 @@
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
   &:hover {
     transform: scale(1.03);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px oklch(0.75 0.18 55 / 0.3);
   }
 }
 
