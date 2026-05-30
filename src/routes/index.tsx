@@ -360,7 +360,7 @@ function Home() {
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-16 mb-32 pb-16 border-b border-black/5">
               <div className="max-w-4xl">
-                <span className="text-primary font-black uppercase tracking-[0.5em] mb-8 block text-xs tracking-[0.6em]">IPAG EM FOCO</span>
+                <span className="text-primary font-black uppercase tracking-[0.5em] mb-8 block text-xs">IPAG EM FOCO</span>
                 <h2 className="gf-heading-lg uppercase text-dark tracking-tighter leading-none">EDITORIAL <br />INSTITUCIONAL</h2>
               </div>
               <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto px-14 py-7 transition-all">
