@@ -53,7 +53,7 @@ function Projetos() {
                 <Link
                   to="/projetos/$slug"
                   params={{ slug: p.slug }}
-                  className="group relative flex h-[500px] flex-col overflow-hidden rounded-[40px] bg-white p-10 shadow-premium transition-all duration-700 hover:shadow-warm border border-black/5"
+                  className="group relative flex h-[500px] flex-col overflow-hidden rounded-[40px] bg-white p-10 shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility border border-black/5"
                 >
                   <div className="relative z-10">
                     <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl gradient-flame text-white shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">

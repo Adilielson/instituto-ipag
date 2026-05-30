@@ -279,7 +279,7 @@ function Home() {
                 initial={{ x: 50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                className="absolute -bottom-16 -right-16 bg-primary p-16 rounded-[60px] shadow-3xl hidden md:block max-w-sm text-white border-8 border-white"
+                className="absolute -bottom-16 -right-16 bg-primary p-16 rounded-[60px] shadow-2xl hidden md:block max-w-sm text-white border-8 border-white"
               >
                 <Users className="w-16 h-16 mb-8 text-white/50" />
                 <p className="text-6xl font-black mb-4 leading-none tracking-tighter">19 ANOS</p>
@@ -332,7 +332,7 @@ function Home() {
 
               <div className="relative z-10 max-w-4xl">
                 <div className="inline-flex items-center gap-6 mb-12">
-                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-warm/20">
+                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-warm-utility/20">
                       <Heart className="w-7 h-7 fill-white" />
                    </div>
                    <span className="text-primary font-black uppercase tracking-[0.5em] text-xs">Apoio Direto & Sustentabilidade</span>

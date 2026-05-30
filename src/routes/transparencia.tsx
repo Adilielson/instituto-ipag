@@ -44,7 +44,7 @@ function Transparencia() {
         <div className="max-container grid gap-8 md:grid-cols-2">
           {DOCS.map((d, i) => (
             <Reveal key={d.title} delay={i * 0.1} direction="up">
-              <button className="group flex w-full items-center justify-between gap-6 rounded-[32px] border border-black/5 bg-white p-8 text-left shadow-premium transition-all duration-500 hover:shadow-warm">
+              <button className="group flex w-full items-center justify-between gap-6 rounded-[32px] border border-black/5 bg-white p-8 text-left shadow-premium-utility transition-all duration-500 hover:shadow-warm-utility">
                 <div className="flex items-center gap-6">
                   <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl gradient-flame text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
                     <FileText className="h-7 w-7" />

@@ -32,8 +32,8 @@
 
   /* Shadows */
   --shadow-premium: 0 20px 40px -10px rgba(0,0,0,0.05);
-  --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.04);
-  --shadow-warm: 0 8px 32px rgba(247, 155, 52, 0.35);
+  --shadow-card-utility: 0 10px 30px -10px rgba(0,0,0,0.04);
+  --shadow-warm-utility: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
 :root {
@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5 {
   @apply bg-white/80 backdrop-blur-md border border-white/20;
 }
 
-.shadow-warm-utility {
+.shadow-warm-utility-utility {
   box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
@@ -156,7 +156,7 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
 }
 
-.shadow-card-utility {
+.shadow-card-utility-utility {
   box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
 }
 

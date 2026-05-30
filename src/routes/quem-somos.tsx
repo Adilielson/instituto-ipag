@@ -55,7 +55,7 @@ function QuemSomos() {
           </div>
           
           <Reveal direction="left">
-             <div className="relative rounded-[60px] overflow-hidden shadow-premium aspect-square">
+             <div className="relative rounded-[60px] overflow-hidden shadow-premium-utility aspect-square">
                 <img 
                   src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" 
                   alt="Legado IPAG" 
@@ -74,7 +74,7 @@ function QuemSomos() {
             { title: "Valores", list: VALUES },
           ].map((b, i) => (
             <Reveal key={b.title} delay={i * 0.1} direction="up">
-              <div className="h-full rounded-[40px] bg-white p-10 shadow-premium border border-black/5 hover:shadow-warm transition-all duration-700">
+              <div className="h-full rounded-[40px] bg-white p-10 shadow-premium-utility border border-black/5 hover:shadow-warm-utility transition-all duration-700">
                 <div className="h-2 w-16 rounded-full gradient-flame mb-8" />
                 <h3 className="text-3xl font-black uppercase tracking-tight text-dark mb-6">{b.title}</h3>
                 {b.text && <p className="text-lg text-gray/70 leading-relaxed font-light">{b.text}</p>}

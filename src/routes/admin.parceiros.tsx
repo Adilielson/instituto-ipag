@@ -5,7 +5,7 @@ export const Route = createFileRoute("/admin/parceiros")({ component: AdminParce
 
 function AdminParceiros() {
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card">
+    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
       <h1 className="text-2xl font-extrabold">Parceiros</h1>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {PARTNERS.map((p) => (
