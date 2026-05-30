@@ -13,8 +13,7 @@ export const getProjetos = createServerFn({ method: "GET" }).handler(async () =>
 });
 
 export const getProjetoBySlug = createServerFn({ method: "GET" })
-  .validator((slug: string) => slug)
-  .handler(async ({ data: slug }) => {
+  .handler(async ({ data: slug }: { data: string }) => {
     const { data, error } = await supabase
       .from("projetos")
       .select("*")
@@ -38,8 +37,7 @@ export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
 });
 
 export const getPostBySlug = createServerFn({ method: "GET" })
-  .validator((slug: string) => slug)
-  .handler(async ({ data: slug }) => {
+  .handler(async ({ data: slug }: { data: string }) => {
     const { data, error } = await supabase
       .from("posts")
       .select("*")
