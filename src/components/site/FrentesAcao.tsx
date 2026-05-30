@@ -225,24 +225,44 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
         </div>
 
         {/* Mobile Highlight Card - Only visible on Mobile */}
-        <div className="lg:hidden mt-12 px-8">
+        <div className="lg:hidden mt-8 md:mt-12 px-6 md:px-8">
           <div className="bg-dark rounded-[40px] p-8 md:p-12 flex flex-col shadow-2xl overflow-hidden relative group">
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
             
             <div className="relative z-10 flex flex-col">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-primary rounded-2xl flex items-center justify-center mb-6 md:mb-10 shadow-lg shadow-primary/20">
-                <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 md:mb-12">
+                <div className="flex flex-col">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-primary rounded-2xl flex items-center justify-center mb-6 md:mb-10 shadow-lg shadow-primary/20">
+                    <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 uppercase tracking-tighter leading-tight">
+                    COMUNIDADE <br />GLOBAL
+                  </h3>
+                  
+                  <p className="text-white/50 text-base md:text-lg font-light leading-relaxed max-w-md">
+                    Junte-se a milhares de doadores que já estão transformando realidades hoje.
+                  </p>
+                </div>
+
+                {/* Mobile Navigation Buttons */}
+                <div className="flex lg:hidden gap-4">
+                  <button 
+                    onClick={() => scroll("left")}
+                    className="w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-all active:scale-95"
+                  >
+                    <ArrowLeft className="w-6 h-6" />
+                  </button>
+                  <button 
+                    onClick={() => scroll("right")}
+                    className="w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-all active:scale-95"
+                  >
+                    <ArrowRight className="w-6 h-6" />
+                  </button>
+                </div>
               </div>
               
-              <h3 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 uppercase tracking-tighter leading-tight">
-                COMUNIDADE <br />GLOBAL
-              </h3>
-              
-              <p className="text-white/50 text-base md:text-lg font-light leading-relaxed mb-8 md:mb-12">
-                Junte-se a milhares de doadores que já estão transformando realidades hoje.
-              </p>
-              
-              <div className="mt-auto">
+              <div className="mt-auto border-t border-white/5 pt-8 md:pt-12">
                 <div className="flex items-center mb-6">
                   <div className="flex -space-x-3 md:-space-x-4">
                     {donorAvatars.map((url, i) => (
