@@ -328,7 +328,7 @@ function Home() {
             </div>
           </Reveal>
           
-          <div className="grid gap-16 md:grid-cols-3">
+          <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
             {loaderData.posts?.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.15} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full">
