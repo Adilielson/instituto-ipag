@@ -83,7 +83,8 @@ function Blog() {
                 </div>
               </Link>
             </Reveal>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
     </>
