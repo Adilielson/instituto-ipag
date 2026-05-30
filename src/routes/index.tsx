@@ -39,6 +39,7 @@ export const Route = createFileRoute("/")({
 const ICON_MAP: Record<string, any> = {
   'Cultura': Music,
   'Educação': GraduationCap,
+  'EDUCAÇÃO': GraduationCap,
   'Social': HeartHandshake,
   'Saúde': Brain,
   'Capacitação': Scissors,
