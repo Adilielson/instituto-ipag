@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Reveal } from "@/components/site/Reveal";
 import { SITE } from "@/data/site";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
