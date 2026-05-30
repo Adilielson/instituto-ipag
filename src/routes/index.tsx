@@ -171,24 +171,27 @@ function Home() {
           </Reveal>
 
           <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.1}>
-                <Link
-                  to="/projetos/$slug"
-                  params={{ slug: p.slug }}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-background p-10 shadow-premium transition-all hover:-translate-y-2"
-                >
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                    <p.icon className="h-8 w-8" />
-                  </div>
-                  <h3 className="mt-8 text-2xl font-extrabold leading-tight">{p.title}</h3>
-                  <p className="mt-4 flex-1 text-muted-foreground leading-relaxed">{p.short}</p>
-                  <div className="mt-8 flex items-center font-bold text-primary">
-                    Detalhes do projeto <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+            {Route.useLoaderData().projetos?.map((p: any, i: number) => {
+              const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
+              return (
+                <Reveal key={p.slug} delay={i * 0.1}>
+                  <Link
+                    to="/projetos/$slug"
+                    params={{ slug: p.slug }}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-background p-10 shadow-premium transition-all hover:-translate-y-2"
+                  >
+                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                      <Icon className="h-8 w-8" />
+                    </div>
+                    <h3 className="mt-8 text-2xl font-extrabold leading-tight">{p.titulo}</h3>
+                    <p className="mt-4 flex-1 text-muted-foreground leading-relaxed">{p.resumo}</p>
+                    <div className="mt-8 flex items-center font-bold text-primary">
+                      Detalhes do projeto <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
