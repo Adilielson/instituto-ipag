@@ -74,7 +74,7 @@ h1, h2, h3, h4, h5 {
 
 .gf-heading-xl {
   font-family: var(--font-heading);
-  font-size: clamp(2.45rem, 7vw, 5.6rem);
+  font-size: clamp(1.225rem, 3.5vw, 2.8rem);
   line-height: 0.9;
   font-weight: 900;
   text-transform: uppercase;
