@@ -4,13 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
 import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
-import logoSymbol from "@/assets/logo-symbol.png";
 import { getProjetos, getPosts } from "@/lib/api/cms";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
-
   loader: async () => {
     try {
       const [projetos, posts] = await Promise.all([
@@ -26,7 +24,6 @@ export const Route = createFileRoute("/")({
       return { projetos: [], posts: [] };
     }
   },
-
   head: () => ({
     meta: [
       { title: "IPAG — Transformando vidas em São Mateus" },
@@ -47,9 +44,8 @@ const ICON_MAP: Record<string, any> = {
   'Vida': LifeBuoy,
 };
 
-function Home() {
+function HomeHero({ heroRef }: { heroRef: any }) {
   const [isClient, setIsClient] = useState(false);
-  const heroRef = useRef(null);
   
   useEffect(() => {
     setIsClient(true);
@@ -59,80 +55,85 @@ function Home() {
     target: heroRef,
     offset: ["start start", "end start"]
   });
+
   
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  return (
+    <>
+      <motion.div 
+        style={isClient ? { y: y1, opacity } : { y: 0, opacity: 1 }}
+        className="absolute inset-0 z-0"
+      >
+
+        <img 
+          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop" 
+          alt="IPAG Background" 
+          className="w-full h-full object-cover opacity-40 scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark" />
+      </motion.div>
+
+      <div className="max-container relative z-10 pt-20">
+        <div className="max-w-4xl">
+          <Reveal direction="down">
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="h-[2px] w-12 bg-primary" />
+              <span className="text-primary font-black uppercase tracking-[0.3em] text-sm md:text-base">
+                IPAG — INSTITUTO PASTOR ANTONIO GOMES
+              </span>
+            </div>
+          </Reveal>
+          
+          <Reveal delay={0.2} direction="up">
+            <h1 className="gf-heading-xl text-white mb-10">
+              TRANSFORMANDO <br />
+              A REALIDADE EM <span className="text-primary">REDE</span>
+            </h1>
+          </Reveal>
+
+          <Reveal delay={0.4} direction="up">
+            <p className="text-xl md:text-3xl text-white/80 mb-12 max-w-2xl font-light leading-relaxed">
+              Quase duas décadas promovendo educação, cultura e dignidade humana em São Mateus – ES.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.6} direction="up">
+            <div className="flex flex-wrap gap-6">
+              <Button asChild className="gf-button gf-button-primary h-auto group">
+                <Link to="/projetos" className="flex items-center gap-3">
+                  CONHEÇA NOSSAS FRENTES <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="gf-button border-2 border-white text-white hover:bg-white/10 h-auto">
+                <Link to="/quem-somos">NOSSA HISTÓRIA</Link>
+              </Button>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+
+      <motion.div 
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block"
+      >
+        <div className="w-[1px] h-20 bg-gradient-to-b from-primary to-transparent" />
+      </motion.div>
+    </>
+  );
+}
+
+function Home() {
+  const heroRef = useRef(null);
   const loaderData = Route.useLoaderData();
-
-  if (!isClient) {
-    return <div className="min-h-screen bg-dark" />;
-  }
-
 
   return (
     <div className="bg-white">
       {/* HERO - Cinematic Premium Layout */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark">
-        <motion.div 
-          style={{ y: y1, opacity }}
-          className="absolute inset-0 z-0"
-        >
-          <img 
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop" 
-            alt="IPAG Background" 
-            className="w-full h-full object-cover opacity-40 scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark" />
-        </motion.div>
-
-        <div className="max-container relative z-10 pt-20">
-          <div className="max-w-4xl">
-            <Reveal direction="down">
-              <div className="inline-flex items-center gap-3 mb-8">
-                <span className="h-[2px] w-12 bg-primary" />
-                <span className="text-primary font-black uppercase tracking-[0.3em] text-sm md:text-base">
-                  IPAG — INSTITUTO PASTOR ANTONIO GOMES
-                </span>
-              </div>
-            </Reveal>
-            
-            <Reveal delay={0.2} direction="up">
-              <h1 className="gf-heading-xl text-white mb-10">
-                TRANSFORMANDO <br />
-                A REALIDADE EM <span className="text-primary">REDE</span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.4} direction="up">
-              <p className="text-xl md:text-3xl text-white/80 mb-12 max-w-2xl font-light leading-relaxed">
-                Quase duas décadas promovendo educação, cultura e dignidade humana em São Mateus – ES.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.6} direction="up">
-              <div className="flex flex-wrap gap-6">
-                <Button asChild className="gf-button gf-button-primary h-auto group">
-                  <Link to="/projetos" className="flex items-center gap-3">
-                    CONHEÇA NOSSAS FRENTES <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="gf-button border-2 border-white text-white hover:bg-white/10 h-auto">
-                  <Link to="/quem-somos">NOSSA HISTÓRIA</Link>
-                </Button>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block"
-        >
-          <div className="w-[1px] h-20 bg-gradient-to-b from-primary to-transparent" />
-        </motion.div>
+        <HomeHero heroRef={heroRef} />
       </section>
 
       {/* IMPACTO - Numbers that matter */}
@@ -243,7 +244,6 @@ function Home() {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Float Element */}
             <div className="absolute -bottom-10 -right-10 bg-primary p-12 rounded-[40px] shadow-2xl hidden md:block max-w-xs text-white">
               <Users className="w-12 h-12 mb-6" />
               <p className="text-4xl font-black mb-2 leading-none">19 ANOS</p>
@@ -386,9 +386,7 @@ function Home() {
             ))}
           </div>
         </div>
-
       </section>
     </div>
   );
 }
-
