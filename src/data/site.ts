@@ -17,7 +17,6 @@ export const SITE = {
 export const NAV = [
   { to: "/quem-somos", label: "Quem Somos" },
   { to: "/projetos", label: "Projetos" },
-  { to: "/bazar", label: "Bazar Solidário" },
   { to: "/eventos", label: "Eventos" },
   { to: "/blog", label: "Blog" },
   { to: "/transparencia", label: "Transparência" },
