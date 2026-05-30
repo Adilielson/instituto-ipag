@@ -234,29 +234,34 @@ function Home() {
       </section>
 
       {/* BLOG */}
-      <section className="py-24 md:py-32">
+      <section className="section-padding">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <div>
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Fique por dentro</span>
-                <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">Últimas notícias</h2>
+            <div className="flex flex-wrap items-end justify-between gap-10">
+              <div className="max-w-3xl">
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Imprensa e Notícias</span>
+                <h2 className="mt-6 text-5xl font-extrabold leading-tight md:text-6xl">Impacto documentado.</h2>
               </div>
-              <Button asChild variant="outline" className="border-foreground/20">
-                <Link to="/blog">Ver blog <ArrowRight className="ml-1.5 h-4 w-4" /></Link>
+              <Button asChild variant="outline" className="h-14 border-2 px-8 font-bold">
+                <Link to="/blog">Ver Todas as Notícias <ArrowRight className="ml-2 h-5 w-5" /></Link>
               </Button>
             </div>
           </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-20 grid gap-10 md:grid-cols-3">
             {POSTS.map((post, i) => (
-              <Reveal key={post.slug} delay={i * 0.08}>
-                <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-3xl border border-border bg-background shadow-card transition-all hover:-translate-y-1 hover:shadow-warm">
-                  <div className="h-48 gradient-flame" />
-                  <div className="p-7">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-primary">{post.category}</span>
-                    <h3 className="mt-3 text-lg font-bold leading-snug">{post.title}</h3>
-                    <p className="mt-3 text-sm text-muted-foreground">{post.excerpt}</p>
-                    <p className="mt-5 text-xs text-muted-foreground">{post.date}</p>
+              <Reveal key={post.slug} delay={i * 0.1} direction="up">
+                <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-border bg-background shadow-sm transition-all hover:-translate-y-2 hover:shadow-premium">
+                  <div className="aspect-[16/10] bg-muted overflow-hidden">
+                    <div className="h-full w-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+                  </div>
+                  <div className="p-10">
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{post.category}</span>
+                    <h3 className="mt-4 text-2xl font-extrabold leading-tight group-hover:text-primary transition-colors">{post.title}</h3>
+                    <p className="mt-4 text-muted-foreground leading-relaxed">{post.excerpt}</p>
+                    <div className="mt-8 flex items-center justify-between">
+                      <span className="text-sm font-bold text-muted-foreground/50">{post.date}</span>
+                      <ArrowRight className="h-5 w-5 text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
+                    </div>
                   </div>
                 </Link>
               </Reveal>
