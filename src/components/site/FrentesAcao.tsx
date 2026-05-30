@@ -69,12 +69,12 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
         </div>
 
         <div className="relative">
-          <div className="relative group/carousel overflow-hidden pr-[440px]">
+          <div className="relative group/carousel">
             {/* Left fade effect */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
             
-            {/* Right fade effect - before the fixed card */}
-            <div className="absolute right-[400px] top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
+            {/* Right fade effect covering the fixed card area */}
+            <div className="absolute right-0 top-0 bottom-0 w-[440px] bg-gradient-to-l from-bg via-bg/80 to-transparent z-10 pointer-events-none" />
 
             <div 
               ref={scrollRef}
