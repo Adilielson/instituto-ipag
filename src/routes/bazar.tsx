@@ -23,18 +23,28 @@ function Bazar() {
   ];
   return (
     <>
-      <section className="relative overflow-hidden gradient-flame py-24 text-primary-foreground md:py-32">
-        <div className="mx-auto max-w-4xl px-4 md:px-8">
-          <Reveal>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">Bazar Solidário IPAG</span>
-            <h1 className="mt-4 text-5xl font-extrabold leading-[1.05] md:text-6xl">
-              Transforme o que você não usa em esperança.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-primary-foreground/90">
-              O Bazar Solidário IPAG conecta solidariedade e transformação social. Sua doação contribui diretamente
-              para ações que beneficiam famílias e fortalecem nossos projetos.
-            </p>
-          </Reveal>
+      <section className="relative overflow-hidden py-32 md:py-48 bg-dark">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://i.ibb.co/KpnYrxHV/image.png" 
+            alt="Bazar Solidário" 
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent" />
+        </div>
+        
+        <div className="max-container relative z-10 px-4 md:px-8">
+          <div className="max-w-4xl">
+            <Reveal>
+              <span className="text-primary font-black uppercase tracking-[0.4em] mb-8 block text-xs">Bazar Solidário IPAG</span>
+              <h1 className="gf-heading-lg text-white mb-10 leading-[0.9] uppercase tracking-tighter">
+                Transforme o que <br />você não usa em <br /><span className="text-primary">esperança.</span>
+              </h1>
+              <p className="text-2xl text-white/70 max-w-2xl font-light leading-relaxed mb-12">
+                O Bazar Solidário IPAG conecta solidariedade e transformação social. Sua doação contribui diretamente para ações que beneficiam famílias e fortalecem nossos projetos.
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
