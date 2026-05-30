@@ -34,7 +34,6 @@
   --shadow-premium: 0 20px 40px -10px rgba(0,0,0,0.05);
   --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.04);
   --shadow-warm: 0 8px 32px rgba(247, 155, 52, 0.35);
-  --shadow-3xl: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 }
 
 :root {
@@ -108,8 +107,16 @@ h1, h2, h3, h4, h5 {
 }
 
 .gf-button-primary {
-  @apply bg-primary text-white shadow-xl hover:shadow-warm hover:-translate-y-1 active:translate-y-0 active:scale-95;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
+.gf-button-primary:hover {
+  box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
+  transform: translateY(-4px);
+}
+
 
 
 .gf-button-outline {
@@ -117,13 +124,24 @@ h1, h2, h3, h4, h5 {
 }
 
 .premium-card {
-  @apply rounded-[40px] bg-white border border-black/5 shadow-premium transition-all duration-700 overflow-hidden;
+  border-radius: 40px;
+  background-color: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+  transition: all 0.7s;
+  overflow: hidden;
 }
+
 
 
 .hover-lift {
-  @apply transition-all duration-500 hover:-translate-y-3 hover:shadow-warm;
+  transition: all 0.5s;
 }
+.hover-lift:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
+}
+
 
 
 .glass-morphism {
