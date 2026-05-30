@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Heart, Users, HeartHandshake } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
@@ -21,22 +21,41 @@ interface FrentesAcaoProps {
 
 export function FrentesAcao({ projetos }: FrentesAcaoProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(true);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // Triple the items for infinite effect
+  const loopedProjetos = projetos.length > 0 ? [...projetos, ...projetos, ...projetos] : [];
+
+  useEffect(() => {
+    if (scrollRef.current && projetos.length > 0) {
+      // Calculate a more precise offset to start in the middle set
+      const cardWidth = window.innerWidth < 768 ? window.innerWidth * 0.85 + 32 : 400 + 32;
+      scrollRef.current.scrollLeft = cardWidth * projetos.length;
+    }
+  }, [projetos]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2;
+      const { scrollLeft } = scrollRef.current;
+      const cardWidth = window.innerWidth < 768 ? window.innerWidth * 0.85 + 32 : 400 + 32;
+      const scrollTo = direction === "left" ? scrollLeft - cardWidth : scrollLeft + cardWidth;
       scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
   };
 
   const handleScroll = () => {
-    if (scrollRef.current) {
+    if (scrollRef.current && projetos.length > 0) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      const cardWidth = window.innerWidth < 768 ? window.innerWidth * 0.85 + 32 : 400 + 32;
+      const setWidth = cardWidth * projetos.length;
+
+      // Infinite loop logic: silent snapping
+      if (scrollLeft <= 0) {
+        scrollRef.current.scrollLeft = setWidth;
+      } else if (scrollLeft >= scrollWidth - clientWidth) {
+        scrollRef.current.scrollLeft = scrollWidth - clientWidth - setWidth;
+      }
     }
   };
 
@@ -82,9 +101,9 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
               className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 pt-2 px-8"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              {projetos.map((p, i) => (
+              {loopedProjetos.map((p, i) => (
                 <div 
-                  key={p.slug || i} 
+                  key={`${p.slug}-${i}`} 
                   className="snap-start shrink-0 w-[85vw] md:w-[400px]"
                 >
                   <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
