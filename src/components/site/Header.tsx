@@ -18,8 +18,8 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/85 backdrop-blur-md shadow-card" : "bg-background/0"
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled ? "bg-white/80 backdrop-blur-xl border-b border-black/5 py-2 shadow-premium" : "bg-transparent py-5"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
