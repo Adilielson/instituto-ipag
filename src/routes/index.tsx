@@ -50,6 +50,7 @@ const ICON_MAP: Record<string, any> = {
   'CAPACITAÇÃO': Scissors,
   'Vida': LifeBuoy,
   'DESENVOLVIMENTO HUMANO': Heart,
+  'FORMAÇÃO': GraduationCap,
 };
 
 function HomeHero({ heroRef }: { heroRef: any }) {
