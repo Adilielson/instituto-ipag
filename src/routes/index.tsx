@@ -431,6 +431,3 @@ function Home() {
     </div>
   );
 }
-    </div>
-  );
-}
