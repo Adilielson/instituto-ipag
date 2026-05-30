@@ -223,6 +223,46 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
             </div>
           </div>
         </div>
+
+        {/* Mobile Highlight Card - Only visible on Mobile */}
+        <div className="lg:hidden mt-12 px-8">
+          <div className="bg-dark rounded-[40px] p-8 md:p-12 flex flex-col shadow-2xl overflow-hidden relative group">
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
+            
+            <div className="relative z-10 flex flex-col">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-primary rounded-2xl flex items-center justify-center mb-6 md:mb-10 shadow-lg shadow-primary/20">
+                <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
+              </div>
+              
+              <h3 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 uppercase tracking-tighter leading-tight">
+                COMUNIDADE <br />GLOBAL
+              </h3>
+              
+              <p className="text-white/50 text-base md:text-lg font-light leading-relaxed mb-8 md:mb-12">
+                Junte-se a milhares de doadores que já estão transformando realidades hoje.
+              </p>
+              
+              <div className="mt-auto">
+                <div className="flex items-center mb-6">
+                  <div className="flex -space-x-3 md:-space-x-4">
+                    {donorAvatars.map((url, i) => (
+                      <div key={i} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 md:border-4 border-dark overflow-hidden bg-gray/20">
+                        <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="ml-3 md:ml-4 bg-primary text-white text-[10px] md:text-xs font-black px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg">
+                    +12K
+                  </div>
+                </div>
+                
+                <p className="text-white/30 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em]">
+                  APOIADORES ATIVOS
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
