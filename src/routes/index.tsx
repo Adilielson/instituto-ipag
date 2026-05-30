@@ -1,12 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Heart, Sparkles } from "lucide-react";
+import { ArrowRight, Heart, Sparkles, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
-import { IMPACT_STATS, PROJECTS, POSTS, PARTNERS, SITE } from "@/data/site";
+import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
 import logoSymbol from "@/assets/logo-symbol.png";
+import { getProjetos, getPosts } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const [projetos, posts] = await Promise.all([
+      getProjetos(),
+      getPosts()
+    ]);
+    return { projetos: projetos?.slice(0, 3), posts: posts?.slice(0, 3) };
+  },
   head: () => ({
     meta: [
       { title: "IPAG — Transformando vidas em São Mateus" },
@@ -17,6 +25,15 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+const ICON_MAP: Record<string, any> = {
+  'Cultura': Music,
+  'Educação': GraduationCap,
+  'Social': HeartHandshake,
+  'Saúde': Brain,
+  'Capacitação': Scissors,
+  'Vida': LifeBuoy,
+};
 
 function Home() {
   return (
@@ -154,24 +171,27 @@ function Home() {
           </Reveal>
 
           <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.1}>
-                <Link
-                  to="/projetos/$slug"
-                  params={{ slug: p.slug }}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-background p-10 shadow-premium transition-all hover:-translate-y-2"
-                >
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                    <p.icon className="h-8 w-8" />
-                  </div>
-                  <h3 className="mt-8 text-2xl font-extrabold leading-tight">{p.title}</h3>
-                  <p className="mt-4 flex-1 text-muted-foreground leading-relaxed">{p.short}</p>
-                  <div className="mt-8 flex items-center font-bold text-primary">
-                    Detalhes do projeto <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+            {Route.useLoaderData().projetos?.map((p: any, i: number) => {
+              const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
+              return (
+                <Reveal key={p.slug} delay={i * 0.1}>
+                  <Link
+                    to="/projetos/$slug"
+                    params={{ slug: p.slug }}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-background p-10 shadow-premium transition-all hover:-translate-y-2"
+                  >
+                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                      <Icon className="h-8 w-8" />
+                    </div>
+                    <h3 className="mt-8 text-2xl font-extrabold leading-tight">{p.titulo}</h3>
+                    <p className="mt-4 flex-1 text-muted-foreground leading-relaxed">{p.resumo}</p>
+                    <div className="mt-8 flex items-center font-bold text-primary">
+                      Detalhes do projeto <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -248,18 +268,18 @@ function Home() {
             </div>
           </Reveal>
           <div className="mt-20 grid gap-10 md:grid-cols-3">
-            {POSTS.map((post, i) => (
+            {Route.useLoaderData().posts?.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.1} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-border bg-background shadow-sm transition-all hover:-translate-y-2 hover:shadow-premium">
                   <div className="aspect-[16/10] bg-muted overflow-hidden">
                     <div className="h-full w-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
                   </div>
                   <div className="p-10">
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{post.category}</span>
-                    <h3 className="mt-4 text-2xl font-extrabold leading-tight group-hover:text-primary transition-colors">{post.title}</h3>
-                    <p className="mt-4 text-muted-foreground leading-relaxed">{post.excerpt}</p>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{post.categoria}</span>
+                    <h3 className="mt-4 text-2xl font-extrabold leading-tight group-hover:text-primary transition-colors">{post.titulo}</h3>
+                    <p className="mt-4 text-muted-foreground leading-relaxed">{post.resumo}</p>
                     <div className="mt-8 flex items-center justify-between">
-                      <span className="text-sm font-bold text-muted-foreground/50">{post.date}</span>
+                      <span className="text-sm font-bold text-muted-foreground/50">{new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
                       <ArrowRight className="h-5 w-5 text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
                     </div>
                   </div>

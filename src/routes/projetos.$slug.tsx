@@ -1,21 +1,21 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, HeartHandshake, Music, GraduationCap, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
-import { PROJECTS } from "@/data/site";
+import { getProjetoBySlug } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/projetos/$slug")({
-  loader: ({ params }) => {
-    const project = PROJECTS.find((p) => p.slug === params.slug);
+  loader: async ({ params }) => {
+    const project = await getProjetoBySlug({ data: { slug: params.slug } });
     if (!project) throw notFound();
     return { project };
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.project.title ?? "Projeto"} — IPAG` },
-      { name: "description", content: loaderData?.project.short ?? "" },
-      { property: "og:title", content: loaderData?.project.title ?? "" },
-      { property: "og:description", content: loaderData?.project.short ?? "" },
+      { title: `${loaderData?.project?.titulo ?? "Projeto"} — IPAG` },
+      { name: "description", content: loaderData?.project?.resumo ?? "" },
+      { property: "og:title", content: loaderData?.project?.titulo ?? "" },
+      { property: "og:description", content: loaderData?.project?.resumo ?? "" },
     ],
   }),
   notFoundComponent: () => (
@@ -27,9 +27,20 @@ export const Route = createFileRoute("/projetos/$slug")({
   component: ProjetoDetalhe,
 });
 
+const ICON_MAP: Record<string, any> = {
+  'Cultura': Music,
+  'Educação': GraduationCap,
+  'Social': HeartHandshake,
+  'Saúde': Brain,
+  'Capacitação': Scissors,
+  'Vida': LifeBuoy,
+};
+
 function ProjetoDetalhe() {
   const { project } = Route.useLoaderData();
-  const Icon = project.icon;
+  if (!project) return null;
+  const Icon = ICON_MAP[project.categoria as string] || HeartHandshake;
+  
   return (
     <>
       <section className="gradient-flame-soft py-20 md:py-28">
@@ -41,8 +52,8 @@ function ProjetoDetalhe() {
             <div className="mt-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl gradient-flame text-primary-foreground shadow-warm">
               <Icon className="h-8 w-8" />
             </div>
-            <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-5xl">{project.title}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">{project.short}</p>
+            <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-5xl">{project.titulo}</h1>
+            <p className="mt-4 text-lg text-muted-foreground">{project.resumo}</p>
           </Reveal>
         </div>
       </section>
@@ -50,7 +61,9 @@ function ProjetoDetalhe() {
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-4 text-lg leading-relaxed text-muted-foreground md:px-8">
           <Reveal>
-            <p>{project.description}</p>
+            <div className="prose prose-lg max-w-none">
+              {project.conteudo}
+            </div>
           </Reveal>
           <Reveal delay={0.1}>
             <div className="mt-12 rounded-3xl border border-border bg-muted/40 p-8">
