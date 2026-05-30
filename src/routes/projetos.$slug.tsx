@@ -43,17 +43,18 @@ function ProjetoDetalhe() {
   
   return (
     <>
-      <section className="gradient-flame-soft py-20 md:py-28">
-        <div className="mx-auto max-w-4xl px-4 md:px-8">
-          <Link to="/projetos" className="inline-flex items-center text-sm font-medium text-primary hover:underline">
-            <ArrowLeft className="mr-1 h-4 w-4" /> Todos os projetos
+      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
+        <div className="max-container relative z-10">
+          <Link to="/projetos" className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12">
+            <ArrowLeft className="h-4 w-4" /> TODOS OS PROJETOS
           </Link>
           <Reveal>
-            <div className="mt-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl gradient-flame text-primary-foreground shadow-warm">
-              <Icon className="h-8 w-8" />
+            <div className="inline-flex h-20 w-20 items-center justify-center rounded-[32px] gradient-flame text-white shadow-warm mb-10">
+              <Icon className="h-10 w-10" />
             </div>
-            <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-5xl">{project.titulo}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">{project.resumo}</p>
+            <h1 className="gf-heading-lg text-dark max-w-4xl uppercase">{project.titulo}</h1>
+            <p className="mt-8 text-2xl text-gray/60 font-light leading-relaxed max-w-3xl">{project.resumo}</p>
           </Reveal>
         </div>
       </section>
