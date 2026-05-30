@@ -137,38 +137,38 @@ function Home() {
       </section>
 
       {/* PROJETOS */}
-      <section className="bg-muted/40 py-24 md:py-32">
+      <section className="bg-white/50 py-32 md:py-48">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <div className="max-w-2xl">
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Nossos projetos</span>
-                <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
-                  Frentes de ação que transformam.
+            <div className="flex flex-wrap items-end justify-between gap-10">
+              <div className="max-w-3xl">
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Nossos Projetos</span>
+                <h2 className="mt-6 text-5xl font-extrabold leading-tight md:text-6xl">
+                  Frentes de ação que renovam a esperança.
                 </h2>
               </div>
-              <Button asChild variant="outline" className="border-foreground/20">
-                <Link to="/projetos">Ver todos <ArrowRight className="ml-1.5 h-4 w-4" /></Link>
+              <Button asChild variant="outline" className="h-14 border-2 px-8 font-bold">
+                <Link to="/projetos">Explorar Tudo <ArrowRight className="ml-2 h-5 w-5" /></Link>
               </Button>
             </div>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {PROJECTS.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.06}>
+              <Reveal key={p.slug} delay={i * 0.1}>
                 <Link
                   to="/projetos/$slug"
                   params={{ slug: p.slug }}
-                  className="group flex h-full flex-col rounded-3xl bg-background p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-warm"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-background p-10 shadow-premium transition-all hover:-translate-y-2"
                 >
-                  <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl gradient-flame text-primary-foreground">
-                    <p.icon className="h-7 w-7" />
+                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                    <p.icon className="h-8 w-8" />
                   </div>
-                  <h3 className="mt-6 text-xl font-bold leading-snug">{p.title}</h3>
-                  <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.short}</p>
-                  <span className="mt-6 inline-flex items-center text-sm font-semibold text-primary">
-                    Saiba mais <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
+                  <h3 className="mt-8 text-2xl font-extrabold leading-tight">{p.title}</h3>
+                  <p className="mt-4 flex-1 text-muted-foreground leading-relaxed">{p.short}</p>
+                  <div className="mt-8 flex items-center font-bold text-primary">
+                    Detalhes do projeto <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
+                  </div>
                 </Link>
               </Reveal>
             ))}
