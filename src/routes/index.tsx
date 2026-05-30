@@ -259,80 +259,93 @@ function Home() {
         </div>
       </section>
 
-      {/* QUEM SOMOS - Editorial Storytelling */}
-      <section className="py-40 bg-white overflow-hidden">
-        <div className="max-container grid lg:grid-cols-2 gap-24 items-center">
-          <Reveal direction="left" className="relative">
-            <div className="relative rounded-[60px] overflow-hidden shadow-2xl aspect-[3/4] lg:aspect-auto lg:h-[800px]">
-              <motion.img 
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 1.5 }}
-                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" 
-                alt="Nossa Essência" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-10 -right-10 bg-primary p-12 rounded-[40px] shadow-2xl hidden md:block max-w-xs text-white">
-              <Users className="w-12 h-12 mb-6" />
-              <p className="text-4xl font-black mb-2 leading-none">19 ANOS</p>
-              <p className="text-sm font-bold uppercase tracking-widest opacity-80">De história e impacto em São Mateus</p>
-            </div>
-          </Reveal>
+      {/* QUEM SOMOS - Premium Editorial Storytelling */}
+      <section className="py-56 bg-white overflow-hidden">
+        <div className="max-container">
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-32 items-center">
+            <Reveal direction="left" className="relative group">
+              <div className="relative rounded-[80px] overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-auto lg:h-[900px]">
+                <motion.img 
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 1.5 }}
+                  src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" 
+                  alt="Nossa Essência" 
+                  className="w-full h-full object-cover transition-all duration-1000 group-hover:opacity-90"
+                />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              </div>
+              <motion.div 
+                initial={{ x: 50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                className="absolute -bottom-16 -right-16 bg-primary p-16 rounded-[60px] shadow-3xl hidden md:block max-w-sm text-white border-8 border-white"
+              >
+                <Users className="w-16 h-16 mb-8 text-white/50" />
+                <p className="text-6xl font-black mb-4 leading-none tracking-tighter">19 ANOS</p>
+                <p className="text-sm font-black uppercase tracking-[0.4em] opacity-80 leading-relaxed">LEGADO DE TRANSFORMAÇÃO SOCIAL EM SÃO MATEUS</p>
+              </motion.div>
+            </Reveal>
 
-          <Reveal delay={0.2} direction="right">
-            <span className="text-primary font-black uppercase tracking-[0.4em] mb-8 block text-sm">Nosso Legado</span>
-            <h2 className="gf-heading-lg mb-12 text-dark">
-              NASCEU PARA <span className="text-primary">SERVIR</span> COM EXCELÊNCIA
-            </h2>
-            <div className="space-y-8 text-xl text-gray/80 leading-relaxed font-light">
-              <p>
-                O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes de promover desenvolvimento e inclusão em São Mateus. 
-              </p>
-              <p className="font-medium text-dark italic border-l-4 border-primary pl-8 py-2">
-                "Não trabalhamos apenas com assistência, mas com a restauração da dignidade humana através da rede de apoio."
-              </p>
-              <p>
-                Hoje, somos referência em projetos sociais que unem modernidade e cuidado humano, preservando um legado de transformação contínua.
-              </p>
-            </div>
-            <Button asChild className="gf-button gf-button-primary mt-16 h-auto">
-              <Link to="/quem-somos">CONHEÇA NOSSA JORNADA</Link>
-            </Button>
-          </Reveal>
+            <Reveal delay={0.2} direction="right">
+              <span className="text-primary font-black uppercase tracking-[0.5em] mb-10 block text-xs">NOSSA JORNADA</span>
+              <h2 className="gf-heading-lg mb-12 text-dark uppercase tracking-tighter leading-[0.9]">
+                EXCELÊNCIA EM <br /><span className="text-primary">SERVIR</span> A PESSOAS
+              </h2>
+              <div className="space-y-10 text-2xl text-gray/70 leading-relaxed font-light">
+                <p>
+                  O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes de promover desenvolvimento, inclusão e dignidade humana em São Mateus. 
+                </p>
+                <div className="relative pl-12 py-4">
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-primary/50 to-transparent" />
+                  <p className="font-bold text-dark italic text-3xl tracking-tight leading-tight">
+                    "Nossa missão não é apenas assistir, mas restaurar o protagonismo humano."
+                  </p>
+                </div>
+                <p>
+                  Hoje, somos um hub de impacto social, unindo transparência administrativa a um cuidado humanizado e profundo.
+                </p>
+              </div>
+              <Button asChild className="gf-button gf-button-primary mt-20 h-auto px-12 py-7">
+                <Link to="/quem-somos" className="text-base tracking-widest">CONHEÇA NOSSA ESSÊNCIA</Link>
+              </Button>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* BAZAR - Prominent High-End Banner */}
-      <section className="py-20 bg-bg">
+      {/* BAZAR - High-End Impact Banner */}
+      <section className="py-24 bg-bg">
         <div className="max-container">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[60px] bg-dark min-h-[600px] flex items-center p-12 md:p-24 shadow-2xl group">
+            <div className="relative overflow-hidden rounded-[80px] bg-dark min-h-[700px] flex items-center p-16 md:p-32 shadow-3xl group">
               <div className="absolute inset-0 z-0">
-                <img 
+                <motion.img 
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   src="https://images.unsplash.com/photo-1459183885447-df53d17ee2ab?q=80&w=2070&auto=format&fit=crop" 
                   alt="Bazar Solidário" 
-                  className="w-full h-full object-cover opacity-30 transition-transform duration-[3s] group-hover:scale-110"
+                  className="w-full h-full object-cover opacity-20"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/90 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent" />
               </div>
 
-              <div className="relative z-10 max-w-3xl">
-                <div className="inline-flex items-center gap-4 mb-8">
-                   <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                      <Heart className="w-6 h-6 fill-primary" />
+              <div className="relative z-10 max-w-4xl">
+                <div className="inline-flex items-center gap-6 mb-12">
+                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
+                      <Heart className="w-7 h-7 fill-white" />
                    </div>
-                   <span className="text-primary font-black uppercase tracking-[0.4em] text-sm">Apoio Direto</span>
+                   <span className="text-primary font-black uppercase tracking-[0.5em] text-xs">Apoio Direto & Sustentabilidade</span>
                 </div>
                 
-                <h2 className="gf-heading-lg text-white mb-10 uppercase leading-none">
-                  TRANSFORME O QUE <br />VOCÊ NÃO USA EM <span className="text-primary">ESPERANÇA</span>
+                <h2 className="gf-heading-lg text-white mb-12 uppercase leading-[0.9] tracking-tighter">
+                  TRANSFORME <br />O DESAPEGO EM <br /><span className="text-primary">ESPERANÇA</span>
                 </h2>
-                <p className="text-2xl text-white/60 mb-12 leading-relaxed font-light max-w-2xl">
-                  Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias em São Mateus. O Bazar IPAG é motor de transformação social.
+                <p className="text-3xl text-white/50 mb-16 leading-relaxed font-light max-w-3xl tracking-tight">
+                  Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias. O Bazar IPAG é o coração pulsante da nossa autonomia financeira.
                 </p>
-                <div className="flex flex-wrap gap-6">
-                  <Button asChild className="gf-button gf-button-primary h-auto">
-                    <Link to="/bazar">QUERO DOAR AGORA</Link>
+                <div className="flex flex-wrap gap-8">
+                  <Button asChild className="gf-button gf-button-primary h-auto px-14 py-8">
+                    <Link to="/bazar" className="text-base tracking-widest">QUERO SER UM DOADOR</Link>
                   </Button>
                 </div>
               </div>
@@ -342,51 +355,51 @@ function Home() {
       </section>
 
       {/* BLOG - Editorial Magazine Style */}
-      <section className="py-40 bg-white">
+      <section className="py-56 bg-white">
         <div className="max-container">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-12 mb-24 pb-12 border-b border-black/5">
-              <div className="max-w-3xl">
-                <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">IPAG EM FOCO</span>
-                <h2 className="gf-heading-lg uppercase text-dark tracking-tighter">EDITORIAL IPAG</h2>
+            <div className="flex flex-wrap items-end justify-between gap-16 mb-32 pb-16 border-b border-black/5">
+              <div className="max-w-4xl">
+                <span className="text-primary font-black uppercase tracking-[0.5em] mb-8 block text-xs tracking-[0.6em]">IPAG EM FOCO</span>
+                <h2 className="gf-heading-lg uppercase text-dark tracking-tighter leading-none">EDITORIAL <br />INSTITUCIONAL</h2>
               </div>
-              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto py-5 px-10">
-                <Link to="/blog">VER TODAS AS MATÉRIAS</Link>
+              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto px-14 py-7 transition-all">
+                <Link to="/blog" className="text-base tracking-widest">ARQUIVO COMPLETO</Link>
               </Button>
             </div>
           </Reveal>
           
-          <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-20 md:grid-cols-2 lg:grid-cols-3">
             {loaderData.posts?.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.15} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full">
-                  <div className="aspect-[16/11] overflow-hidden rounded-[32px] mb-8 relative">
+                  <div className="aspect-[16/10] overflow-hidden rounded-[40px] mb-12 relative shadow-2xl">
                     <img 
                       src={post.imagem_destaque || "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop"} 
                       alt={post.titulo} 
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-all duration-[1.5s] group-hover:scale-110"
                     />
-                    <div className="absolute top-6 left-6">
-                      <span className="bg-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest text-dark shadow-xl">
+                    <div className="absolute top-8 left-8">
+                      <span className="bg-white/90 backdrop-blur-md px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.3em] text-dark shadow-2xl">
                         {post.categoria}
                       </span>
                     </div>
                   </div>
 
-                  <div className="px-2">
-                    <div className="flex items-center gap-4 mb-6 text-gray/50 text-xs font-bold uppercase tracking-widest">
+                  <div className="px-4">
+                    <div className="flex items-center gap-6 mb-8 text-gray font-black text-[10px] uppercase tracking-[0.4em]">
                        <span>{new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
-                       <span className="h-1 w-1 rounded-full bg-primary" />
-                       <span>POR IPAG COMUNICAÇÃO</span>
+                       <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                       <span>EDITORIAL IPAG</span>
                     </div>
-                    <h3 className="text-2xl font-black mb-6 leading-tight text-dark group-hover:text-primary transition-colors line-clamp-2 uppercase tracking-tight">
+                    <h3 className="text-3xl font-black mb-8 leading-tight text-dark group-hover:text-primary transition-colors line-clamp-2 uppercase tracking-tight">
                       {post.titulo}
                     </h3>
-                    <p className="text-gray/70 leading-relaxed mb-8 line-clamp-3 font-light text-lg">
+                    <p className="text-gray text-xl leading-relaxed mb-10 line-clamp-3 font-light tracking-tight opacity-70">
                       {post.resumo}
                     </p>
-                    <div className="mt-8 flex items-center gap-3 text-dark font-black uppercase tracking-widest text-xs group-hover:gap-5 transition-all">
-                       LER MATÉRIA COMPLETA <ArrowRight className="w-4 h-4 text-primary" />
+                    <div className="flex items-center gap-4 text-dark font-black uppercase tracking-[0.3em] text-[10px] group-hover:gap-8 transition-all duration-500">
+                       LER MATÉRIA COMPLETA <ArrowRight className="w-5 h-5 text-primary transition-transform group-hover:translate-x-2" />
                     </div>
                   </div>
                 </Link>
@@ -396,25 +409,28 @@ function Home() {
         </div>
       </section>
 
-      {/* PARTNERS - Premium Stripe */}
-      <section className="py-32 bg-white overflow-hidden border-t border-black/5">
-        <div className="max-container text-center mb-20">
+      {/* PARTNERS - Premium Stripe Marquee */}
+      <section className="py-48 bg-white overflow-hidden border-t border-black/5">
+        <div className="max-container text-center mb-24">
           <Reveal direction="up">
-             <span className="text-primary font-black uppercase tracking-[0.4em] mb-4 block text-xs">REDE DE APOIO</span>
-             <h2 className="text-3xl font-black text-dark uppercase tracking-tight">EMPRESAS QUE ACREDITAM NO IPAG</h2>
+             <span className="text-primary font-black uppercase tracking-[0.6em] mb-6 block text-[10px]">REDE DE APOIO</span>
+             <h2 className="text-4xl font-black text-dark uppercase tracking-tight">CORPORAÇÕES QUE IMPULSIONAM O IMPACTO</h2>
           </Reveal>
         </div>
 
-        <div className="relative">
-          <div className="flex animate-scroll whitespace-nowrap">
-            {[...PARTNERS, ...PARTNERS].map((partner, index) => (
-              <div key={index} className="mx-12 flex items-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                <span className="text-2xl font-black text-dark/40 uppercase tracking-widest">{partner}</span>
+        <div className="relative py-12 border-y border-black/5">
+          <div className="flex animate-scroll whitespace-nowrap gap-32">
+            {[...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
+              <div key={index} className="flex items-center grayscale opacity-20 hover:grayscale-0 hover:opacity-100 transition-all duration-700 cursor-pointer">
+                <span className="text-4xl md:text-5xl font-black text-dark uppercase tracking-[0.2em]">{partner}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
+    </div>
+  );
+}
     </div>
   );
 }
