@@ -83,11 +83,16 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                   className="snap-start shrink-0 w-[85vw] md:w-[400px]"
                 >
                   <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
-                    <div className="relative h-64 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden bg-gray/10">
                       <img 
                         src={p.imagem_destaque || p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
                         alt={p.titulo}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop";
+                          target.onerror = null;
+                        }}
                       />
                       <div className="absolute top-6 left-6">
                         <span className="bg-primary text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
