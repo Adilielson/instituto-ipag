@@ -65,9 +65,6 @@ function Home() {
 
   const loaderData = Route.useLoaderData();
 
-  if (!isClient) {
-    return <div className="min-h-screen bg-dark" />;
-  }
 
 
   return (
