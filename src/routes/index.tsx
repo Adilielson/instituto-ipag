@@ -38,81 +38,72 @@ const ICON_MAP: Record<string, any> = {
 function Home() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 gradient-flame-soft" />
-        <img
-          src={logoSymbol}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute -right-32 -top-20 h-[600px] w-[600px] opacity-[0.08] md:opacity-[0.12]"
-        />
-        <div className="mx-auto grid max-w-7xl gap-16 px-4 pb-32 pt-20 md:px-8 md:pt-32 lg:grid-cols-12 lg:pb-48">
-          <div className="lg:col-span-8">
+      {/* HERO - Gerando Falcões Layout */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-white">
+        <div className="mx-auto w-full max-w-7xl px-4 md:px-8 py-20 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="relative z-10">
             <Reveal direction="down">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-primary backdrop-blur-sm">
-                <Sparkles className="h-3.5 w-3.5" /> Desde 2006 em São Mateus – ES
+              <span className="inline-block text-primary font-bold uppercase tracking-[0.2em] mb-6">
+                IPAG — São Mateus
               </span>
             </Reveal>
             <Reveal delay={0.2}>
-              <h1 className="mt-8 text-6xl font-extrabold leading-[1.1] tracking-tight text-foreground md:text-7xl lg:text-8xl">
-                Transformando vidas através da{" "}
-                <span className="text-primary italic">educação e cultura</span>.
+              <h1 className="gf-heading-xl text-dark mb-8">
+                Força em <br />
+                <span className="text-primary">Rede</span>
               </h1>
             </Reveal>
             <Reveal delay={0.4}>
-              <p className="mt-8 max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
-                Há quase duas décadas, o IPAG promove projetos que fortalecem famílias, desenvolvem talentos
-                e geram impacto positivo na comunidade com excelência e propósito.
+              <p className="text-xl md:text-2xl text-gray mb-10 max-w-lg font-medium leading-relaxed">
+                Transformando a realidade de favelas e periferias através da educação e cultura.
               </p>
             </Reveal>
             <Reveal delay={0.6}>
-              <div className="mt-12 flex flex-wrap gap-5">
-                <Button asChild size="lg" className="h-14 px-10 text-base font-bold">
+              <div className="flex flex-wrap gap-4">
+                <Button asChild className="gf-button gf-button-primary h-auto">
                   <Link to="/projetos">
-                    Nossos Projetos <ArrowRight className="ml-2 h-5 w-5" />
+                    CONHEÇA E APOIE
                   </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="h-14 border-2 px-10 text-base font-bold">
-                  <Link to="/parceiros">Seja um Parceiro</Link>
                 </Button>
               </div>
             </Reveal>
           </div>
-
-          <div className="hidden lg:col-span-4 lg:block">
-            <Reveal delay={0.4} direction="right">
-              <div className="relative aspect-[3/4] rounded-[32px] bg-primary/10 p-2 shadow-premium">
-                <div className="flex h-full w-full items-center justify-center rounded-[28px] bg-background">
-                  <img src={logoSymbol} alt="" className="h-48 w-48 opacity-20 grayscale" />
-                </div>
+          
+          <div className="relative lg:h-[600px]">
+            <Reveal direction="right" delay={0.4}>
+              <div className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl">
+                <img 
+                  src="https://i.imgur.com/iiJLmgU.jpeg" 
+                  alt="IPAG Ação" 
+                  className="w-full h-full object-cover aspect-[4/5] lg:aspect-auto"
+                />
               </div>
+              {/* Decorative elements */}
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary rounded-full -z-10 opacity-20 blur-2xl" />
+              <div className="absolute -top-10 -right-10 w-60 h-60 bg-primary rounded-full -z-10 opacity-10 blur-3xl" />
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* IMPACTO */}
-      <section className="bg-foreground py-32 text-background md:py-48">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
+      {/* IMPACTO - Banner horizontal full width like model */}
+      <section className="bg-dark py-24 text-white">
+        <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
           <Reveal>
-            <h2 className="max-w-4xl text-5xl font-extrabold leading-tight md:text-6xl lg:text-7xl">
-              Onde existir necessidade, levaremos <span className="text-primary italic">dignidade</span>.
+            <h2 className="gf-heading-lg mb-16">
+              DA POBREZA À <span className="text-primary">DIGNIDADE</span>
             </h2>
-            <p className="mt-8 max-w-2xl text-xl text-background/60">
-              Juntos, somamos quase duas décadas de impacto real na vida de famílias, jovens e crianças de São Mateus.
-            </p>
           </Reveal>
 
-          <div className="mt-24 grid gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {IMPACT_STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1}>
-                <div className="group">
-                  <p className="font-display text-7xl font-extrabold tracking-tighter text-primary md:text-8xl">
+                <div className="group border-r border-white/10 last:border-0 hidden lg:block" />
+                <div className="relative">
+                  <p className="gf-heading-xl text-primary mb-2">
                     <Counter to={s.value} suffix={s.suffix} />
                   </p>
-                  <div className="mt-4 h-1 w-12 bg-primary transition-all group-hover:w-20" />
-                  <p className="mt-6 text-sm font-bold uppercase tracking-[0.2em] text-background/50">
+                  <p className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">
                     {s.label}
                   </p>
                 </div>
@@ -121,6 +112,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* QUEM SOMOS */}
       <section className="section-padding overflow-hidden">
