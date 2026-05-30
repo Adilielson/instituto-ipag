@@ -1,11 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { POSTS } from "@/data/site";
+import { getPostBySlug } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = POSTS.find((p) => p.slug === params.slug);
+  loader: async ({ params }) => {
+    const post = await getPostBySlug({ data: { slug: params.slug } });
     if (!post) throw notFound();
     return { post };
   },
