@@ -48,7 +48,13 @@ const ICON_MAP: Record<string, any> = {
 };
 
 function Home() {
+  const [isClient, setIsClient] = useState(false);
   const heroRef = useRef(null);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -58,6 +64,11 @@ function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const loaderData = Route.useLoaderData();
+
+  if (!isClient) {
+    return <div className="min-h-screen bg-dark" />;
+  }
+
 
   return (
     <div className="bg-white">
