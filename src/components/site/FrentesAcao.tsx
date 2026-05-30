@@ -89,10 +89,27 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
 
         <div className="relative">
           <div className="relative group/carousel overflow-hidden">
+            {/* Navigation Buttons - Always visible */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+              <button 
+                onClick={() => scroll("left")}
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-sm border border-black/5 text-primary shadow-xl flex items-center justify-center transition-all hover:bg-primary hover:text-white active:scale-95"
+              >
+                <ArrowLeft className="w-6 h-6 md:w-8 md:h-8" />
+              </button>
+            </div>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+              <button 
+                onClick={() => scroll("right")}
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-sm border border-black/5 text-primary shadow-xl flex items-center justify-center transition-all hover:bg-primary hover:text-white active:scale-95"
+              >
+                <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
+              </button>
+            </div>
+
             {/* Left fade effect */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
-            
-            {/* O efeito de fade da direita foi removido para garantir transparência total onde o carrossel passa */}
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
 
             <div 
               ref={scrollRef}
