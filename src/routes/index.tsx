@@ -106,30 +106,31 @@ function Home() {
       </section>
 
       {/* QUEM SOMOS */}
-      <section className="py-24 md:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 px-4 md:px-8 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl gradient-flame shadow-warm">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <img src={logoSymbol} alt="" className="h-64 w-64 opacity-90" />
+      <section className="section-padding overflow-hidden">
+        <div className="mx-auto grid max-w-7xl gap-20 px-4 md:px-8 lg:grid-cols-2 lg:items-center">
+          <Reveal direction="left">
+            <div className="relative aspect-square overflow-hidden rounded-[40px] bg-muted shadow-premium">
+              <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-3xl">
+                <img src={logoSymbol} alt="" className="h-64 w-64 opacity-10 grayscale" />
               </div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent" />
             </div>
           </Reveal>
-          <Reveal delay={0.15}>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Quem somos</span>
-            <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
-              Um instituto nascido para servir.
+          <Reveal delay={0.2} direction="right">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Nossa Essência</span>
+            <h2 className="mt-6 text-5xl font-extrabold leading-tight md:text-6xl">
+              Um instituto nascido para servir com excelência.
             </h2>
-            <p className="mt-5 text-lg text-muted-foreground">
-              O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes — conhecido carinhosamente como Pastor Toninho —
-              de promover desenvolvimento, inclusão e qualidade de vida em São Mateus.
-            </p>
-            <p className="mt-4 text-muted-foreground">
-              Em 2017, a instituição passou a se chamar Instituto de Desenvolvimento Social Pastor Antonio Gomes,
-              preservando o legado de um líder que dedicou sua vida ao cuidado das pessoas.
-            </p>
-            <Button asChild className="mt-8 gradient-flame text-primary-foreground" size="lg">
-              <Link to="/quem-somos">Conheça nossa história <ArrowRight className="ml-1.5 h-4 w-4" /></Link>
+            <div className="mt-8 space-y-6 text-lg text-muted-foreground">
+              <p>
+                O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes de promover desenvolvimento e inclusão em São Mateus.
+              </p>
+              <p>
+                Hoje, somos referência em projetos sociais que unem modernidade e cuidado humano, preservando um legado de transformação contínua.
+              </p>
+            </div>
+            <Button asChild className="mt-12 h-14 px-10 font-bold" size="lg">
+              <Link to="/quem-somos">Conheça Nossa História <ArrowRight className="ml-2 h-5 w-5" /></Link>
             </Button>
           </Reveal>
         </div>
