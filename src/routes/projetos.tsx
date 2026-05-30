@@ -54,9 +54,9 @@ function Projetos() {
                 <Link
                   to="/projetos/$slug"
                   params={{ slug: p.slug }}
-                  className="group relative flex h-[600px] flex-col overflow-hidden rounded-[40px] bg-white shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility border border-black/5"
+                  className="group relative flex h-[500px] md:h-[600px] flex-col overflow-hidden rounded-[40px] bg-white shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility border border-black/5"
                 >
-                  <div className="relative h-64 overflow-hidden bg-gray/10">
+                  <div className="relative h-48 md:h-64 overflow-hidden bg-gray/10">
                     <img 
                       src={(p.imagem_destaque && p.imagem_destaque.startsWith('http')) ? p.imagem_destaque : "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
                       alt={p.titulo}
