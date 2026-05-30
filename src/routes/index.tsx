@@ -98,7 +98,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
                 className="h-[2px] bg-primary" 
               />
               <span className="text-primary font-black uppercase tracking-[0.4em] text-sm md:text-base">
-                IPAG — INSTITUTO PASTOR ANTONIO GOMES
+                IPAG | INSTITUTO PASTOR ANTONIO GOMES
               </span>
             </div>
           </Reveal>
