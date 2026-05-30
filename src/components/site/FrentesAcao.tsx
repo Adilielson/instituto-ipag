@@ -68,11 +68,14 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
           </Reveal>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start relative">
-          <div className="relative group/carousel overflow-hidden">
-            {/* Left fade/transparency effect */}
+        <div className="relative">
+          <div className="relative group/carousel overflow-hidden pr-[440px]">
+            {/* Left fade effect */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
             
+            {/* Right fade effect - before the fixed card */}
+            <div className="absolute right-[400px] top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
+
             <div 
               ref={scrollRef}
               onScroll={handleScroll}
