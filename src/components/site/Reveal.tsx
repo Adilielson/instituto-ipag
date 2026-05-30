@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { ReactNode, useRef } from "react";
+import { ReactNode, useRef, useState, useEffect } from "react";
 
 export function Reveal({ 
   children, 
@@ -12,8 +12,14 @@ export function Reveal({
   className?: string; 
   direction?: "up" | "down" | "left" | "right" | "fade" 
 }) {
+  const [isClient, setIsClient] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
   const variants = {
     hidden: { 
