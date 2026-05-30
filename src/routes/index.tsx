@@ -3,6 +3,7 @@ import { ArrowRight, Heart, Sparkles, Music, GraduationCap, HeartHandshake, Brai
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
+import { FrentesAcao } from "@/components/site/FrentesAcao";
 import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
 import { getProjetos, getPosts } from "@/lib/api/cms";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
@@ -201,64 +202,8 @@ function Home() {
         </div>
       </section>
 
-      {/* PROJETOS - Premium Cards Refinement */}
-      <section className="py-56 bg-white">
-        <div className="max-container">
-          <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-16 mb-32 border-b border-black/5 pb-16">
-              <div className="max-w-4xl">
-                <span className="text-primary font-black uppercase tracking-[0.4em] mb-8 block text-xs">FRENTES DE AÇÃO</span>
-                <h2 className="gf-heading-lg uppercase text-dark tracking-tighter leading-none">ONDE NOSSA REDE <br />GERA VALOR</h2>
-              </div>
-              <Button asChild variant="ghost" className="text-dark font-black tracking-[0.3em] hover:bg-transparent group h-auto text-xs pb-4 border-b-2 border-dark">
-                <Link to="/projetos" className="flex items-center gap-4">
-                  EXPLORAR PROJETOS <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
-
-          <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
-            {loaderData.projetos?.map((p: any, i: number) => {
-              const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
-              return (
-                <Reveal key={p.slug} delay={i * 0.15} direction="up">
-                  <Link
-                    to="/projetos/$slug"
-                    params={{ slug: p.slug }}
-                    className="group relative block aspect-[3/4] overflow-hidden rounded-[48px] shadow-2xl transition-all duration-1000 bg-dark"
-                  >
-                    <img 
-                      src={p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
-                      alt={p.titulo}
-                      className="absolute inset-0 h-full w-full object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:opacity-40 opacity-70"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent opacity-80" />
-                    
-                    <div className="absolute inset-0 p-12 flex flex-col justify-end">
-                      <div className="mb-8 transform transition-all duration-700 group-hover:-translate-y-4">
-                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white mb-8 shadow-xl">
-                          <Icon className="h-7 w-7" />
-                        </div>
-                        <h3 className="text-4xl font-black text-white mb-6 uppercase leading-[0.95] tracking-tight">
-                          {p.titulo}
-                        </h3>
-                        <p className="text-white/60 line-clamp-3 opacity-0 group-hover:opacity-100 transition-all duration-700 font-light text-lg leading-relaxed h-0 group-hover:h-auto overflow-hidden">
-                          {p.resumo}
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.3em] text-xs opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 transform translate-y-4 group-hover:translate-y-0">
-                        CONHECER FRENTE <ArrowRight className="w-5 h-5" />
-                      </div>
-                    </div>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* FRENTES DE AÇÃO - New Carousel Layout */}
+      <FrentesAcao projetos={loaderData.projetos || []} />
 
       {/* QUEM SOMOS - Premium Editorial Storytelling */}
       <section className="py-56 bg-white overflow-hidden">

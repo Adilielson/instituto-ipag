@@ -1,0 +1,195 @@
+import { useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Heart, Users, HeartHandshake } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/site/Reveal";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface Projeto {
+  id?: string;
+  titulo: string;
+  resumo: string;
+  imagem: string;
+  categoria: string;
+  slug: string;
+}
+
+interface FrentesAcaoProps {
+  projetos: Projeto[];
+}
+
+export function FrentesAcao({ projetos }: FrentesAcaoProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  };
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const donorAvatars = [
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
+    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop",
+  ];
+
+  return (
+    <section className="py-32 bg-bg overflow-hidden">
+      <div className="max-container">
+        <div className="mb-20">
+          <Reveal>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary mb-6">
+              <Heart className="w-4 h-4 text-white fill-white" />
+              <span className="text-white text-[10px] font-black uppercase tracking-widest">
+                AJUDE E DOE
+              </span>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="gf-heading-lg text-dark max-w-4xl uppercase leading-none tracking-tighter">
+              ONDE NOSSA REDE <br />
+              <span className="text-primary italic">GERA VALOR</span>
+            </h2>
+          </Reveal>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start">
+          {/* Carousel Column */}
+          <div className="relative group/carousel">
+            <div 
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 pt-2"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {projetos.map((p, i) => (
+                <div 
+                  key={p.slug || i} 
+                  className="snap-start shrink-0 w-[85vw] md:w-[400px]"
+                >
+                  <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
+                        alt={p.titulo}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-6 left-6">
+                        <span className="bg-primary text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
+                          {p.categoria}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-10 flex flex-col flex-grow">
+                      <h3 className="text-2xl font-black text-dark mb-4 uppercase tracking-tight">
+                        {p.titulo}
+                      </h3>
+                      <p className="text-gray/70 mb-10 line-clamp-3 font-light text-lg leading-relaxed">
+                        {p.resumo}
+                      </p>
+                      
+                      <div className="mt-auto flex flex-wrap gap-4">
+                        <Button asChild className="gf-button-primary rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest group">
+                          <Link to="/projetos/$slug" params={{ slug: p.slug }}>
+                            APOIAR AGORA <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </Button>
+                        <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5 rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest">
+                          <Link to="/projetos/$slug" params={{ slug: p.slug }}>
+                            CONHECER MAIS
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Highlight Card Column */}
+          <div className="h-full">
+            <div className="bg-dark rounded-[40px] p-12 sticky top-32 flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
+              {/* Background Accent */}
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
+              
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                
+                <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
+                  COMUNIDADE <br />GLOBAL
+                </h3>
+                
+                <p className="text-white/50 text-lg font-light leading-relaxed mb-12">
+                  Junte-se a milhares de pessoas que já estão transformando vidas através da nossa rede.
+                </p>
+                
+                <div className="mt-auto">
+                  <div className="flex items-center mb-6">
+                    <div className="flex -space-x-4">
+                      {donorAvatars.map((url, i) => (
+                        <div key={i} className="w-12 h-12 rounded-full border-4 border-dark overflow-hidden bg-gray/20">
+                          <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="ml-4 bg-primary text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
+                      +12K
+                    </div>
+                  </div>
+                  
+                  <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] mb-12">
+                    DOADORES ATIVOS
+                  </p>
+                  
+                  {/* Navigation Buttons */}
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={() => scroll("left")}
+                      disabled={!canScrollLeft}
+                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
+                        canScrollLeft 
+                        ? "border-primary text-primary hover:bg-primary hover:text-white" 
+                        : "border-white/10 text-white/10 cursor-not-allowed"
+                      }`}
+                    >
+                      <ArrowLeft className="w-6 h-6" />
+                    </button>
+                    <button 
+                      onClick={() => scroll("right")}
+                      disabled={!canScrollRight}
+                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
+                        canScrollRight 
+                        ? "border-primary text-primary hover:bg-primary hover:text-white" 
+                        : "border-white/10 text-white/10 cursor-not-allowed"
+                      }`}
+                    >
+                      <ArrowRight className="w-6 h-6" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
