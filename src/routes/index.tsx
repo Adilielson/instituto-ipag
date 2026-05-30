@@ -17,8 +17,9 @@ export const Route = createFileRoute("/")({
         getPosts().catch(() => [])
       ]);
       return { 
-        projetos: (projetos || [])?.slice(0, 3), 
+        projetos: (projetos || [])?.slice(0, 6), 
         posts: (posts || [])?.slice(0, 3) 
+
       };
     } catch (e) {
       console.error("Loader error:", e);
@@ -42,6 +43,7 @@ const ICON_MAP: Record<string, any> = {
   'EDUCAÇÃO': GraduationCap,
   'Social': HeartHandshake,
   'DESENVOLVIMENTO SOCIAL': HeartHandshake,
+  'SOLIDARIEDADE': Heart,
   'Saúde': Brain,
   'Capacitação': Scissors,
   'Vida': LifeBuoy,
