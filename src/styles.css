@@ -2,7 +2,7 @@
 
 @theme {
   --font-heading: "Montserrat", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-body: "Poppins", sans-serif;
   
   --color-primary: #F79B34;
   --color-secondary: #FDBA36;
@@ -12,6 +12,7 @@
   --color-bg: #F7F8FA;
   --color-white: #FFFFFF;
 }
+
 
 :root {
   --primary: #F79B34;
