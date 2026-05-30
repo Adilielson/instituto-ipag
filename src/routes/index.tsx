@@ -155,32 +155,41 @@ function Home() {
         <HomeHero heroRef={heroRef} />
       </section>
 
-      {/* IMPACTO - Numbers that matter */}
-      <section className="py-32 bg-dark relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/2" />
+      {/* IMPACTO - Premium Institutional Style */}
+      <section className="py-48 bg-dark relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-primary/3 skew-x-12 -translate-x-1/2 blur-3xl" />
         
         <div className="max-container relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-32 items-start">
             <Reveal direction="left">
-              <span className="text-primary font-black uppercase tracking-[0.3em] mb-6 block">Nossa Pegada</span>
-              <h2 className="gf-heading-lg text-white mb-8">
+              <span className="text-primary font-black uppercase tracking-[0.4em] mb-10 block text-xs">NOSSA PEGADA</span>
+              <h2 className="gf-heading-lg text-white mb-10 leading-[0.9] uppercase">
                 RESULTADOS QUE <br />
-                <span className="text-primary">MUDAM VIDAS</span>
+                <span className="text-primary italic">MUDAM VIDAS</span>
               </h2>
-              <p className="text-xl text-white/60 max-w-lg font-light leading-relaxed">
-                Monitoramos cada ação para garantir que o impacto chegue onde é mais necessário, transformando doações em desenvolvimento real.
+              <p className="text-2xl text-white/50 max-w-lg font-light leading-relaxed mb-12">
+                Monitoramos cada ação para garantir que o impacto chegue onde é mais necessário, transformando doações em desenvolvimento humano real.
               </p>
+              <div className="flex items-center gap-6 group cursor-pointer">
+                <div className="h-16 w-16 rounded-full border border-white/10 flex items-center justify-center transition-all group-hover:bg-primary group-hover:border-primary">
+                  <ArrowRight className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-white font-black uppercase tracking-[0.3em] text-xs">Relatório de Transparência</span>
+              </div>
             </Reveal>
 
-            <div className="grid sm:grid-cols-2 gap-12">
+            <div className="grid sm:grid-cols-2 gap-x-20 gap-y-24">
               {IMPACT_STATS.map((s, i) => (
                 <Reveal key={s.label} delay={i * 0.1} direction="up">
                   <div className="relative group">
-                    <div className="absolute -inset-4 bg-white/5 rounded-3xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500" />
-                    <p className="text-6xl md:text-7xl font-black text-primary mb-4 tracking-tighter">
+                    <div className="absolute -top-10 -left-10 text-[10rem] font-black text-white/[0.02] pointer-events-none transition-all group-hover:text-primary/[0.05] select-none">
+                      0{i + 1}
+                    </div>
+                    <p className="text-7xl md:text-9xl font-black text-primary mb-6 tracking-tighter leading-none">
                       <Counter to={s.value} suffix={s.suffix} />
                     </p>
-                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/40">
+                    <p className="text-sm font-black uppercase tracking-[0.4em] text-white/40 border-l-2 border-primary/30 pl-6">
                       {s.label}
                     </p>
                   </div>
@@ -191,24 +200,24 @@ function Home() {
         </div>
       </section>
 
-      {/* PROJETOS - Premium Cards */}
-      <section className="py-40 bg-white">
+      {/* PROJETOS - Premium Cards Refinement */}
+      <section className="py-56 bg-white">
         <div className="max-container">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-12 mb-24 border-b border-black/5 pb-12">
-              <div className="max-w-3xl">
-                <span className="text-primary font-black uppercase tracking-[0.3em] mb-6 block text-sm">Frentes de Ação</span>
-                <h2 className="gf-heading-lg uppercase text-dark">Onde nossa rede atua</h2>
+            <div className="flex flex-wrap items-end justify-between gap-16 mb-32 border-b border-black/5 pb-16">
+              <div className="max-w-4xl">
+                <span className="text-primary font-black uppercase tracking-[0.4em] mb-8 block text-xs">FRENTES DE AÇÃO</span>
+                <h2 className="gf-heading-lg uppercase text-dark tracking-tighter leading-none">ONDE NOSSA REDE <br />GERA VALOR</h2>
               </div>
-              <Button asChild variant="ghost" className="text-primary font-black tracking-widest hover:bg-transparent group h-auto">
-                <Link to="/projetos" className="flex items-center gap-3">
-                  VER TODOS OS PROJETOS <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              <Button asChild variant="ghost" className="text-dark font-black tracking-[0.3em] hover:bg-transparent group h-auto text-xs pb-4 border-b-2 border-dark">
+                <Link to="/projetos" className="flex items-center gap-4">
+                  EXPLORAR PROJETOS <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                 </Link>
               </Button>
             </div>
           </Reveal>
 
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
             {loaderData.projetos?.map((p: any, i: number) => {
               const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
               return (
@@ -216,30 +225,30 @@ function Home() {
                   <Link
                     to="/projetos/$slug"
                     params={{ slug: p.slug }}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-[40px] shadow-premium hover:shadow-warm transition-all duration-700 bg-white"
+                    className="group relative block aspect-[3/4] overflow-hidden rounded-[48px] shadow-2xl transition-all duration-1000 bg-dark"
                   >
                     <img 
                       src={p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
                       alt={p.titulo}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                      className="absolute inset-0 h-full w-full object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:opacity-40 opacity-70"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent opacity-80" />
                     
-                    <div className="absolute inset-0 p-10 flex flex-col justify-end">
-                      <div className="mb-6 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white mb-6">
-                          <Icon className="h-6 w-6" />
+                    <div className="absolute inset-0 p-12 flex flex-col justify-end">
+                      <div className="mb-8 transform transition-all duration-700 group-hover:-translate-y-4">
+                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white mb-8 shadow-xl">
+                          <Icon className="h-7 w-7" />
                         </div>
-                        <h3 className="text-3xl font-black text-white mb-4 uppercase leading-none tracking-tight">
+                        <h3 className="text-4xl font-black text-white mb-6 uppercase leading-[0.95] tracking-tight">
                           {p.titulo}
                         </h3>
-                        <p className="text-white/70 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 font-medium">
+                        <p className="text-white/60 line-clamp-3 opacity-0 group-hover:opacity-100 transition-all duration-700 font-light text-lg leading-relaxed h-0 group-hover:h-auto overflow-hidden">
                           {p.resumo}
                         </p>
                       </div>
                       
-                      <div className="flex items-center gap-3 text-primary font-black uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                        VER DETALHES <ArrowRight className="w-4 h-4" />
+                      <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.3em] text-xs opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 transform translate-y-4 group-hover:translate-y-0">
+                        CONHECER FRENTE <ArrowRight className="w-5 h-5" />
                       </div>
                     </div>
                   </Link>
