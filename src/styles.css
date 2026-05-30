@@ -11,6 +11,25 @@
   --color-gray: #8E8E8F;
   --color-bg: #F7F8FA;
   --color-white: #FFFFFF;
+
+  /* Functional mappings used in JSX */
+  --color-background: #FFFFFF;
+  --color-foreground: #2A2A2B;
+  --color-muted: #8E8E8F;
+  --color-muted-foreground: #64748B;
+  --color-border: rgba(0,0,0,0.06);
+  --color-input: rgba(0,0,0,0.06);
+  --color-ring: #F79B34;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary-foreground: #2A2A2B;
+  --color-accent-foreground: #2A2A2B;
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+
+  /* Shadows */
+  --shadow-premium: 0 20px 40px -10px rgba(0,0,0,0.05);
+  --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.04);
+  --shadow-warm: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
 :root {
@@ -78,17 +97,6 @@ h1, h2, h3, h4, h5 {
   @apply bg-gradient-to-br from-bg via-white to-bg;
 }
 
-.shadow-premium {
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
-}
-
-.shadow-card {
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
-}
-
-.shadow-warm {
-  box-shadow: 0 20px 50px -15px rgba(247, 155, 52, 0.15);
-}
 
 .gf-button {
   @apply inline-flex items-center justify-center rounded-full px-10 py-5 text-sm font-bold uppercase tracking-widest transition-all duration-300 relative overflow-hidden;
