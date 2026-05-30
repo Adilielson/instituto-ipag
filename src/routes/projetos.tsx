@@ -1,19 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { PROJECTS } from "@/data/site";
+import { getProjetos } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/projetos")({
+  loader: async () => {
+    const projetos = await getProjetos();
+    return { projetos };
+  },
   head: () => ({
     meta: [
       { title: "Projetos — IPAG" },
       { name: "description", content: "Conheça as frentes de atuação do IPAG: música, formação, assistência social e mais." },
       { property: "og:title", content: "Projetos — IPAG" },
-      { property: "og:description", content: "Seis frentes de ação que transformam famílias em São Mateus." },
+      { property: "og:description", content: "Frentes de ação que transformam famílias em São Mateus." },
     ],
   }),
   component: Projetos,
 });
+
+const ICON_MAP: Record<string, any> = {
+  'Cultura': Music,
+  'Educação': GraduationCap,
+  'Social': HeartHandshake,
+  'Saúde': Brain,
+  'Capacitação': Scissors,
+  'Vida': LifeBuoy,
+};
 
 function Projetos() {
   return (
