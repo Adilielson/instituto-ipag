@@ -76,25 +76,26 @@ function Home() {
       </section>
 
       {/* IMPACTO */}
-      <section className="bg-foreground py-20 text-background md:py-28">
+      <section className="bg-foreground py-32 text-background md:py-48">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
-            <h2 className="max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
-              Onde existir necessidade, levaremos <span className="text-gradient-flame">dignidade</span>.
+            <h2 className="max-w-4xl text-5xl font-extrabold leading-tight md:text-6xl lg:text-7xl">
+              Onde existir necessidade, levaremos <span className="text-primary italic">dignidade</span>.
             </h2>
-            <p className="mt-5 max-w-2xl text-background/70">
-              Juntos, somamos quase duas décadas de impacto real na vida de famílias, jovens, crianças e idosos de São Mateus.
+            <p className="mt-8 max-w-2xl text-xl text-background/60">
+              Juntos, somamos quase duas décadas de impacto real na vida de famílias, jovens e crianças de São Mateus.
             </p>
           </Reveal>
 
-          <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-24 grid gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {IMPACT_STATS.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.08}>
-                <div className="border-l-2 border-primary pl-5">
-                  <p className="font-display text-5xl font-extrabold text-primary-glow md:text-6xl">
+              <Reveal key={s.label} delay={i * 0.1}>
+                <div className="group">
+                  <p className="font-display text-7xl font-extrabold tracking-tighter text-primary md:text-8xl">
                     <Counter to={s.value} suffix={s.suffix} />
                   </p>
-                  <p className="mt-2 text-sm font-medium uppercase tracking-wider text-background/70">
+                  <div className="mt-4 h-1 w-12 bg-primary transition-all group-hover:w-20" />
+                  <p className="mt-6 text-sm font-bold uppercase tracking-[0.2em] text-background/50">
                     {s.label}
                   </p>
                 </div>
