@@ -332,7 +332,7 @@ function Home() {
 
               <div className="relative z-10 max-w-4xl">
                 <div className="inline-flex items-center gap-6 mb-12">
-                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-warm-utility/20">
+                   <div className="h-14 w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
                       <Heart className="w-7 h-7 fill-white" />
                    </div>
                    <span className="text-primary font-black uppercase tracking-[0.5em] text-xs">Apoio Direto & Sustentabilidade</span>
