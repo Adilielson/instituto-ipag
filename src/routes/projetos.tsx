@@ -44,24 +44,27 @@ function Projetos() {
 
       <section className="py-20">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 md:grid-cols-2 md:px-8 lg:grid-cols-3">
-          {PROJECTS.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 0.06}>
-              <Link
-                to="/projetos/$slug"
-                params={{ slug: p.slug }}
-                className="group flex h-full flex-col rounded-3xl bg-background p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-warm border border-border"
-              >
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl gradient-flame text-primary-foreground">
-                  <p.icon className="h-7 w-7" />
-                </div>
-                <h3 className="mt-6 text-xl font-bold leading-snug">{p.title}</h3>
-                <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.short}</p>
-                <span className="mt-6 inline-flex items-center text-sm font-semibold text-primary">
-                  Saiba mais <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
+          {Route.useLoaderData().projetos?.map((p: any, i: number) => {
+            const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
+            return (
+              <Reveal key={p.slug} delay={i * 0.06}>
+                <Link
+                  to="/projetos/$slug"
+                  params={{ slug: p.slug }}
+                  className="group flex h-full flex-col rounded-3xl bg-background p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-warm border border-border"
+                >
+                  <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl gradient-flame text-primary-foreground">
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="mt-6 text-xl font-bold leading-snug">{p.titulo}</h3>
+                  <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.resumo}</p>
+                  <span className="mt-6 inline-flex items-center text-sm font-semibold text-primary">
+                    Saiba mais <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
     </>
