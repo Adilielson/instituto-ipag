@@ -7,16 +7,26 @@ import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
 import logoSymbol from "@/assets/logo-symbol.png";
 import { getProjetos, getPosts } from "@/lib/api/cms";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
+
   loader: async () => {
-    const [projetos, posts] = await Promise.all([
-      getProjetos(),
-      getPosts()
-    ]);
-    return { projetos: projetos?.slice(0, 3), posts: posts?.slice(0, 3) };
+    try {
+      const [projetos, posts] = await Promise.all([
+        getProjetos().catch(() => []),
+        getPosts().catch(() => [])
+      ]);
+      return { 
+        projetos: (projetos || [])?.slice(0, 3), 
+        posts: (posts || [])?.slice(0, 3) 
+      };
+    } catch (e) {
+      console.error("Loader error:", e);
+      return { projetos: [], posts: [] };
+    }
   },
+
   head: () => ({
     meta: [
       { title: "IPAG — Transformando vidas em São Mateus" },
@@ -38,7 +48,13 @@ const ICON_MAP: Record<string, any> = {
 };
 
 function Home() {
+  const [isClient, setIsClient] = useState(false);
   const heroRef = useRef(null);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -48,6 +64,11 @@ function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const loaderData = Route.useLoaderData();
+
+  if (!isClient) {
+    return <div className="min-h-screen bg-dark" />;
+  }
+
 
   return (
     <div className="bg-white">
