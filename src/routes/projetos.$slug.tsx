@@ -59,20 +59,28 @@ function ProjetoDetalhe() {
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="mx-auto max-w-3xl px-4 text-lg leading-relaxed text-muted-foreground md:px-8">
-          <Reveal>
-            <div className="prose prose-lg max-w-none">
+      <section className="py-40">
+        <div className="max-container grid lg:grid-cols-3 gap-24">
+          <div className="lg:col-span-2 space-y-12">
+            <div className="prose prose-2xl max-w-none prose-headings:font-black prose-headings:uppercase prose-p:text-gray/80 prose-p:font-light prose-strong:text-dark prose-strong:font-black">
               {project.conteudo}
             </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-12 rounded-3xl border border-border bg-muted/40 p-8">
-              <h3 className="text-xl font-bold text-foreground">Quer participar ou apoiar este projeto?</h3>
-              <p className="mt-2 text-sm">Entre em contato com a nossa equipe.</p>
-              <Button asChild className="mt-5 gradient-flame text-primary-foreground"><Link to="/contato">Falar com o IPAG</Link></Button>
-            </div>
-          </Reveal>
+          </div>
+          
+          <div className="space-y-12">
+            <Reveal direction="left">
+              <div className="p-12 rounded-[60px] bg-bg border border-black/5 shadow-premium">
+                <HeartHandshake className="w-16 h-16 text-primary mb-8" />
+                <h3 className="text-3xl font-black uppercase tracking-tight text-dark mb-6">Participe</h3>
+                <p className="text-lg text-gray/60 font-light leading-relaxed mb-10">
+                  Quer participar como voluntário ou apoiar este projeto? Entre em contato e faça parte da nossa rede.
+                </p>
+                <Button asChild className="gf-button gf-button-primary w-full h-auto py-6">
+                  <Link to="/contato">FALAR COM O IPAG</Link>
+                </Button>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
     </>
