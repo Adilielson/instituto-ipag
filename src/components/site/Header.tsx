@@ -19,21 +19,21 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-white/80 backdrop-blur-xl border-b border-black/5 py-2 shadow-premium" : "bg-transparent py-5"
+        scrolled ? "bg-white border-b border-black/5 py-2 shadow-md" : "bg-white py-4"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="IPAG — Instituto Pastor Antonio Gomes" className="h-12 w-auto" />
+          <img src={logo} alt="IPAG" className="h-10 md:h-12 w-auto" />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/60 transition-all hover:text-primary hover:tracking-[0.3em]"
-              activeProps={{ className: "text-primary tracking-[0.3em]" }}
+              className="text-[13px] font-bold uppercase tracking-widest text-dark hover:text-primary transition-colors"
+              activeProps={{ className: "text-primary" }}
             >
               {item.label}
             </Link>
@@ -41,10 +41,11 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button asChild className="h-11 px-8 font-bold shadow-premium">
-            <Link to="/parceiros">Seja Parceiro</Link>
+          <Button asChild className="gf-button gf-button-primary py-3 px-6 rounded-[12px]">
+            <Link to="/parceiros">DOE AGORA</Link>
           </Button>
         </div>
+
 
         <button
           className="rounded-md p-2 lg:hidden"

@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+  
+  --color-primary: #F79B34;
+  --color-secondary: #FDBA36;
+  --color-accent: #F57C2B;
+  --color-dark: #2A2A2B;
+  --color-gray: #8E8E8F;
+  --color-bg: #F7F8FA;
+  --color-white: #FFFFFF;
+}
+
 :root {
   --primary: #F79B34;
   --secondary: #FDBA36;
@@ -12,9 +25,41 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: var(--font-body);
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
 }
+
+.font-display {
+  font-family: var(--font-heading);
+}
+
+/* Gerando Falcões Style Classes */
+.gf-heading-xl {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.gf-heading-lg {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.gf-button {
+  @apply inline-flex items-center justify-center rounded-[16px] px-8 py-4 text-base font-bold uppercase tracking-wider transition-all hover:scale-[1.03] active:scale-[0.98];
+}
+
+.gf-button-primary {
+  @apply bg-primary text-white shadow-[0_10px_20px_-5px_rgba(247,155,52,0.3)] hover:shadow-[0_15px_25px_-5px_rgba(247,155,52,0.4)];
+}
+
+.gf-card {
+  @apply rounded-[24px] bg-white/40 backdrop-blur-md border border-white/20 shadow-sm transition-all hover:shadow-lg;
+}
+
