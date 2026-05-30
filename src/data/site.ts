@@ -19,7 +19,6 @@ export const NAV = [
   { to: "/projetos", label: "Projetos" },
   { to: "/eventos", label: "Eventos" },
   { to: "/blog", label: "Blog" },
-  { to: "/transparencia", label: "Transparência" },
   { to: "/contato", label: "Contato" },
 ] as const;
 
