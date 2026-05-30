@@ -126,6 +126,34 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                 </div>
               ))}
             </div>
+
+            {/* Floating Navigation Arrows */}
+            <div className="absolute top-1/2 -left-6 -translate-y-1/2 z-20 pointer-events-none opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hidden md:block">
+              <button 
+                onClick={() => scroll("left")}
+                disabled={!canScrollLeft}
+                className={`w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center transition-all pointer-events-auto border border-black/5 ${
+                  canScrollLeft 
+                  ? "text-primary hover:bg-primary hover:text-white" 
+                  : "text-gray/20 cursor-not-allowed"
+                }`}
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="absolute top-1/2 -right-6 -translate-y-1/2 z-20 pointer-events-none opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hidden md:block">
+              <button 
+                onClick={() => scroll("right")}
+                disabled={!canScrollRight}
+                className={`w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center transition-all pointer-events-auto border border-black/5 ${
+                  canScrollRight 
+                  ? "text-primary hover:bg-primary hover:text-white" 
+                  : "text-gray/20 cursor-not-allowed"
+                }`}
+              >
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Highlight Card Column */}

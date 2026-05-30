@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
         getPosts().catch(() => [])
       ]);
       return { 
-        projetos: (projetos || [])?.slice(0, 6), 
+        projetos: (projetos || [])?.slice(0, 10), 
         posts: (posts || [])?.slice(0, 3) 
 
       };
@@ -45,6 +45,7 @@ const ICON_MAP: Record<string, any> = {
   'DESENVOLVIMENTO SOCIAL': HeartHandshake,
   'SOLIDARIEDADE': Heart,
   'Saúde': Brain,
+  'SAÚDE': Brain,
   'Capacitação': Scissors,
   'Vida': LifeBuoy,
 };
