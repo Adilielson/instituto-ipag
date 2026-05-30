@@ -90,10 +90,10 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
         <div className="relative">
           <div className="relative group/carousel">
             {/* Left fade effect */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/40 to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
             
-            {/* Right fade effect - ajustado para ser mais transparente e fluido */}
-            <div className="absolute right-[400px] top-0 bottom-0 w-64 bg-gradient-to-l from-transparent via-bg/5 to-transparent z-10 pointer-events-none" />
+            {/* Right fade effect - agora totalmente transparente para mostrar o carrossel passando por baixo */}
+            <div className="absolute right-[400px] top-0 bottom-0 w-64 bg-gradient-to-l from-transparent to-transparent z-10 pointer-events-none" />
 
             <div 
               ref={scrollRef}
