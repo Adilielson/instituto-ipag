@@ -19,12 +19,12 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-white border-b border-black/5 py-2 shadow-md" : "bg-white py-4"
+        scrolled ? "bg-white/90 backdrop-blur-md border-b border-black/5 py-4 shadow-sm" : "bg-white py-6"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="IPAG" className="h-10 md:h-12 w-auto" />
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 lg:px-16">
+        <Link to="/" className="flex items-center gap-2 group">
+          <img src={logo} alt="IPAG" className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-110" />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
