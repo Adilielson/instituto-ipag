@@ -14,7 +14,135 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      eventos: {
+        Row: {
+          created_at: string
+          data_evento: string
+          descricao: string | null
+          galeria: string[] | null
+          id: string
+          imagem_destaque: string | null
+          local: string | null
+          slug: string
+          status: string
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data_evento: string
+          descricao?: string | null
+          galeria?: string[] | null
+          id?: string
+          imagem_destaque?: string | null
+          local?: string | null
+          slug: string
+          status?: string
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data_evento?: string
+          descricao?: string | null
+          galeria?: string[] | null
+          id?: string
+          imagem_destaque?: string | null
+          local?: string | null
+          slug?: string
+          status?: string
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      posts: {
+        Row: {
+          autor: string | null
+          categoria: string | null
+          conteudo: string | null
+          created_at: string
+          data_publicacao: string
+          id: string
+          imagem_destaque: string | null
+          resumo: string | null
+          slug: string
+          status: string
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          autor?: string | null
+          categoria?: string | null
+          conteudo?: string | null
+          created_at?: string
+          data_publicacao?: string
+          id?: string
+          imagem_destaque?: string | null
+          resumo?: string | null
+          slug: string
+          status?: string
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          autor?: string | null
+          categoria?: string | null
+          conteudo?: string | null
+          created_at?: string
+          data_publicacao?: string
+          id?: string
+          imagem_destaque?: string | null
+          resumo?: string | null
+          slug?: string
+          status?: string
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projetos: {
+        Row: {
+          categoria: string | null
+          conteudo: string | null
+          created_at: string
+          galeria: string[] | null
+          id: string
+          imagem_destaque: string | null
+          resumo: string | null
+          slug: string
+          status: string
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          categoria?: string | null
+          conteudo?: string | null
+          created_at?: string
+          galeria?: string[] | null
+          id?: string
+          imagem_destaque?: string | null
+          resumo?: string | null
+          slug: string
+          status?: string
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          categoria?: string | null
+          conteudo?: string | null
+          created_at?: string
+          galeria?: string[] | null
+          id?: string
+          imagem_destaque?: string | null
+          resumo?: string | null
+          slug?: string
+          status?: string
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
