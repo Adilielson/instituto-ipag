@@ -25,11 +25,16 @@
   --color-accent-foreground: #2A2A2B;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #2A2A2B;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #2A2A2B;
 
   /* Shadows */
   --shadow-premium: 0 20px 40px -10px rgba(0,0,0,0.05);
   --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.04);
   --shadow-warm: 0 8px 32px rgba(247, 155, 52, 0.35);
+  --shadow-3xl: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 }
 
 :root {
