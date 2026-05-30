@@ -2,9 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+  const [isClient, setIsClient] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const [n, setN] = useState(0);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
   useEffect(() => {
     if (!inView) return;
