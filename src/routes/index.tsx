@@ -188,91 +188,70 @@ function Home() {
       </section>
 
 
-      {/* BAZAR */}
-      <section className="section-padding">
+      {/* BAZAR - Prominent call to action with image background */}
+      <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[48px] bg-foreground p-12 text-background shadow-premium md:p-24">
-              <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-primary/20 blur-[100px]" />
-              <div className="relative max-w-3xl">
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Solidariedade</span>
-                <h2 className="mt-8 text-5xl font-extrabold leading-tight md:text-6xl">
-                  Transforme o que você não usa em esperança.
+            <div className="relative overflow-hidden rounded-[40px] bg-dark min-h-[500px] flex items-center p-12 md:p-24 shadow-2xl">
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src="https://i.imgur.com/iiJLmgU.jpeg" 
+                  alt="Bazar" 
+                  className="w-full h-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent" />
+              </div>
+              
+              <div className="relative z-10 max-w-2xl">
+                <span className="text-primary font-bold uppercase tracking-[0.3em] mb-6 block">Solidariedade</span>
+                <h2 className="gf-heading-lg text-white mb-8 uppercase">
+                  TRANSFORME O QUE <br />VOCÊ NÃO USA EM <span className="text-primary">ESPERANÇA</span>
                 </h2>
-                <p className="mt-8 text-xl text-background/60 leading-relaxed">
-                  Doe roupas, calçados e livros em bom estado. Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
+                <p className="text-xl text-white/70 mb-12 leading-relaxed font-medium">
+                  Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias em São Mateus.
                 </p>
-                <div className="mt-12 flex flex-wrap gap-8 items-center">
-                  <Button asChild size="lg" className="h-14 px-10 font-bold bg-primary text-white hover:bg-primary/90">
-                    <Link to="/bazar">Saiba Como Doar</Link>
-                  </Button>
-                  <div className="text-sm">
-                    <p className="text-background/40 uppercase tracking-widest font-bold">Ponto de entrega</p>
-                    <p className="mt-1 font-semibold">{SITE.address}</p>
-                  </div>
-                </div>
+                <Button asChild className="gf-button gf-button-primary">
+                  <Link to="/bazar">QUERO DOAR AGORA</Link>
+                </Button>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* PARCEIROS */}
-      <section className="bg-muted py-32 md:py-48">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
-          <Reveal>
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Parcerias Estratégicas</span>
-            <h2 className="mx-auto mt-8 max-w-4xl text-5xl font-extrabold leading-tight md:text-6xl">
-              Grandes transformações nascem da colaboração.
-            </h2>
-          </Reveal>
-          <div className="mt-20 flex flex-wrap justify-center gap-6">
-            {PARTNERS.map((p, i) => (
-              <Reveal key={p} delay={i * 0.05} direction="fade">
-                <div className="flex h-24 items-center justify-center rounded-[24px] bg-background px-10 text-center text-sm font-bold text-muted-foreground shadow-sm hover:shadow-premium transition-shadow">
-                  {p}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={0.4}>
-            <div className="mt-16">
-              <Button asChild size="lg" className="h-14 px-12 font-bold shadow-premium">
-                <Link to="/parceiros">Seja um Investidor Social</Link>
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* BLOG */}
-      <section className="section-padding">
+      {/* BLOG - Horizontal scrollable or clean grid like model */}
+      <section className="py-32 bg-bg">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-10">
-              <div className="max-w-3xl">
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Imprensa e Notícias</span>
-                <h2 className="mt-6 text-5xl font-extrabold leading-tight md:text-6xl">Impacto documentado.</h2>
+            <div className="flex flex-wrap items-end justify-between gap-10 mb-20">
+              <div className="max-w-2xl">
+                <span className="text-primary font-bold uppercase tracking-[0.3em] mb-4 block">Fique por dentro</span>
+                <h2 className="gf-heading-lg uppercase">ÚLTIMAS NOTÍCIAS</h2>
               </div>
-              <Button asChild variant="outline" className="h-14 border-2 px-8 font-bold">
-                <Link to="/blog">Ver Todas as Notícias <ArrowRight className="ml-2 h-5 w-5" /></Link>
+              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark/5">
+                <Link to="/blog">VER TODAS</Link>
               </Button>
             </div>
           </Reveal>
-          <div className="mt-20 grid gap-10 md:grid-cols-3">
+          
+          <div className="grid gap-10 md:grid-cols-3">
             {Route.useLoaderData().posts?.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.1} direction="up">
-                <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-border bg-background shadow-sm transition-all hover:-translate-y-2 hover:shadow-premium">
-                  <div className="aspect-[16/10] bg-muted overflow-hidden">
-                    <div className="h-full w-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+                <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img 
+                      src="https://i.imgur.com/iiJLmgU.jpeg" 
+                      alt={post.titulo} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="p-10">
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{post.categoria}</span>
-                    <h3 className="mt-4 text-2xl font-extrabold leading-tight group-hover:text-primary transition-colors">{post.titulo}</h3>
-                    <p className="mt-4 text-muted-foreground leading-relaxed">{post.resumo}</p>
-                    <div className="mt-8 flex items-center justify-between">
-                      <span className="text-sm font-bold text-muted-foreground/50">{new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
-                      <ArrowRight className="h-5 w-5 text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
+                  <div className="p-8">
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary mb-4 block">{post.categoria}</span>
+                    <h3 className="text-xl font-bold mb-4 leading-tight group-hover:text-primary transition-colors line-clamp-2 uppercase">{post.titulo}</h3>
+                    <p className="text-gray leading-relaxed mb-6 line-clamp-3 text-sm font-medium">{post.resumo}</p>
+                    <div className="flex items-center justify-between pt-6 border-t border-black/5">
+                      <span className="text-xs font-bold text-gray/50">{new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
+                      <ArrowRight className="h-5 w-5 text-primary" />
                     </div>
                   </div>
                 </Link>
@@ -281,6 +260,7 @@ function Home() {
           </div>
         </div>
       </section>
+
     </>
   );
 }
