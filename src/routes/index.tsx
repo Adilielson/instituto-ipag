@@ -206,28 +206,30 @@ function Home() {
       </section>
 
       {/* PARCEIROS */}
-      <section className="border-y border-border bg-muted/30 py-20">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
+      <section className="bg-muted py-32 md:py-48">
+        <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
           <Reveal>
-            <div className="text-center">
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Parceiros e investidores</span>
-              <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-extrabold leading-tight md:text-4xl">
-                Grandes transformações acontecem quando trabalhamos juntos.
-              </h2>
-            </div>
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Parcerias Estratégicas</span>
+            <h2 className="mx-auto mt-8 max-w-4xl text-5xl font-extrabold leading-tight md:text-6xl">
+              Grandes transformações nascem da colaboração.
+            </h2>
           </Reveal>
-          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {PARTNERS.map((p) => (
-              <div key={p} className="flex h-20 items-center justify-center rounded-xl border border-border bg-background px-4 text-center text-sm font-semibold text-muted-foreground">
-                {p}
-              </div>
+          <div className="mt-20 flex flex-wrap justify-center gap-6">
+            {PARTNERS.map((p, i) => (
+              <Reveal key={p} delay={i * 0.05} direction="fade">
+                <div className="flex h-24 items-center justify-center rounded-[24px] bg-background px-10 text-center text-sm font-bold text-muted-foreground shadow-sm hover:shadow-premium transition-shadow">
+                  {p}
+                </div>
+              </Reveal>
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <Button asChild size="lg" className="gradient-flame text-primary-foreground">
-              <Link to="/parceiros">Quero ser parceiro</Link>
-            </Button>
-          </div>
+          <Reveal delay={0.4}>
+            <div className="mt-16">
+              <Button asChild size="lg" className="h-14 px-12 font-bold shadow-premium">
+                <Link to="/parceiros">Seja um Investidor Social</Link>
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
 
