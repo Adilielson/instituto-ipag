@@ -89,10 +89,27 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
 
         <div className="relative">
           <div className="relative group/carousel overflow-hidden">
+            {/* Navigation Buttons - Always visible */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+              <button 
+                onClick={() => scroll("left")}
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-sm border border-black/5 text-primary shadow-xl flex items-center justify-center transition-all hover:bg-primary hover:text-white active:scale-95"
+              >
+                <ArrowLeft className="w-6 h-6 md:w-8 md:h-8" />
+              </button>
+            </div>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+              <button 
+                onClick={() => scroll("right")}
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-sm border border-black/5 text-primary shadow-xl flex items-center justify-center transition-all hover:bg-primary hover:text-white active:scale-95"
+              >
+                <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
+              </button>
+            </div>
+
             {/* Left fade effect */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
-            
-            {/* O efeito de fade da direita foi removido para garantir transparência total onde o carrossel passa */}
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
 
             <div 
               ref={scrollRef}
@@ -151,137 +168,6 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
             </div>
           </div>
           
-          {/* Fixed COMUNIDADE GLOBAL Highlight Card - Hidden on Mobile */}
-          <div className="hidden lg:block absolute right-0 top-0 z-20 w-[400px] h-full pointer-events-none">
-            <div className="sticky top-32 pointer-events-auto">
-              {/* Sombra premium e transparente que cai sobre o carrossel */}
-              <div className="absolute -bottom-12 -left-32 right-12 h-32 bg-gradient-to-tr from-black/20 via-transparent to-transparent blur-3xl -z-10" />
-              <div className="absolute -bottom-16 left-8 right-8 h-24 bg-black/25 blur-[60px] rounded-full -z-10" />
-              <div className="bg-dark rounded-[40px] p-12 flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
-                {/* Background Accent */}
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
-                
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
-                    <Users className="w-8 h-8 text-white" />
-                  </div>
-                  
-                  <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
-                    COMUNIDADE <br />GLOBAL
-                  </h3>
-                  
-                  <p className="text-white/50 text-lg font-light leading-relaxed mb-12">
-                    Junte-se a milhares de doadores que já estão transformando realidades hoje.
-                  </p>
-                  
-                  <div className="mt-auto">
-                    <div className="flex items-center mb-6">
-                      <div className="flex -space-x-4">
-                        {donorAvatars.map((url, i) => (
-                          <div key={i} className="w-12 h-12 rounded-full border-4 border-dark overflow-hidden bg-gray/20">
-                            <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="ml-4 bg-primary text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
-                        +12K
-                      </div>
-                    </div>
-                    
-                    <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] mb-12">
-                      APOIADORES ATIVOS
-                    </p>
-                    
-                    {/* Navigation Buttons integrated into the fixed card */}
-                    <div className="flex gap-4">
-                      <button 
-                        onClick={() => scroll("left")}
-                        disabled={!canScrollLeft}
-                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
-                          canScrollLeft 
-                          ? "border-primary text-primary hover:bg-primary hover:text-white" 
-                          : "border-white/10 text-white/10 cursor-not-allowed"
-                        }`}
-                      >
-                        <ArrowLeft className="w-6 h-6" />
-                      </button>
-                      <button 
-                        onClick={() => scroll("right")}
-                        disabled={!canScrollRight}
-                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
-                          canScrollRight 
-                          ? "border-primary text-primary hover:bg-primary hover:text-white" 
-                          : "border-white/10 text-white/10 cursor-not-allowed"
-                        }`}
-                      >
-                        <ArrowRight className="w-6 h-6" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Highlight Card - Only visible on Mobile */}
-        <div className="lg:hidden mt-8 md:mt-12 px-6 md:px-8">
-          <div className="bg-dark rounded-[40px] p-8 md:p-12 flex flex-col shadow-2xl overflow-hidden relative group">
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-            
-            <div className="relative z-10 flex flex-col">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 md:mb-12">
-                <div className="flex flex-col">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-primary rounded-2xl flex items-center justify-center mb-6 md:mb-10 shadow-lg shadow-primary/20">
-                    <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                  </div>
-                  
-                  <h3 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 uppercase tracking-tighter leading-tight">
-                    COMUNIDADE <br />GLOBAL
-                  </h3>
-                  
-                  <p className="text-white/50 text-base md:text-lg font-light leading-relaxed max-w-md">
-                    Junte-se a milhares de doadores que já estão transformando realidades hoje.
-                  </p>
-                </div>
-
-                {/* Mobile Navigation Buttons */}
-                <div className="flex lg:hidden gap-4">
-                  <button 
-                    onClick={() => scroll("left")}
-                    className="w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-all active:scale-95"
-                  >
-                    <ArrowLeft className="w-6 h-6" />
-                  </button>
-                  <button 
-                    onClick={() => scroll("right")}
-                    className="w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-all active:scale-95"
-                  >
-                    <ArrowRight className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-              
-              <div className="mt-auto border-t border-white/5 pt-8 md:pt-12">
-                <div className="flex items-center mb-6">
-                  <div className="flex -space-x-3 md:-space-x-4">
-                    {donorAvatars.map((url, i) => (
-                      <div key={i} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 md:border-4 border-dark overflow-hidden bg-gray/20">
-                        <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="ml-3 md:ml-4 bg-primary text-white text-[10px] md:text-xs font-black px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg">
-                    +12K
-                  </div>
-                </div>
-                
-                <p className="text-white/30 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em]">
-                  APOIADORES ATIVOS
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
