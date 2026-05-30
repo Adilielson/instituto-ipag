@@ -197,7 +197,7 @@ function Home() {
                   <Link
                     to="/projetos/$slug"
                     params={{ slug: p.slug }}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-[40px] shadow-premium hover:shadow-2xl transition-all duration-700 bg-white"
+                    className="group relative block aspect-[4/5] overflow-hidden rounded-[40px] shadow-premium hover:shadow-warm transition-all duration-700 bg-white"
                   >
                     <img 
                       src={p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
