@@ -44,7 +44,7 @@ function Projetos() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           {Route.useLoaderData().projetos?.map((p: any, i: number) => {
             const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;

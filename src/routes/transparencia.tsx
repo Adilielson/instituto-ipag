@@ -40,7 +40,7 @@ function Transparencia() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-container grid gap-8 md:grid-cols-2">
           {DOCS.map((d, i) => (
             <Reveal key={d.title} delay={i * 0.1} direction="up">

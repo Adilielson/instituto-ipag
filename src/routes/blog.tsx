@@ -35,7 +35,7 @@ function Blog() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           {Route.useLoaderData().posts?.map((post: any, i: number) => (
             <Reveal key={post.slug} delay={i * 0.1} direction="up">

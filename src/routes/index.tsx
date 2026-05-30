@@ -176,7 +176,7 @@ function Home() {
       <section className="py-40 bg-white">
         <div className="max-container">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-12 mb-24 border-b border-border pb-12">
+            <div className="flex flex-wrap items-end justify-between gap-12 mb-24 border-b border-black/5 pb-12">
               <div className="max-w-3xl">
                 <span className="text-primary font-black uppercase tracking-[0.3em] mb-6 block text-sm">Frentes de Ação</span>
                 <h2 className="gf-heading-lg uppercase text-dark">Onde nossa rede atua</h2>
@@ -197,7 +197,7 @@ function Home() {
                   <Link
                     to="/projetos/$slug"
                     params={{ slug: p.slug }}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-[40px] shadow-premium hover:shadow-2xl transition-all duration-700 bg-white"
+                    className="group relative block aspect-[4/5] overflow-hidden rounded-[40px] shadow-premium hover:shadow-warm transition-all duration-700 bg-white"
                   >
                     <img 
                       src={p.imagem || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
@@ -322,13 +322,13 @@ function Home() {
                 <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">IPAG EM FOCO</span>
                 <h2 className="gf-heading-lg uppercase text-dark tracking-tighter">EDITORIAL IPAG</h2>
               </div>
-              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto">
+              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto py-5 px-10">
                 <Link to="/blog">VER TODAS AS MATÉRIAS</Link>
               </Button>
             </div>
           </Reveal>
           
-          <div className="grid gap-16 md:grid-cols-3">
+          <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
             {loaderData.posts?.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.15} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full">
@@ -357,7 +357,7 @@ function Home() {
                     <p className="text-gray/70 leading-relaxed mb-8 line-clamp-3 font-light text-lg">
                       {post.resumo}
                     </p>
-                    <div className="flex items-center gap-3 text-dark font-black uppercase tracking-widest text-xs group-hover:gap-5 transition-all">
+                    <div className="mt-8 flex items-center gap-3 text-dark font-black uppercase tracking-widest text-xs group-hover:gap-5 transition-all">
                        LER MATÉRIA COMPLETA <ArrowRight className="w-4 h-4 text-primary" />
                     </div>
                   </div>
@@ -368,9 +368,8 @@ function Home() {
         </div>
       </section>
 
-
       {/* PARTNERS - Premium Stripe */}
-      <section className="py-32 bg-bg overflow-hidden">
+      <section className="py-32 bg-white overflow-hidden border-t border-black/5">
         <div className="max-container text-center mb-20">
           <Reveal direction="up">
              <span className="text-primary font-black uppercase tracking-[0.4em] mb-4 block text-xs">REDE DE APOIO</span>
