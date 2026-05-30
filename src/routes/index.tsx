@@ -56,9 +56,9 @@ function HomeHero({ heroRef }: { heroRef: any }) {
     offset: ["start start", "end start"]
   });
 
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const y1 = useSpring(useTransform(scrollYProgress, [0, 1], [0, 200]), springConfig);
+  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.8], [1, 0]), springConfig);
 
   return (
     <>
