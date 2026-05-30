@@ -1,9 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Calendar, MapPin } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { EVENTS } from "@/data/site";
+import { getEventos } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/eventos")({
+  loader: async () => {
+    const eventos = await getEventos();
+    return { eventos };
+  },
   head: () => ({
     meta: [
       { title: "Eventos — IPAG" },
