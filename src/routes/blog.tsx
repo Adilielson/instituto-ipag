@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { getPosts } from "@/lib/api/cms";
 
