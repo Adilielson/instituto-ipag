@@ -103,12 +103,16 @@ h1, h2, h3, h4, h5 {
   @apply opacity-100 translate-y-0 transition-all duration-700 ease-out;
 }
 
-/* Parallax Effect Simulation */
-.bg-fixed-parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: crop;
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
 
 
