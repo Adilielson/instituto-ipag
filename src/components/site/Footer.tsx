@@ -8,7 +8,7 @@ export function Footer() {
     <footer className="bg-dark text-white">
       <div className="mx-auto grid max-w-7xl gap-16 px-4 py-24 md:grid-cols-2 md:px-8 lg:grid-cols-4">
         <div className="lg:col-span-1">
-          <img src={logo} alt="IPAG" className="h-16 w-16 mb-8 brightness-0 invert" />
+          <img src="https://i.ibb.co/67vL7rCc/image.png" alt="IPAG" className="h-16 w-auto mb-8" />
           <p className="text-white/60 text-sm leading-relaxed mb-8">
             {SITE.fullName}. <br />Transformando vidas através da educação, da cultura e do desenvolvimento social em São Mateus – ES.
           </p>
