@@ -357,7 +357,7 @@ function Home() {
                     <p className="text-gray/70 leading-relaxed mb-8 line-clamp-3 font-light text-lg">
                       {post.resumo}
                     </p>
-                    <div className="flex items-center gap-3 text-dark font-black uppercase tracking-widest text-xs group-hover:gap-5 transition-all">
+                    <div className="mt-8 flex items-center gap-3 text-dark font-black uppercase tracking-widest text-xs group-hover:gap-5 transition-all">
                        LER MATÉRIA COMPLETA <ArrowRight className="w-4 h-4 text-primary" />
                     </div>
                   </div>
