@@ -9,38 +9,328 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TransparenciaRouteImport } from './routes/transparencia'
+import { Route as QuemSomosRouteImport } from './routes/quem-somos'
+import { Route as ProjetosRouteImport } from './routes/projetos'
+import { Route as ParceirosRouteImport } from './routes/parceiros'
+import { Route as EventosRouteImport } from './routes/eventos'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BazarRouteImport } from './routes/bazar'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
+import { Route as AdminTransparenciaRouteImport } from './routes/admin.transparencia'
+import { Route as AdminProjetosRouteImport } from './routes/admin.projetos'
+import { Route as AdminParceirosRouteImport } from './routes/admin.parceiros'
+import { Route as AdminEventosRouteImport } from './routes/admin.eventos'
+import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 
+const TransparenciaRoute = TransparenciaRouteImport.update({
+  id: '/transparencia',
+  path: '/transparencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuemSomosRoute = QuemSomosRouteImport.update({
+  id: '/quem-somos',
+  path: '/quem-somos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjetosRoute = ProjetosRouteImport.update({
+  id: '/projetos',
+  path: '/projetos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParceirosRoute = ParceirosRouteImport.update({
+  id: '/parceiros',
+  path: '/parceiros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventosRoute = EventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BazarRoute = BazarRouteImport.update({
+  id: '/bazar',
+  path: '/bazar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ProjetosSlugRoute = ProjetosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProjetosRoute,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTransparenciaRoute = AdminTransparenciaRouteImport.update({
+  id: '/transparencia',
+  path: '/transparencia',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjetosRoute = AdminProjetosRouteImport.update({
+  id: '/projetos',
+  path: '/projetos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminParceirosRoute = AdminParceirosRouteImport.update({
+  id: '/parceiros',
+  path: '/parceiros',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventosRoute = AdminEventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBlogRoute = AdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/bazar': typeof BazarRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/contato': typeof ContatoRoute
+  '/eventos': typeof EventosRoute
+  '/parceiros': typeof ParceirosRoute
+  '/projetos': typeof ProjetosRouteWithChildren
+  '/quem-somos': typeof QuemSomosRoute
+  '/transparencia': typeof TransparenciaRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/eventos': typeof AdminEventosRoute
+  '/admin/parceiros': typeof AdminParceirosRoute
+  '/admin/projetos': typeof AdminProjetosRoute
+  '/admin/transparencia': typeof AdminTransparenciaRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/projetos/$slug': typeof ProjetosSlugRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bazar': typeof BazarRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/contato': typeof ContatoRoute
+  '/eventos': typeof EventosRoute
+  '/parceiros': typeof ParceirosRoute
+  '/projetos': typeof ProjetosRouteWithChildren
+  '/quem-somos': typeof QuemSomosRoute
+  '/transparencia': typeof TransparenciaRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/eventos': typeof AdminEventosRoute
+  '/admin/parceiros': typeof AdminParceirosRoute
+  '/admin/projetos': typeof AdminProjetosRoute
+  '/admin/transparencia': typeof AdminTransparenciaRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/projetos/$slug': typeof ProjetosSlugRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/bazar': typeof BazarRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/contato': typeof ContatoRoute
+  '/eventos': typeof EventosRoute
+  '/parceiros': typeof ParceirosRoute
+  '/projetos': typeof ProjetosRouteWithChildren
+  '/quem-somos': typeof QuemSomosRoute
+  '/transparencia': typeof TransparenciaRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/eventos': typeof AdminEventosRoute
+  '/admin/parceiros': typeof AdminParceirosRoute
+  '/admin/projetos': typeof AdminProjetosRoute
+  '/admin/transparencia': typeof AdminTransparenciaRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/projetos/$slug': typeof ProjetosSlugRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/bazar'
+    | '/blog'
+    | '/contato'
+    | '/eventos'
+    | '/parceiros'
+    | '/projetos'
+    | '/quem-somos'
+    | '/transparencia'
+    | '/admin/blog'
+    | '/admin/eventos'
+    | '/admin/parceiros'
+    | '/admin/projetos'
+    | '/admin/transparencia'
+    | '/admin/usuarios'
+    | '/blog/$slug'
+    | '/projetos/$slug'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bazar'
+    | '/blog'
+    | '/contato'
+    | '/eventos'
+    | '/parceiros'
+    | '/projetos'
+    | '/quem-somos'
+    | '/transparencia'
+    | '/admin/blog'
+    | '/admin/eventos'
+    | '/admin/parceiros'
+    | '/admin/projetos'
+    | '/admin/transparencia'
+    | '/admin/usuarios'
+    | '/blog/$slug'
+    | '/projetos/$slug'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/bazar'
+    | '/blog'
+    | '/contato'
+    | '/eventos'
+    | '/parceiros'
+    | '/projetos'
+    | '/quem-somos'
+    | '/transparencia'
+    | '/admin/blog'
+    | '/admin/eventos'
+    | '/admin/parceiros'
+    | '/admin/projetos'
+    | '/admin/transparencia'
+    | '/admin/usuarios'
+    | '/blog/$slug'
+    | '/projetos/$slug'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  BazarRoute: typeof BazarRoute
+  BlogRoute: typeof BlogRouteWithChildren
+  ContatoRoute: typeof ContatoRoute
+  EventosRoute: typeof EventosRoute
+  ParceirosRoute: typeof ParceirosRoute
+  ProjetosRoute: typeof ProjetosRouteWithChildren
+  QuemSomosRoute: typeof QuemSomosRoute
+  TransparenciaRoute: typeof TransparenciaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/transparencia': {
+      id: '/transparencia'
+      path: '/transparencia'
+      fullPath: '/transparencia'
+      preLoaderRoute: typeof TransparenciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quem-somos': {
+      id: '/quem-somos'
+      path: '/quem-somos'
+      fullPath: '/quem-somos'
+      preLoaderRoute: typeof QuemSomosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projetos': {
+      id: '/projetos'
+      path: '/projetos'
+      fullPath: '/projetos'
+      preLoaderRoute: typeof ProjetosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parceiros': {
+      id: '/parceiros'
+      path: '/parceiros'
+      fullPath: '/parceiros'
+      preLoaderRoute: typeof ParceirosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventos': {
+      id: '/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof EventosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bazar': {
+      id: '/bazar'
+      path: '/bazar'
+      fullPath: '/bazar'
+      preLoaderRoute: typeof BazarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +338,128 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/projetos/$slug': {
+      id: '/projetos/$slug'
+      path: '/$slug'
+      fullPath: '/projetos/$slug'
+      preLoaderRoute: typeof ProjetosSlugRouteImport
+      parentRoute: typeof ProjetosRoute
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/admin/usuarios': {
+      id: '/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AdminUsuariosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/transparencia': {
+      id: '/admin/transparencia'
+      path: '/transparencia'
+      fullPath: '/admin/transparencia'
+      preLoaderRoute: typeof AdminTransparenciaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projetos': {
+      id: '/admin/projetos'
+      path: '/projetos'
+      fullPath: '/admin/projetos'
+      preLoaderRoute: typeof AdminProjetosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/parceiros': {
+      id: '/admin/parceiros'
+      path: '/parceiros'
+      fullPath: '/admin/parceiros'
+      preLoaderRoute: typeof AdminParceirosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/eventos': {
+      id: '/admin/eventos'
+      path: '/eventos'
+      fullPath: '/admin/eventos'
+      preLoaderRoute: typeof AdminEventosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/blog': {
+      id: '/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminBlogRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminBlogRoute: typeof AdminBlogRoute
+  AdminEventosRoute: typeof AdminEventosRoute
+  AdminParceirosRoute: typeof AdminParceirosRoute
+  AdminProjetosRoute: typeof AdminProjetosRoute
+  AdminTransparenciaRoute: typeof AdminTransparenciaRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBlogRoute: AdminBlogRoute,
+  AdminEventosRoute: AdminEventosRoute,
+  AdminParceirosRoute: AdminParceirosRoute,
+  AdminProjetosRoute: AdminProjetosRoute,
+  AdminTransparenciaRoute: AdminTransparenciaRoute,
+  AdminUsuariosRoute: AdminUsuariosRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface ProjetosRouteChildren {
+  ProjetosSlugRoute: typeof ProjetosSlugRoute
+}
+
+const ProjetosRouteChildren: ProjetosRouteChildren = {
+  ProjetosSlugRoute: ProjetosSlugRoute,
+}
+
+const ProjetosRouteWithChildren = ProjetosRoute._addFileChildren(
+  ProjetosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  BazarRoute: BazarRoute,
+  BlogRoute: BlogRouteWithChildren,
+  ContatoRoute: ContatoRoute,
+  EventosRoute: EventosRoute,
+  ParceirosRoute: ParceirosRoute,
+  ProjetosRoute: ProjetosRouteWithChildren,
+  QuemSomosRoute: QuemSomosRoute,
+  TransparenciaRoute: TransparenciaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
