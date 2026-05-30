@@ -1,12 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Heart, Sparkles } from "lucide-react";
+import { ArrowRight, Heart, Sparkles, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
-import { IMPACT_STATS, PROJECTS, POSTS, PARTNERS, SITE } from "@/data/site";
+import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
 import logoSymbol from "@/assets/logo-symbol.png";
+import { getProjetos, getPosts } from "@/lib/api/cms";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const [projetos, posts] = await Promise.all([
+      getProjetos(),
+      getPosts()
+    ]);
+    return { projetos: projetos?.slice(0, 3), posts: posts?.slice(0, 3) };
+  },
   head: () => ({
     meta: [
       { title: "IPAG — Transformando vidas em São Mateus" },
@@ -17,6 +25,15 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+const ICON_MAP: Record<string, any> = {
+  'Cultura': Music,
+  'Educação': GraduationCap,
+  'Social': HeartHandshake,
+  'Saúde': Brain,
+  'Capacitação': Scissors,
+  'Vida': LifeBuoy,
+};
 
 function Home() {
   return (
