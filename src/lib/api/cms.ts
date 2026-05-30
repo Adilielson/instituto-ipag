@@ -13,16 +13,17 @@ export const getProjetos = createServerFn({ method: "GET" }).handler(async () =>
 });
 
 export const getProjetoBySlug = createServerFn({ method: "GET" })
-  .handler(async ({ data: slug }: { data: string }) => {
-    const { data, error } = await supabase
+  .args<{ slug: string }>()
+  .handler(async ({ data }) => {
+    const { data: project, error } = await supabase
       .from("projetos")
       .select("*")
-      .eq("slug", slug)
+      .eq("slug", data.slug)
       .eq("status", "publicado")
       .single();
     
     if (error) throw error;
-    return data;
+    return project;
   });
 
 export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
@@ -37,16 +38,17 @@ export const getPosts = createServerFn({ method: "GET" }).handler(async () => {
 });
 
 export const getPostBySlug = createServerFn({ method: "GET" })
-  .handler(async ({ data: slug }: { data: string }) => {
-    const { data, error } = await supabase
+  .args<{ slug: string }>()
+  .handler(async ({ data }) => {
+    const { data: post, error } = await supabase
       .from("posts")
       .select("*")
-      .eq("slug", slug)
+      .eq("slug", data.slug)
       .eq("status", "publicado")
       .single();
     
     if (error) throw error;
-    return data;
+    return post;
   });
 
 export const getEventos = createServerFn({ method: "GET" }).handler(async () => {
