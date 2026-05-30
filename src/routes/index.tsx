@@ -47,7 +47,9 @@ const ICON_MAP: Record<string, any> = {
   'Saúde': Brain,
   'SAÚDE': Brain,
   'Capacitação': Scissors,
+  'CAPACITAÇÃO': Scissors,
   'Vida': LifeBuoy,
+  'DESENVOLVIMENTO HUMANO': Heart,
 };
 
 function HomeHero({ heroRef }: { heroRef: any }) {
