@@ -68,156 +68,135 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
           </Reveal>
         </div>
 
-        <div className="relative group/carousel">
-          <div 
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 pt-2"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {projetos.map((p, i) => (
-              <div 
-                key={p.slug || i} 
-                className="snap-start shrink-0 w-[85vw] md:w-[400px]"
-              >
-                <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
-                  <div className="relative h-64 overflow-hidden bg-gray/10">
-                    <img 
-                      src={(p.imagem_destaque && p.imagem_destaque.startsWith('http')) ? p.imagem_destaque : "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
-                      alt={p.titulo}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop";
-                        target.onerror = null;
-                      }}
-                    />
-                    <div className="absolute top-6 left-6">
-                      <span className="bg-primary text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
-                        {p.categoria}
-                      </span>
+        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start relative">
+          <div className="relative group/carousel overflow-hidden">
+            {/* Left fade/transparency effect */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
+            
+            <div 
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 pt-2 px-8"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {projetos.map((p, i) => (
+                <div 
+                  key={p.slug || i} 
+                  className="snap-start shrink-0 w-[85vw] md:w-[400px]"
+                >
+                  <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
+                    <div className="relative h-64 overflow-hidden bg-gray/10">
+                      <img 
+                        src={(p.imagem_destaque && p.imagem_destaque.startsWith('http')) ? p.imagem_destaque : "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
+                        alt={p.titulo}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop";
+                          target.onerror = null;
+                        }}
+                      />
+                      <div className="absolute top-6 left-6">
+                        <span className="bg-primary text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
+                          {p.categoria}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="p-10 flex flex-col flex-grow">
-                    <h3 className="text-2xl font-black text-dark mb-4 uppercase tracking-tight">
-                      {p.titulo}
-                    </h3>
-                    <p className="text-gray/70 mb-10 line-clamp-3 font-light text-lg leading-relaxed">
-                      {p.resumo}
-                    </p>
                     
-                    <div className="mt-auto flex flex-wrap gap-4">
-                      <Button asChild className="gf-button-primary rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest group">
-                        <Link to="/projetos/$slug" params={{ slug: p.slug }}>
-                          APOIAR AGORA <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                        </Link>
-                      </Button>
-                      <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5 rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest">
-                        <Link to="/projetos/$slug" params={{ slug: p.slug }}>
-                          CONHECER MAIS
-                        </Link>
-                      </Button>
+                    <div className="p-10 flex flex-col flex-grow">
+                      <h3 className="text-2xl font-black text-dark mb-4 uppercase tracking-tight">
+                        {p.titulo}
+                      </h3>
+                      <p className="text-gray/70 mb-10 line-clamp-3 font-light text-lg leading-relaxed">
+                        {p.resumo}
+                      </p>
+                      
+                      <div className="mt-auto flex flex-wrap gap-4">
+                        <Button asChild className="gf-button-primary rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest group">
+                          <Link to="/projetos/$slug" params={{ slug: p.slug }}>
+                            APOIAR AGORA <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </Button>
+                        <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5 rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest">
+                          <Link to="/projetos/$slug" params={{ slug: p.slug }}>
+                            CONHECER MAIS
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
 
-            {/* COMUNIDADE GLOBAL Highlight Card as the last item in carousel */}
-            <div className="snap-start shrink-0 w-[85vw] md:w-[400px]">
-              <div className="bg-dark rounded-[40px] p-12 h-full flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
-                {/* Background Accent */}
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
+            {/* Floating Navigation Arrows - Hidden here as they are now in the fixed card */}
+          </div>
+
+          {/* Fixed COMUNIDADE GLOBAL Highlight Card */}
+          <div className="lg:sticky lg:top-32 z-20">
+            <div className="bg-dark rounded-[40px] p-12 flex flex-col min-h-[500px] shadow-2xl overflow-hidden relative group">
+              {/* Background Accent */}
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
+              
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
                 
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
-                    <Users className="w-8 h-8 text-white" />
+                <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
+                  COMUNIDADE <br />GLOBAL
+                </h3>
+                
+                <p className="text-white/50 text-lg font-light leading-relaxed mb-12">
+                  Junte-se a milhares de doadores que já estão transformando realidades hoje.
+                </p>
+                
+                <div className="mt-auto">
+                  <div className="flex items-center mb-6">
+                    <div className="flex -space-x-4">
+                      {donorAvatars.map((url, i) => (
+                        <div key={i} className="w-12 h-12 rounded-full border-4 border-dark overflow-hidden bg-gray/20">
+                          <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="ml-4 bg-primary text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
+                      +12K
+                    </div>
                   </div>
                   
-                  <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
-                    COMUNIDADE <br />GLOBAL
-                  </h3>
-                  
-                  <p className="text-white/50 text-lg font-light leading-relaxed mb-12">
-                    Junte-se a milhares de doadores que já estão transformando realidades hoje.
+                  <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] mb-12">
+                    APOIADORES ATIVOS
                   </p>
                   
-                  <div className="mt-auto">
-                    <div className="flex items-center mb-6">
-                      <div className="flex -space-x-4">
-                        {donorAvatars.map((url, i) => (
-                          <div key={i} className="w-12 h-12 rounded-full border-4 border-dark overflow-hidden bg-gray/20">
-                            <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="ml-4 bg-primary text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
-                        +12K
-                      </div>
-                    </div>
-                    
-                    <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] mb-12">
-                      APOIADORES ATIVOS
-                    </p>
-                    
-                    {/* Navigation Buttons */}
-                    <div className="flex gap-4">
-                      <button 
-                        onClick={() => scroll("left")}
-                        disabled={!canScrollLeft}
-                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
-                          canScrollLeft 
-                          ? "border-primary text-primary hover:bg-primary hover:text-white" 
-                          : "border-white/10 text-white/10 cursor-not-allowed"
-                        }`}
-                      >
-                        <ArrowLeft className="w-6 h-6" />
-                      </button>
-                      <button 
-                        onClick={() => scroll("right")}
-                        disabled={!canScrollRight}
-                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
-                          canScrollRight 
-                          ? "border-primary text-primary hover:bg-primary hover:text-white" 
-                          : "border-white/10 text-white/10 cursor-not-allowed"
-                        }`}
-                      >
-                        <ArrowRight className="w-6 h-6" />
-                      </button>
-                    </div>
+                  {/* Navigation Buttons integrated into the fixed card */}
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={() => scroll("left")}
+                      disabled={!canScrollLeft}
+                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
+                        canScrollLeft 
+                        ? "border-primary text-primary hover:bg-primary hover:text-white" 
+                        : "border-white/10 text-white/10 cursor-not-allowed"
+                      }`}
+                    >
+                      <ArrowLeft className="w-6 h-6" />
+                    </button>
+                    <button 
+                      onClick={() => scroll("right")}
+                      disabled={!canScrollRight}
+                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
+                        canScrollRight 
+                        ? "border-primary text-primary hover:bg-primary hover:text-white" 
+                        : "border-white/10 text-white/10 cursor-not-allowed"
+                      }`}
+                    >
+                      <ArrowRight className="w-6 h-6" />
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Floating Navigation Arrows - Always visible on desktop for better UX */}
-          <div className="absolute top-1/2 -left-6 -translate-y-1/2 z-20 pointer-events-none opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hidden md:block">
-            <button 
-              onClick={() => scroll("left")}
-              disabled={!canScrollLeft}
-              className={`w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center transition-all pointer-events-auto border border-black/5 ${
-                canScrollLeft 
-                ? "text-primary hover:bg-primary hover:text-white" 
-                : "text-gray/20 cursor-not-allowed"
-              }`}
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-          </div>
-          <div className="absolute top-1/2 -right-6 -translate-y-1/2 z-20 pointer-events-none opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hidden md:block">
-            <button 
-              onClick={() => scroll("right")}
-              disabled={!canScrollRight}
-              className={`w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center transition-all pointer-events-auto border border-black/5 ${
-                canScrollRight 
-                ? "text-primary hover:bg-primary hover:text-white" 
-                : "text-gray/20 cursor-not-allowed"
-              }`}
-            >
-              <ArrowRight className="w-5 h-5" />
-            </button>
           </div>
         </div>
       </div>
