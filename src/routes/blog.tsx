@@ -39,7 +39,7 @@ function Blog() {
         <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           {Route.useLoaderData().posts?.map((post: any, i: number) => (
             <Reveal key={post.slug} delay={i * 0.1} direction="up">
-              <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-black/5 bg-white shadow-premium transition-all duration-700 hover:shadow-warm">
+              <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-black/5 bg-white shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility">
                 <div className="aspect-[16/10] overflow-hidden relative">
                   <img 
                     src={post.imagem_destaque || "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop"} 

@@ -5,7 +5,7 @@ export const Route = createFileRoute("/admin/blog")({ component: AdminBlog });
 
 function AdminBlog() {
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card">
+    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
       <h1 className="text-2xl font-extrabold">Blog</h1>
       <ul className="mt-6 divide-y divide-border">
         {POSTS.map((p) => (

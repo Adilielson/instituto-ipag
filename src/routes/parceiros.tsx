@@ -45,7 +45,7 @@ function Parceiros() {
         <div className="mx-auto grid max-w-7xl gap-6 px-4 md:grid-cols-2 md:px-8 lg:grid-cols-4">
           {WAYS.map((w, i) => (
             <Reveal key={w.title} delay={i * 0.06}>
-              <div className="h-full rounded-3xl border border-border bg-background p-7 shadow-card">
+              <div className="h-full rounded-3xl border border-border bg-background p-7 shadow-card-utility">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl gradient-flame text-primary-foreground">
                   <w.icon className="h-6 w-6" />
                 </div>

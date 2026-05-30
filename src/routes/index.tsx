@@ -146,7 +146,8 @@ function HomeHero({ heroRef }: { heroRef: any }) {
 
 function Home() {
   const heroRef = useRef(null);
-  const loaderData = Route.useLoaderData();
+  const loaderData = Route.useLoaderData() || { projetos: [], posts: [] };
+
 
   return (
     <div className="bg-white">
@@ -278,7 +279,7 @@ function Home() {
                 initial={{ x: 50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                className="absolute -bottom-16 -right-16 bg-primary p-16 rounded-[60px] shadow-3xl hidden md:block max-w-sm text-white border-8 border-white"
+                className="absolute -bottom-16 -right-16 bg-primary p-16 rounded-[60px] shadow-2xl hidden md:block max-w-sm text-white border-8 border-white"
               >
                 <Users className="w-16 h-16 mb-8 text-white/50" />
                 <p className="text-6xl font-black mb-4 leading-none tracking-tighter">19 ANOS</p>
@@ -317,7 +318,7 @@ function Home() {
       <section className="py-24 bg-bg">
         <div className="max-container">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[80px] bg-dark min-h-[700px] flex items-center p-16 md:p-32 shadow-3xl group">
+            <div className="relative overflow-hidden rounded-[80px] bg-dark min-h-[700px] flex items-center p-16 md:p-32 shadow-2xl group">
               <div className="absolute inset-0 z-0">
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}

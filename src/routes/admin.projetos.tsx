@@ -5,7 +5,7 @@ export const Route = createFileRoute("/admin/projetos")({ component: AdminProjet
 
 function AdminProjetos() {
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card">
+    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
       <h1 className="text-2xl font-extrabold">Projetos</h1>
       <p className="mt-1 text-sm text-muted-foreground">Lista mockada — CRUD virá na próxima fase.</p>
       <ul className="mt-6 divide-y divide-border">

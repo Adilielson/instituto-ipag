@@ -5,7 +5,7 @@ export const Route = createFileRoute("/admin/usuarios")({ component: AdminUsuari
 
 function AdminUsuarios() {
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card">
+    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
       <h1 className="text-2xl font-extrabold">Usuários</h1>
       <table className="mt-6 w-full text-left text-sm">
         <thead>

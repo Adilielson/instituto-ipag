@@ -46,7 +46,7 @@ function Bazar() {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {items.map((it, i) => (
               <Reveal key={it.label} delay={i * 0.08}>
-                <div className="rounded-3xl border border-border bg-background p-8 shadow-card">
+                <div className="rounded-3xl border border-border bg-background p-8 shadow-card-utility">
                   <it.icon className="h-9 w-9 text-primary" />
                   <p className="mt-5 text-lg font-semibold">{it.label}</p>
                   <p className="mt-2 text-sm text-muted-foreground">Em bom estado de conservação.</p>

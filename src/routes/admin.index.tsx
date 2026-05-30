@@ -15,7 +15,7 @@ function AdminHome() {
   ];
   return (
     <div>
-      <div className="rounded-2xl border border-border bg-background p-6 shadow-card">
+      <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary">Painel administrativo</p>
         <h1 className="mt-2 text-3xl font-extrabold">Bem-vindo, {ADMIN_MASTER.name}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -25,7 +25,7 @@ function AdminHome() {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-2xl border border-border bg-background p-5 shadow-card">
+          <div key={s.label} className="rounded-2xl border border-border bg-background p-5 shadow-card-utility">
             <s.icon className="h-6 w-6 text-primary" />
             <p className="mt-4 text-3xl font-extrabold">{s.value}</p>
             <p className="text-xs uppercase tracking-wider text-muted-foreground">{s.label}</p>

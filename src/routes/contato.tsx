@@ -62,7 +62,7 @@ function Contato() {
           <Reveal delay={0.15} className="lg:col-span-3" direction="up">
             <form
               onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-              className="rounded-[60px] border border-black/5 bg-white p-12 md:p-16 shadow-premium"
+              className="rounded-[60px] border border-black/5 bg-white p-12 md:p-16 shadow-premium-utility"
             >
               <h2 className="text-3xl font-black uppercase tracking-tight text-dark mb-10">Envie uma mensagem</h2>
               <div className="grid gap-6 sm:grid-cols-2">

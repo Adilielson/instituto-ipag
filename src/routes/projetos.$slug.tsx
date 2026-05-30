@@ -50,7 +50,7 @@ function ProjetoDetalhe() {
             <ArrowLeft className="h-4 w-4" /> TODOS OS PROJETOS
           </Link>
           <Reveal>
-            <div className="inline-flex h-20 w-20 items-center justify-center rounded-[32px] gradient-flame text-white shadow-warm mb-10">
+            <div className="inline-flex h-20 w-20 items-center justify-center rounded-[32px] gradient-flame text-white shadow-warm-utility mb-10">
               <Icon className="h-10 w-10" />
             </div>
             <h1 className="gf-heading-lg text-dark max-w-4xl uppercase">{project.titulo}</h1>
@@ -69,7 +69,7 @@ function ProjetoDetalhe() {
           
           <div className="space-y-12">
             <Reveal direction="left">
-              <div className="p-12 rounded-[60px] bg-bg border border-black/5 shadow-premium">
+              <div className="p-12 rounded-[60px] bg-bg border border-black/5 shadow-premium-utility">
                 <HeartHandshake className="w-16 h-16 text-primary mb-8" />
                 <h3 className="text-3xl font-black uppercase tracking-tight text-dark mb-6">Participe</h3>
                 <p className="text-lg text-gray/60 font-light leading-relaxed mb-10">

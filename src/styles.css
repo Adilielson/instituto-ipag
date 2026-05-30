@@ -25,8 +25,12 @@
   --color-accent-foreground: #2A2A2B;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #2A2A2B;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #2A2A2B;
 
-  /* Shadows */
+  /* Shadows - Use native theme variables */
   --shadow-premium: 0 20px 40px -10px rgba(0,0,0,0.05);
   --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.04);
   --shadow-warm: 0 8px 32px rgba(247, 155, 52, 0.35);
@@ -97,13 +101,20 @@ h1, h2, h3, h4, h5 {
   @apply bg-gradient-to-br from-bg via-white to-bg;
 }
 
-
 .gf-button {
   @apply inline-flex items-center justify-center rounded-full px-10 py-5 text-sm font-bold uppercase tracking-widest transition-all duration-300 relative overflow-hidden;
 }
 
 .gf-button-primary {
-  @apply bg-primary text-white shadow-xl hover:shadow-warm hover:-translate-y-1 active:translate-y-0 active:scale-95;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.gf-button-primary:hover {
+  box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
+  transform: translateY(-4px);
 }
 
 .gf-button-outline {
@@ -111,15 +122,38 @@ h1, h2, h3, h4, h5 {
 }
 
 .premium-card {
-  @apply rounded-[40px] bg-white border border-black/5 shadow-premium transition-all duration-700 overflow-hidden;
+  border-radius: 40px;
+  background-color: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+  transition: all 0.7s;
+  overflow: hidden;
 }
 
 .hover-lift {
-  @apply transition-all duration-500 hover:-translate-y-3 hover:shadow-warm;
+  transition: all 0.5s;
+}
+
+.hover-lift:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
 }
 
 .glass-morphism {
   @apply bg-white/80 backdrop-blur-md border border-white/20;
+}
+
+/* Custom Shadow Utilities for JSX */
+.shadow-warm-utility {
+  box-shadow: 0 8px 32px rgba(247, 155, 52, 0.35);
+}
+
+.shadow-premium-utility {
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+}
+
+.shadow-card-utility {
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
 }
 
 @keyframes scroll {
@@ -157,6 +191,3 @@ h1, h2, h3, h4, h5 {
 ::-webkit-scrollbar-thumb {
   @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
 }
-
-
-

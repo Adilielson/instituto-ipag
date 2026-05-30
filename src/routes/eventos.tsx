@@ -37,7 +37,7 @@ function Eventos() {
         <div className="mx-auto max-w-5xl space-y-5 px-4 md:px-8">
           {Route.useLoaderData().eventos?.map((e: any, i: number) => (
             <Reveal key={e.titulo} delay={i * 0.08}>
-              <article className="grid gap-4 rounded-3xl border border-border bg-background p-7 shadow-card md:grid-cols-[200px_1fr]">
+              <article className="grid gap-4 rounded-3xl border border-border bg-background p-7 shadow-card-utility md:grid-cols-[200px_1fr]">
                 <div className="rounded-2xl gradient-flame p-5 text-primary-foreground">
                   <Calendar className="h-6 w-6" />
                   <p className="mt-3 text-sm font-semibold uppercase tracking-wider">{new Date(e.data_evento).toLocaleDateString('pt-BR')}</p>
