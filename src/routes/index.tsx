@@ -7,9 +7,10 @@ import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
 import logoSymbol from "@/assets/logo-symbol.png";
 import { getProjetos, getPosts } from "@/lib/api/cms";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
+
   loader: async () => {
     try {
       const [projetos, posts] = await Promise.all([
