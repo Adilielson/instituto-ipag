@@ -119,7 +119,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           </Reveal>
 
           <Reveal delay={0.4} direction="up">
-            <p className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-16 max-w-3xl font-light leading-tight tracking-tight">
+            <p className="text-[18px] md:text-[24px] lg:text-[25px] text-white/90 mb-16 max-w-3xl font-light leading-tight tracking-tight">
               Quase duas décadas promovendo educação, cultura e dignidade humana em São Mateus – ES.
             </p>
           </Reveal>
