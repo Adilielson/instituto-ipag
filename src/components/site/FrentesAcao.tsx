@@ -151,8 +151,8 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
             </div>
           </div>
           
-          {/* Fixed COMUNIDADE GLOBAL Highlight Card */}
-          <div className="absolute right-0 top-0 z-20 w-[400px] h-full pointer-events-none">
+          {/* Fixed COMUNIDADE GLOBAL Highlight Card - Hidden on Mobile */}
+          <div className="hidden lg:block absolute right-0 top-0 z-20 w-[400px] h-full pointer-events-none">
             <div className="sticky top-32 pointer-events-auto">
               {/* Sombra premium e transparente que cai sobre o carrossel */}
               <div className="absolute -bottom-12 -left-32 right-12 h-32 bg-gradient-to-tr from-black/20 via-transparent to-transparent blur-3xl -z-10" />
