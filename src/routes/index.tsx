@@ -322,7 +322,7 @@ function Home() {
                 <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">IPAG EM FOCO</span>
                 <h2 className="gf-heading-lg uppercase text-dark tracking-tighter">EDITORIAL IPAG</h2>
               </div>
-              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto py-5">
+              <Button asChild variant="outline" className="gf-button border-2 border-dark text-dark hover:bg-dark hover:text-white h-auto py-5 px-10">
                 <Link to="/blog">VER TODAS AS MATÉRIAS</Link>
               </Button>
             </div>
