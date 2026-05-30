@@ -360,15 +360,12 @@ function Home() {
           <div className="flex animate-scroll whitespace-nowrap">
             {[...PARTNERS, ...PARTNERS].map((partner, index) => (
               <div key={index} className="mx-12 flex items-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                {partner.logo ? (
-                  <img src={partner.logo} alt={partner.name} className="h-12 w-auto object-contain" />
-                ) : (
-                  <span className="text-2xl font-black text-dark/20 uppercase tracking-widest">{partner.name}</span>
-                )}
+                <span className="text-2xl font-black text-dark/40 uppercase tracking-widest">{partner}</span>
               </div>
             ))}
           </div>
         </div>
+
       </section>
     </div>
   );
