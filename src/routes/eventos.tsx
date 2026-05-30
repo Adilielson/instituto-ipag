@@ -35,17 +35,17 @@ function Eventos() {
 
       <section className="py-20">
         <div className="mx-auto max-w-5xl space-y-5 px-4 md:px-8">
-          {EVENTS.map((e, i) => (
-            <Reveal key={e.title} delay={i * 0.08}>
+          {Route.useLoaderData().eventos?.map((e: any, i: number) => (
+            <Reveal key={e.titulo} delay={i * 0.08}>
               <article className="grid gap-4 rounded-3xl border border-border bg-background p-7 shadow-card md:grid-cols-[200px_1fr]">
                 <div className="rounded-2xl gradient-flame p-5 text-primary-foreground">
                   <Calendar className="h-6 w-6" />
-                  <p className="mt-3 text-sm font-semibold uppercase tracking-wider">{e.date}</p>
+                  <p className="mt-3 text-sm font-semibold uppercase tracking-wider">{new Date(e.data_evento).toLocaleDateString('pt-BR')}</p>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold">{e.title}</h3>
-                  <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground"><MapPin className="h-4 w-4" />{e.place}</p>
-                  <p className="mt-3 text-muted-foreground">{e.description}</p>
+                  <h3 className="text-2xl font-bold">{e.titulo}</h3>
+                  <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground"><MapPin className="h-4 w-4" />{e.local}</p>
+                  <p className="mt-3 text-muted-foreground">{e.descricao}</p>
                 </div>
               </article>
             </Reveal>
