@@ -119,7 +119,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           </Reveal>
 
           <Reveal delay={0.4} direction="up">
-            <p className="text-2xl md:text-4xl text-white/90 mb-16 max-w-3xl font-light leading-tight tracking-tight">
+            <p className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-16 max-w-3xl font-light leading-tight tracking-tight">
               Quase duas décadas promovendo educação, cultura e dignidade humana em São Mateus – ES.
             </p>
           </Reveal>
@@ -131,8 +131,8 @@ function HomeHero({ heroRef }: { heroRef: any }) {
                   CONHEÇA NOSSAS FRENTES <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="gf-button border-2 border-white/20 text-white hover:bg-white/10 h-auto px-12 py-7">
-                <Link to="/quem-somos" className="text-base tracking-widest">NOSSA HISTÓRIA</Link>
+              <Button asChild variant="outline" className="gf-button border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-12 py-7 transition-all duration-300">
+                <Link to="/quem-somos" className="text-base tracking-widest uppercase">NOSSA HISTÓRIA</Link>
               </Button>
             </div>
           </Reveal>
