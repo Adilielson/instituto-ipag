@@ -88,7 +88,7 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
         </div>
 
         <div className="relative">
-          <div className="relative group/carousel">
+          <div className="relative group/carousel overflow-hidden">
             {/* Left fade effect */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
             
