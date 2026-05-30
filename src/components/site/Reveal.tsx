@@ -40,8 +40,8 @@ export function Reveal({
   return (
     <div ref={ref} className={className}>
       <motion.div
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        initial={isClient ? "hidden" : "visible"}
+        animate={isClient && isInView ? "visible" : isClient ? "hidden" : "visible"}
         variants={variants}
         transition={{ duration: 0.8, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
       >
@@ -49,4 +49,5 @@ export function Reveal({
       </motion.div>
     </div>
   );
+
 }
