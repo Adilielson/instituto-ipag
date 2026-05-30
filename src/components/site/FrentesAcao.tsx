@@ -141,60 +141,61 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700" />
                 
                 <div className="relative z-10 flex flex-col h-full">
-                <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                
-                <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
-                  COMUNIDADE <br />GLOBAL
-                </h3>
-                
-                <p className="text-white/50 text-lg font-light leading-relaxed mb-12">
-                  Junte-se a milhares de doadores que já estão transformando realidades hoje.
-                </p>
-                
-                <div className="mt-auto">
-                  <div className="flex items-center mb-6">
-                    <div className="flex -space-x-4">
-                      {donorAvatars.map((url, i) => (
-                        <div key={i} className="w-12 h-12 rounded-full border-4 border-dark overflow-hidden bg-gray/20">
-                          <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
-                        </div>
-                      ))}
-                    </div>
-                    <div className="ml-4 bg-primary text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
-                      +12K
-                    </div>
+                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-primary/20">
+                    <Users className="w-8 h-8 text-white" />
                   </div>
                   
-                  <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] mb-12">
-                    APOIADORES ATIVOS
+                  <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
+                    COMUNIDADE <br />GLOBAL
+                  </h3>
+                  
+                  <p className="text-white/50 text-lg font-light leading-relaxed mb-12">
+                    Junte-se a milhares de doadores que já estão transformando realidades hoje.
                   </p>
                   
-                  {/* Navigation Buttons integrated into the fixed card */}
-                  <div className="flex gap-4">
-                    <button 
-                      onClick={() => scroll("left")}
-                      disabled={!canScrollLeft}
-                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
-                        canScrollLeft 
-                        ? "border-primary text-primary hover:bg-primary hover:text-white" 
-                        : "border-white/10 text-white/10 cursor-not-allowed"
-                      }`}
-                    >
-                      <ArrowLeft className="w-6 h-6" />
-                    </button>
-                    <button 
-                      onClick={() => scroll("right")}
-                      disabled={!canScrollRight}
-                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
-                        canScrollRight 
-                        ? "border-primary text-primary hover:bg-primary hover:text-white" 
-                        : "border-white/10 text-white/10 cursor-not-allowed"
-                      }`}
-                    >
-                      <ArrowRight className="w-6 h-6" />
-                    </button>
+                  <div className="mt-auto">
+                    <div className="flex items-center mb-6">
+                      <div className="flex -space-x-4">
+                        {donorAvatars.map((url, i) => (
+                          <div key={i} className="w-12 h-12 rounded-full border-4 border-dark overflow-hidden bg-gray/20">
+                            <img src={url} alt={`Doador ${i + 1}`} className="w-full h-full object-cover" />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="ml-4 bg-primary text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
+                        +12K
+                      </div>
+                    </div>
+                    
+                    <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] mb-12">
+                      APOIADORES ATIVOS
+                    </p>
+                    
+                    {/* Navigation Buttons integrated into the fixed card */}
+                    <div className="flex gap-4">
+                      <button 
+                        onClick={() => scroll("left")}
+                        disabled={!canScrollLeft}
+                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
+                          canScrollLeft 
+                          ? "border-primary text-primary hover:bg-primary hover:text-white" 
+                          : "border-white/10 text-white/10 cursor-not-allowed"
+                        }`}
+                      >
+                        <ArrowLeft className="w-6 h-6" />
+                      </button>
+                      <button 
+                        onClick={() => scroll("right")}
+                        disabled={!canScrollRight}
+                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all ${
+                          canScrollRight 
+                          ? "border-primary text-primary hover:bg-primary hover:text-white" 
+                          : "border-white/10 text-white/10 cursor-not-allowed"
+                        }`}
+                      >
+                        <ArrowRight className="w-6 h-6" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
