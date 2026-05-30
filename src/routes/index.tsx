@@ -368,6 +368,7 @@ function Home() {
         </div>
       </section>
 
+
       {/* PARTNERS - Premium Stripe */}
       <section className="py-32 bg-bg overflow-hidden">
         <div className="max-container text-center mb-20">
