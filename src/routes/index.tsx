@@ -22,11 +22,9 @@ export const Route = createFileRoute("/")({
         posts: (posts || [])?.slice(0, 3),
         eventos: (eventos || [])?.slice(0, 3)
       };
-
-      };
     } catch (e) {
       console.error("Loader error:", e);
-      return { projetos: [], posts: [] };
+      return { projetos: [], posts: [], eventos: [] };
     }
   },
   head: () => ({
