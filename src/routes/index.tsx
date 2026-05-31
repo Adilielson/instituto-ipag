@@ -223,8 +223,11 @@ function HomeHero({ heroRef }: { heroRef: any }) {
 
 function Home() {
   const heroRef = useRef(null);
-  const loaderData = Route.useLoaderData() || { projetos: [], posts: [] };
-
+  const { projetos = [], posts = [], eventos = [] } = Route.useLoaderData() || {};
+  
+  const validProjetos = (projetos || []).filter((p: any) => p && p.slug && p.titulo);
+  const validPosts = (posts || []).filter((p: any) => p && p.slug && p.titulo);
+  const validEventos = (eventos || []).filter((e: any) => e && e.slug && e.titulo);
 
   return (
     <div className="bg-white">
@@ -279,7 +282,7 @@ function Home() {
       </section>
 
       {/* FRENTES DE AÇÃO - New Carousel Layout */}
-      <FrentesAcao projetos={loaderData.projetos || []} />
+      <FrentesAcao projetos={validProjetos} />
 
       {/* QUEM SOMOS - Premium Editorial Storytelling */}
       <section className="py-56 bg-white overflow-hidden">
@@ -392,7 +395,7 @@ function Home() {
           </Reveal>
           
           <div className="grid gap-20 md:grid-cols-2 lg:grid-cols-3">
-            {loaderData.posts?.map((post: any, i: number) => (
+            {validPosts.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.15} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full">
                   <div className="aspect-[16/10] overflow-hidden rounded-[40px] mb-12 relative shadow-2xl">
@@ -432,7 +435,7 @@ function Home() {
       </section>
 
       {/* EVENTOS - Premium Preview */}
-      {loaderData.eventos && loaderData.eventos.length > 0 && (
+      {validEventos.length > 0 && (
         <section className="py-56 bg-[#F7F8FA]">
           <div className="max-container">
             <Reveal>
@@ -448,7 +451,7 @@ function Home() {
             </Reveal>
 
             <div className="grid gap-8 md:grid-cols-3">
-              {loaderData.eventos.map((e: any, i: number) => (
+              {validEventos.map((e: any, i: number) => (
                 <Reveal key={e.id} delay={i * 0.1} direction="up">
                   <div className="bg-white p-10 rounded-[40px] shadow-card-utility border border-black/5 hover:shadow-premium-utility transition-all duration-500 group h-full flex flex-col">
                     <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">

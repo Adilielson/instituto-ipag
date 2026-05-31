@@ -61,6 +61,9 @@ const ICON_MAP: Record<string, any> = {
 };
 
 function Projetos() {
+  const { projetos = [] } = Route.useLoaderData() || {};
+  const validProjetos = (projetos || []).filter((p: any) => p && p.slug && p.titulo);
+
   return (
     <>
       <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
@@ -78,7 +81,7 @@ function Projetos() {
 
       <section className="py-20 bg-white">
         <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {Route.useLoaderData().projetos?.map((p: any, i: number) => {
+          {validProjetos.map((p: any, i: number) => {
             const Icon = ICON_MAP[p.categoria as string] || HeartHandshake;
             return (
               <Reveal key={p.slug} delay={i * 0.1} direction="up">

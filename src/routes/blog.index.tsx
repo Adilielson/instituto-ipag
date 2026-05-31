@@ -50,6 +50,9 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function Blog() {
+  const { posts = [] } = Route.useLoaderData() || {};
+  const validPosts = (posts || []).filter((p: any) => p && p.slug && p.titulo);
+
   return (
     <>
       <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
@@ -80,7 +83,7 @@ function Blog() {
           </div>
 
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-            {Route.useLoaderData().posts?.map((post: any, i: number) => (
+            {validPosts.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.1} direction="up">
               <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full overflow-hidden rounded-[40px] border border-black/5 bg-white shadow-premium-utility transition-all duration-700 hover:shadow-warm-utility">
                 <div className="aspect-[16/10] overflow-hidden relative">

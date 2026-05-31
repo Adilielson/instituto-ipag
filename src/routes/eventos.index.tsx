@@ -49,6 +49,9 @@ export const Route = createFileRoute("/eventos/")({
 });
 
 function Eventos() {
+  const { eventos = [] } = Route.useLoaderData() || {};
+  const validEventos = (eventos || []).filter((e: any) => e && e.slug && e.titulo);
+
   return (
     <>
       <section className="gradient-flame-soft py-20 md:py-28">
@@ -64,7 +67,7 @@ function Eventos() {
 
       <section className="py-20">
         <div className="mx-auto max-w-5xl space-y-5 px-4 md:px-8">
-          {Route.useLoaderData().eventos?.map((e: any, i: number) => (
+          {validEventos.map((e: any, i: number) => (
             <Reveal key={e.id} delay={i * 0.08}>
               <Link 
                 to="/eventos/$slug" 
