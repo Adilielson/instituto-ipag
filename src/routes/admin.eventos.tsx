@@ -47,9 +47,10 @@ function AdminEventos() {
       setIsDialogOpen(false);
       resetForm();
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error("Erro ao criar evento.");
+    onError: (error: any) => {
+      console.error("Erro ao criar evento:", error);
+      const message = error?.message || "Erro desconhecido";
+      toast.error(`Erro ao criar evento: ${message}`);
     }
   });
 
@@ -61,9 +62,10 @@ function AdminEventos() {
       setIsDialogOpen(false);
       resetForm();
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error("Erro ao atualizar evento.");
+    onError: (error: any) => {
+      console.error("Erro ao atualizar evento:", error);
+      const message = error?.message || "Erro desconhecido";
+      toast.error(`Erro ao atualizar evento: ${message}`);
     }
   });
 
