@@ -23,7 +23,7 @@ function Blog() {
   return (
     <>
       <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
         <div className="max-container relative z-10">
           <Reveal>
             <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Editorial IPAG</span>
