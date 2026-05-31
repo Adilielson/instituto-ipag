@@ -46,7 +46,7 @@ function AdminEventos() {
                     </div>
                     <div className="min-w-0">
                       <p className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight group-hover:text-primary transition-colors">{e.title}</p>
-                      <p className="text-[10px] font-bold text-[#8E8E8F] truncate uppercase tracking-widest">{e.type || "Geral"}</p>
+                      <p className="text-[10px] font-bold text-[#8E8E8F] truncate uppercase tracking-widest">Geral</p>
                     </div>
                   </div>
                 </td>
