@@ -82,7 +82,9 @@ function AdminEventos() {
       data_evento: "",
       local: "",
       descricao: "",
-      status: "publicado"
+      status: "publicado",
+      imagem_destaque: "",
+      galeria: []
     });
     setEditingEvento(null);
   };
@@ -94,7 +96,9 @@ function AdminEventos() {
       data_evento: new Date(evento.data_evento).toISOString().slice(0, 16),
       local: evento.local,
       descricao: evento.descricao || "",
-      status: evento.status
+      status: evento.status,
+      imagem_destaque: evento.imagem_destaque || "",
+      galeria: evento.galeria || []
     });
     setIsDialogOpen(true);
   };
