@@ -383,19 +383,21 @@ function AdminBlog() {
           </thead>
           <tbody className="divide-y divide-border">
             {posts.map((p) => (
-              <tr key={p.id} className="group hover:bg-muted/50 transition-colors">
-                <td className="py-4 pr-4">
+              <tr key={p.id} className="group hover:bg-[#F7F8FA] transition-all duration-200 border-b border-black/[0.03] last:border-0">
+                <td className="py-5 pr-4">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-16 shrink-0 rounded-lg overflow-hidden bg-muted shadow-sm">
+                    <div className="h-14 w-20 shrink-0 rounded-2xl overflow-hidden bg-[#F7F8FA] border border-black/5 shadow-sm">
                       {p.imagem_destaque ? (
-                        <img src={p.imagem_destaque} className="h-full w-full object-cover" alt="" />
+                        <img src={p.imagem_destaque} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
                       ) : (
-                        <div className="h-full w-full flex items-center justify-center"><ImageIcon className="h-4 w-4 opacity-20" /></div>
+                        <div className="h-full w-full flex items-center justify-center"><ImageIcon className="h-5 w-5 opacity-20" /></div>
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className="font-bold text-sm truncate uppercase tracking-tight">{p.titulo}</p>
-                      <p className="text-[10px] text-muted-foreground truncate italic">{p.slug}</p>
+                      <p className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight group-hover:text-primary transition-colors">{p.titulo}</p>
+                      <p className="text-[10px] font-bold text-[#8E8E8F] truncate italic flex items-center gap-1">
+                        <Globe className="h-3 w-3" /> /{p.slug}
+                      </p>
                     </div>
                   </div>
                 </td>
