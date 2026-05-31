@@ -5,7 +5,7 @@ import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
 import { FrentesAcao } from "@/components/site/FrentesAcao";
 import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
-import { getProjetos, getPosts } from "@/lib/api/cms";
+import { getProjetos, getPosts, getEventos } from "@/lib/api/cms";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
