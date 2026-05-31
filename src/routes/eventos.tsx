@@ -3,11 +3,34 @@ import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/site/Reveal";
 import { getEventos } from "@/lib/api/cms";
+import { EVENTS } from "@/data/site";
 
 export const Route = createFileRoute("/eventos")({
   loader: async () => {
-    const eventos = await getEventos();
-    return { eventos };
+    try {
+      const eventos = await getEventos();
+      return { 
+        eventos: (eventos && eventos.length > 0) 
+          ? eventos 
+          : EVENTS.map((e, idx) => ({
+              id: String(idx),
+              titulo: e.title,
+              descricao: e.description,
+              data_evento: new Date().toISOString(),
+              local: e.place
+            }))
+      };
+    } catch {
+      return {
+        eventos: EVENTS.map((e, idx) => ({
+          id: String(idx),
+          titulo: e.title,
+          descricao: e.description,
+          data_evento: new Date().toISOString(),
+          local: e.place
+        }))
+      };
+    }
   },
   head: () => ({
     meta: [

@@ -2,11 +2,34 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { getProjetos } from "@/lib/api/cms";
+import { PROJECTS } from "@/data/site";
 
 export const Route = createFileRoute("/projetos")({
   loader: async () => {
-    const projetos = await getProjetos();
-    return { projetos };
+    try {
+      const projetos = await getProjetos();
+      return { 
+        projetos: (projetos && projetos.length > 0) 
+          ? projetos 
+          : PROJECTS.map(p => ({
+              titulo: p.title,
+              resumo: p.short,
+              categoria: "FORMAÇÃO",
+              slug: p.slug,
+              imagem_destaque: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"
+            }))
+      };
+    } catch {
+      return {
+        projetos: PROJECTS.map(p => ({
+          titulo: p.title,
+          resumo: p.short,
+          categoria: "FORMAÇÃO",
+          slug: p.slug,
+          imagem_destaque: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"
+        }))
+      };
+    }
   },
   head: () => ({
     meta: [

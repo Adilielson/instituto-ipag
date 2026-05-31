@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
 import { FrentesAcao } from "@/components/site/FrentesAcao";
-import { IMPACT_STATS, PARTNERS, SITE } from "@/data/site";
+import { IMPACT_STATS, PARTNERS, SITE, PROJECTS, POSTS, EVENTS } from "@/data/site";
 import { getProjetos, getPosts, getEventos } from "@/lib/api/cms";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -17,14 +17,67 @@ export const Route = createFileRoute("/")({
         getPosts().catch(() => []),
         getEventos().catch(() => [])
       ]);
+      
+      const finalProjetos = (projetos && projetos.length > 0) 
+        ? projetos 
+        : PROJECTS.map(p => ({
+            titulo: p.title,
+            resumo: p.short,
+            categoria: "FORMAÇÃO",
+            slug: p.slug,
+            imagem_destaque: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"
+          }));
+
+      const finalPosts = (posts && posts.length > 0) 
+        ? posts 
+        : POSTS.map(p => ({
+            titulo: p.title,
+            resumo: p.excerpt,
+            categoria: p.category,
+            slug: p.slug,
+            data_publicacao: new Date().toISOString()
+          }));
+
+      const finalEventos = (eventos && eventos.length > 0)
+        ? eventos
+        : EVENTS.map((e, idx) => ({
+            id: String(idx),
+            titulo: e.title,
+            descricao: e.description,
+            data_evento: new Date().toISOString(),
+            local: e.place
+          }));
+
       return { 
-        projetos: (projetos || [])?.slice(0, 10), 
-        posts: (posts || [])?.slice(0, 3),
-        eventos: (eventos || [])?.slice(0, 3)
+        projetos: finalProjetos.slice(0, 10), 
+        posts: finalPosts.slice(0, 3),
+        eventos: finalEventos.slice(0, 3)
       };
     } catch (e) {
       console.error("Loader error:", e);
-      return { projetos: [], posts: [], eventos: [] };
+      return { 
+        projetos: PROJECTS.map(p => ({
+          titulo: p.title,
+          resumo: p.short,
+          categoria: "FORMAÇÃO",
+          slug: p.slug,
+          imagem_destaque: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"
+        })).slice(0, 10), 
+        posts: POSTS.map(p => ({
+          titulo: p.title,
+          resumo: p.excerpt,
+          categoria: p.category,
+          slug: p.slug,
+          data_publicacao: new Date().toISOString()
+        })).slice(0, 3), 
+        eventos: EVENTS.map((e, idx) => ({
+          id: String(idx),
+          titulo: e.title,
+          descricao: e.description,
+          data_evento: new Date().toISOString(),
+          local: e.place
+        })).slice(0, 3) 
+      };
     }
   },
   head: () => ({
