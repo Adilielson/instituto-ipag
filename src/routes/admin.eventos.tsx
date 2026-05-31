@@ -95,12 +95,23 @@ function AdminEventos() {
 
   const handleEdit = (evento: any) => {
     setEditingEvento(evento);
+    
+    // Convert timestamp to datetime-local format (YYYY-MM-DDTHH:MM)
+    let formattedDate = "";
+    if (evento.data_evento) {
+      const date = new Date(evento.data_evento);
+      // Adjust for local timezone to match what the input expects
+      const offset = date.getTimezoneOffset() * 60000;
+      const localDate = new Date(date.getTime( ) - offset);
+      formattedDate = localDate.toISOString().slice(0, 16);
+    }
+
     setFormData({
       titulo: evento.titulo,
-      data_evento: new Date(evento.data_evento).toISOString().slice(0, 16),
-      local: evento.local,
+      data_evento: formattedDate,
+      local: evento.local || "",
       descricao: evento.descricao || "",
-      status: evento.status,
+      status: evento.status || "publicado",
       imagem_destaque: evento.imagem_destaque || "",
       galeria: evento.galeria || [],
       video_url: evento.video_url || ""
