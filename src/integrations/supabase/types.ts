@@ -133,9 +133,12 @@ export type Database = {
           categoria: string | null
           conteudo: string | null
           created_at: string
+          featured: boolean
           galeria: string[] | null
           id: string
           imagem_destaque: string | null
+          impacto: string | null
+          ordem: number
           resumo: string | null
           slug: string
           status: string
@@ -146,9 +149,12 @@ export type Database = {
           categoria?: string | null
           conteudo?: string | null
           created_at?: string
+          featured?: boolean
           galeria?: string[] | null
           id?: string
           imagem_destaque?: string | null
+          impacto?: string | null
+          ordem?: number
           resumo?: string | null
           slug: string
           status?: string
@@ -159,9 +165,12 @@ export type Database = {
           categoria?: string | null
           conteudo?: string | null
           created_at?: string
+          featured?: boolean
           galeria?: string[] | null
           id?: string
           imagem_destaque?: string | null
+          impacto?: string | null
+          ordem?: number
           resumo?: string | null
           slug?: string
           status?: string
