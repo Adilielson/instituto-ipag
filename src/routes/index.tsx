@@ -220,7 +220,7 @@ function Home() {
                   alt="Nossa Essência" 
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:opacity-90"
                 />
-                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               </div>
               <motion.div 
                 initial={{ x: 50, opacity: 0 }}
