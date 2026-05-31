@@ -25,7 +25,7 @@ const ADMIN_NAV = [
 function AdminLayout() {
   return (
     <div className="min-h-screen bg-muted/30">
-      <div className="mx-auto flex max-w-7xl gap-6 px-4 py-8 md:px-8">
+      <div className="flex w-full gap-6 px-4 py-8 md:px-8">
         <aside className="hidden w-64 shrink-0 rounded-2xl border border-border bg-background p-4 shadow-card-utility lg:block">
           <div className="rounded-xl gradient-flame p-4 text-primary-foreground">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
