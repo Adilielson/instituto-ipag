@@ -1,13 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { getProjetos } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 import { PROJECTS } from "@/data/site";
 
 export const Route = createFileRoute("/projetos")({
   loader: async () => {
     try {
-      const projetos = await getProjetos();
+      const { data: projetos, error } = await supabase
+        .from("projetos")
+        .select("*")
+        .eq("status", "publicado")
+        .order("ordem", { ascending: true })
+        .order("created_at", { ascending: false });
+      
+      if (error) throw error;
+      
       return { 
         projetos: (projetos && projetos.length > 0) 
           ? projetos 

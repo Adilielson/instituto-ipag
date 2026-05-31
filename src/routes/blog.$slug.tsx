@@ -2,14 +2,26 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { motion } from "framer-motion";
-import { getPostBySlug, getPosts } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
-    const post = await getPostBySlug({ data: { slug: params.slug } });
-    const allPosts = await getPosts();
-    const relatedPosts = (allPosts || []).filter((p: any) => p.slug !== params.slug && p.categoria === post?.categoria).slice(0, 3);
-    if (!post) throw notFound();
+    const { data: post, error: postErr } = await supabase
+      .from("posts")
+      .select("*")
+      .eq("slug", params.slug)
+      .eq("status", "publicado")
+      .maybeSingle();
+      
+    if (postErr || !post) throw notFound();
+    
+    const { data: allPosts } = await supabase
+      .from("posts")
+      .select("*")
+      .eq("status", "publicado")
+      .order("data_publicacao", { ascending: false });
+      
+    const relatedPosts = (allPosts || []).filter((p: any) => p.slug !== params.slug && p.categoria === post.categoria).slice(0, 3);
     return { post, relatedPosts };
   },
   head: ({ loaderData }) => ({

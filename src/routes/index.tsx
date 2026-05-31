@@ -5,18 +5,38 @@ import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
 import { FrentesAcao } from "@/components/site/FrentesAcao";
 import { IMPACT_STATS, PARTNERS, SITE, PROJECTS, POSTS, EVENTS } from "@/data/site";
-import { getProjetos, getPosts, getEventos } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
     try {
-      const [projetos, posts, eventos] = await Promise.all([
-        getProjetos().catch(() => []),
-        getPosts().catch(() => []),
-        getEventos().catch(() => [])
+      const [projetosRes, postsRes, eventosRes] = await Promise.all([
+        supabase
+          .from("projetos")
+          .select("*")
+          .eq("status", "publicado")
+          .order("ordem", { ascending: true })
+          .order("created_at", { ascending: false }),
+        supabase
+          .from("posts")
+          .select("*")
+          .eq("status", "publicado")
+          .order("data_publicacao", { ascending: false }),
+        supabase
+          .from("eventos")
+          .select("*")
+          .order("data_evento", { ascending: true })
       ]);
+      
+      if (projetosRes.error) throw projetosRes.error;
+      if (postsRes.error) throw postsRes.error;
+      if (eventosRes.error) throw eventosRes.error;
+
+      const projetos = projetosRes.data;
+      const posts = postsRes.data;
+      const eventos = eventosRes.data;
       
       const finalProjetos = (projetos && projetos.length > 0) 
         ? projetos 

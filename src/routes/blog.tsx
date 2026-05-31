@@ -1,13 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { getPosts } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 import { POSTS } from "@/data/site";
 
 export const Route = createFileRoute("/blog")({
   loader: async () => {
     try {
-      const posts = await getPosts();
+      const { data: posts, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("status", "publicado")
+        .order("data_publicacao", { ascending: false });
+      
+      if (error) throw error;
+      
       return { 
         posts: (posts && posts.length > 0) 
           ? posts 

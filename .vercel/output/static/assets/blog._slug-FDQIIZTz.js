@@ -1,0 +1,1 @@
+import{F as o,b as t}from"./index-qklyM56Q.js";const e=()=>o.jsxs("div",{className:"mx-auto max-w-3xl px-4 py-24 text-center",children:[o.jsx("h1",{className:"text-3xl font-bold",children:"Post não encontrado"}),o.jsx(t,{to:"/blog",className:"mt-6 inline-block text-primary",children:"← Voltar ao blog"})]});export{e as notFoundComponent};

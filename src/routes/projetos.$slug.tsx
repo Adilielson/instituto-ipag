@@ -2,12 +2,18 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, HeartHandshake, Music, GraduationCap, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
-import { getProjetoBySlug } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/projetos/$slug")({
   loader: async ({ params }) => {
-    const project = await getProjetoBySlug({ data: { slug: params.slug } });
-    if (!project) throw notFound();
+    const { data: project, error } = await supabase
+      .from("projetos")
+      .select("*")
+      .eq("slug", params.slug)
+      .eq("status", "publicado")
+      .maybeSingle();
+      
+    if (error || !project) throw notFound();
     return { project };
   },
   head: ({ loaderData }) => ({

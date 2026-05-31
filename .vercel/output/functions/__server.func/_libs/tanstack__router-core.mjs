@@ -1207,9 +1207,6 @@ function isRedirect(obj) {
 function isResolvedRedirect(obj) {
   return isRedirect(obj) && !!obj.options.href;
 }
-function parseRedirect(obj) {
-  if (obj !== null && typeof obj === "object" && obj.isSerializedRedirect) return redirect(obj);
-}
 const triggerOnReady = (inner) => {
   if (!inner.rendered) {
     inner.rendered = true;
@@ -4693,16 +4690,15 @@ export {
   mergeHeaders as G,
   normalizeSsrResponse as H,
   notFound as I,
-  parseRedirect as J,
-  removeTrailingSlash as K,
-  replaceSsrResponse as L,
-  resolveManifestAssetLink as M,
-  resolveManifestCssLink as N,
-  rootRouteId as O,
-  stripSsrResponseBody as P,
-  transformPipeableStreamWithRouter as Q,
+  removeTrailingSlash as J,
+  replaceSsrResponse as K,
+  resolveManifestAssetLink as L,
+  resolveManifestCssLink as M,
+  rootRouteId as N,
+  stripSsrResponseBody as O,
+  transformPipeableStreamWithRouter as P,
+  transformReadableStreamWithRouter as Q,
   RouterCore as R,
-  transformReadableStreamWithRouter as S,
   BaseRoute as a,
   appendUniqueUserTags as b,
   attachRouterServerSsrUtils as c,
