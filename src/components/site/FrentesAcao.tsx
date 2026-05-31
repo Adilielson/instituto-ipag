@@ -145,7 +145,7 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                       <h3 className="text-2xl font-black text-dark mb-4 uppercase tracking-tight">
                         {p.titulo}
                       </h3>
-                      <p className="text-gray/70 mb-10 line-clamp-3 font-light text-lg leading-relaxed">
+                      <p className="text-gray/70 mb-8 md:mb-10 line-clamp-3 font-light text-base md:text-lg leading-relaxed">
                         {p.resumo}
                       </p>
                       

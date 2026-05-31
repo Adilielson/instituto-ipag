@@ -84,7 +84,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           alt="IPAG Background" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
       </motion.div>
 
       <div className="max-container relative z-10 pt-20">
@@ -140,7 +140,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
       >
         <div className="flex flex-col items-center gap-4">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 rotate-180 [writing-mode:vertical-lr]">SCROLL</span>
-          <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-primary/50 to-transparent" />
+          <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-primary/50 to-transparent"></div>
         </div>
       </motion.div>
     </>
@@ -161,8 +161,8 @@ function Home() {
 
       {/* IMPACTO - Premium Institutional Style */}
       <section className="py-48 bg-dark relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-primary/3 skew-x-12 -translate-x-1/2 blur-3xl" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-primary/3 skew-x-12 -translate-x-1/2 blur-3xl"></div>
         
         <div className="max-container relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.5fr] gap-32 items-start">
@@ -220,7 +220,7 @@ function Home() {
                   alt="Nossa Essência" 
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:opacity-90"
                 />
-                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               </div>
               <motion.div 
                 initial={{ x: 50, opacity: 0 }}
@@ -244,7 +244,7 @@ function Home() {
                   O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes de promover desenvolvimento, inclusão e dignidade humana em São Mateus. 
                 </p>
                 <div className="relative pl-12 py-4">
-                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-primary/50 to-transparent" />
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-primary/50 to-transparent"></div>
                   <p className="font-bold text-dark italic text-3xl tracking-tight leading-tight">
                     "Nossa missão não é apenas assistir, mas restaurar o protagonismo humano."
                   </p>
@@ -265,16 +265,16 @@ function Home() {
       <section className="py-24 bg-bg">
         <div className="max-container">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[500px] md:min-h-[700px] flex items-center p-8 md:p-32 shadow-2xl group">
+            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[450px] md:min-h-[700px] flex items-center p-6 md:p-32 shadow-2xl group">
               <div className="absolute inset-0 z-0">
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  src="https://i.ibb.co/KpnYrxHV/image.png" 
+                  src="https://i.ibb.co/67Zz2x7p/image.png" 
                   alt="Bazar Solidário" 
                   className="w-full h-full object-cover opacity-40 md:opacity-40"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent"></div>
               </div>
 
               <div className="relative z-10 max-w-4xl">
@@ -285,10 +285,10 @@ function Home() {
                    <span className="text-primary font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">Apoio Direto & Sustentabilidade</span>
                 </div>
                 
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-8 md:mb-12 uppercase leading-[0.9] tracking-tighter">
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter">
                   TRANSFORME <br />O DESAPEGO EM <br /><span className="text-primary">ESPERANÇA</span>
                 </h2>
-                <p className="text-lg md:text-3xl text-white/50 mb-10 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight">
+                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight">
                   Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
                 </p>
                 <div className="flex flex-wrap gap-6 md:gap-8">
