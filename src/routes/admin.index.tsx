@@ -17,7 +17,7 @@ function AdminHome() {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Welcome Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-white border border-black/5 p-8 shadow-premium-utility">
+      <div className="relative overflow-hidden rounded-3xl bg-white border border-black/5 p-8 shadow-premium-utility hover:shadow-[0_20px_50px_-12px_rgba(247,155,52,0.15)] transition-shadow duration-500">
         <div className="relative z-10">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-primary mb-2">Visão Geral do Sistema</p>
           <h1 className="text-4xl font-black tracking-tight text-[#2A2A2B] mb-3">
@@ -58,7 +58,7 @@ function AdminHome() {
 
       {/* Quick Actions / Recent Activity Placeholder */}
       <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 rounded-3xl bg-white border border-black/5 p-8 shadow-card-utility">
+        <div className="lg:col-span-2 rounded-3xl bg-white border border-black/5 p-8 shadow-premium-utility">
           <div className="flex items-center justify-between mb-8 border-b border-black/5 pb-4">
             <h3 className="text-lg font-black uppercase tracking-tight">Atividade Recente</h3>
             <button className="text-xs font-black uppercase tracking-widest text-primary hover:opacity-70 transition-opacity">Ver Tudo</button>
