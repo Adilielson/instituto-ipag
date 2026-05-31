@@ -2,13 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/site/Reveal";
-import { getEventos } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 import { EVENTS } from "@/data/site";
 
 export const Route = createFileRoute("/eventos")({
   loader: async () => {
     try {
-      const eventos = await getEventos();
+      const { data: eventos, error } = await supabase
+        .from("eventos")
+        .select("*")
+        .order("data_evento", { ascending: true });
+      
+      if (error) throw error;
+      
       return { 
         eventos: (eventos && eventos.length > 0) 
           ? eventos 

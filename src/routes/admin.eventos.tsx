@@ -3,7 +3,6 @@ import { Plus, Search, Calendar, MapPin, Edit2, Trash2, Loader2, X, Image as Ima
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useMemo } from "react";
-import { getEventos, createEvento, updateEvento, deleteEvento } from "@/lib/api/cms";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -36,11 +35,26 @@ function AdminEventos() {
 
   const { data: eventos, isLoading } = useQuery({
     queryKey: ["eventos"],
-    queryFn: () => getEventos(),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("eventos")
+        .select("*")
+        .order("data_evento", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: any) => createEvento({ data }),
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from("eventos")
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw error;
+      return result;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["eventos"] });
       toast.success("Evento criado com sucesso!");
@@ -55,7 +69,17 @@ function AdminEventos() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (data: any) => updateEvento({ data }),
+    mutationFn: async (data: any) => {
+      const { id, ...updates } = data;
+      const { data: result, error } = await supabase
+        .from("eventos")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) throw error;
+      return result;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["eventos"] });
       toast.success("Evento atualizado com sucesso!");
@@ -70,12 +94,19 @@ function AdminEventos() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => deleteEvento({ data: { id } }),
+    mutationFn: async (id: string) => {
+      const { error } = await supabase
+        .from("eventos")
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
+      return { success: true };
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["eventos"] });
       toast.success("Evento excluído com sucesso!");
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error(error);
       toast.error("Erro ao excluir evento.");
     }
@@ -367,32 +398,39 @@ function AdminEventos() {
                     </button>
                   </div>
                 ))}
-                {formData.galeria.length < 10 && (
+                {formData.galeria.length < 30 && (
                   <label className="flex items-center justify-center aspect-square rounded-lg border-2 border-dashed border-black/5 bg-[#F7F8FA] cursor-pointer hover:bg-black/[0.02] transition-colors">
                     <Plus className="h-5 w-5 text-[#8E8E8F]" />
                     <input 
                       type="file" 
                       className="hidden" 
                       accept="image/*"
+                      multiple
                       onChange={async (e) => {
-                        const file = e.target.files?.[0];
-                        if (!file) return;
+                        const files = Array.from(e.target.files || []);
+                        if (files.length === 0) return;
                         
-                        const toastId = toast.loading("Enviando imagem...");
+                        const toastId = toast.loading(`Enviando ${files.length} imagem(ns)...`);
                         try {
-                          const fileExt = file.name.split(".").pop();
-                          const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-                          const { error } = await supabase.storage.from("event-assets").upload(fileName, file);
-                          if (error) throw error;
+                          const uploadPromises = files.map(async (file) => {
+                            const fileExt = file.name.split(".").pop();
+                            const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+                            const { error } = await supabase.storage.from("event-assets").upload(fileName, file);
+                            if (error) throw error;
+                            
+                            const { data: { publicUrl } } = supabase.storage.from("event-assets").getPublicUrl(fileName);
+                            return publicUrl;
+                          });
                           
-                          const { data: { publicUrl } } = supabase.storage.from("event-assets").getPublicUrl(fileName);
+                          const publicUrls = await Promise.all(uploadPromises);
+                          
                           setFormData(prev => ({
                             ...prev,
-                            galeria: [...prev.galeria, publicUrl].slice(0, 10)
+                            galeria: [...prev.galeria, ...publicUrls].slice(0, 30)
                           }));
-                          toast.success("Imagem adicionada à galeria!", { id: toastId });
+                          toast.success(`${files.length} imagem(ns) adicionada(s) à galeria!`, { id: toastId });
                         } catch (err: any) {
-                          toast.error(`Erro: ${err.message}`, { id: toastId });
+                          toast.error(`Erro no envio: ${err.message}`, { id: toastId });
                         }
                       }}
                     />

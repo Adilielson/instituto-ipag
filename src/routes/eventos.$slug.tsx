@@ -1,13 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar, MapPin, ArrowLeft, Share2, Clock } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { getEventoBySlug } from "@/lib/api/cms";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/eventos/$slug")({
   loader: async ({ params }) => {
-    const evento = await getEventoBySlug({ data: { slug: params.slug } });
-    if (!evento) throw new Error("Evento não encontrado");
+    const { data: evento, error } = await supabase
+      .from("eventos")
+      .select("*")
+      .eq("slug", params.slug)
+      .maybeSingle();
+      
+    if (error || !evento) throw new Error("Evento não encontrado");
     return { evento };
   },
   head: ({ loaderData }) => ({
