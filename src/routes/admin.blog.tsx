@@ -359,13 +359,15 @@ function AdminBlog() {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
-      <div className="flex items-center justify-between mb-8 border-b pb-6">
+    <div className="rounded-3xl bg-white border border-black/5 p-8 shadow-card-utility animate-in fade-in duration-500">
+      <div className="flex items-center justify-between mb-10 border-b border-black/5 pb-6">
         <div>
-          <h1 className="text-2xl font-black uppercase tracking-tight">Gestão do Blog</h1>
-          <p className="text-sm text-muted-foreground">Crie, edite e gerencie os artigos do IPAG.</p>
+          <h1 className="text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Gestão do Blog</h1>
+          <p className="text-sm font-medium text-[#8E8E8F]">Crie, edite e gerencie os artigos do IPAG com facilidade.</p>
         </div>
-        <Button onClick={handleCreate} className="gf-button-primary"><Plus className="mr-2 h-4 w-4" /> Novo Post</Button>
+        <Button onClick={handleCreate} className="gf-button-primary shadow-warm-utility hover:scale-105 transition-transform">
+          <Plus className="mr-2 h-4 w-4" /> Novo Post
+        </Button>
       </div>
 
       <div className="overflow-x-auto">
