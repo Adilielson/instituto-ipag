@@ -16,5 +16,10 @@ export default defineConfig({
   // that Vercel auto-detects (Build Output API). No vercel.json routes needed.
   nitro: {
     preset: "vercel",
+    output: {
+      dir: ".vercel/output",
+      serverDir: ".vercel/output/functions",
+      publicDir: ".vercel/output/static",
+    },
   },
 });
