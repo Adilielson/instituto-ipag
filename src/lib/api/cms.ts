@@ -7,6 +7,7 @@ export const getProjetos = createServerFn({ method: "GET" }).handler(async () =>
     .from("projetos")
     .select("*")
     .eq("status", "publicado")
+    .order("ordem", { ascending: true })
     .order("created_at", { ascending: false });
   
   if (error) throw error;
