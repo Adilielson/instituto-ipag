@@ -126,7 +126,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
                   CONHEÇA NOSSAS FRENTES <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="gf-button border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-12 py-7 transition-all duration-300">
+              <Button asChild variant="outline" className="gf-button bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-12 py-7 transition-all duration-300">
                 <Link to="/quem-somos" className="text-base tracking-widest uppercase">NOSSA HISTÓRIA</Link>
               </Button>
             </div>
