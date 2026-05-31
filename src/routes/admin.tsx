@@ -31,7 +31,7 @@ function AdminLayout() {
     <div className="min-h-screen bg-[#F7F8FA] flex text-[#2A2A2B] p-6 gap-16">
       {/* Sidebar */}
       <aside 
-        className={`fixed inset-y-0 left-6 z-50 w-72 my-6 bg-[#2A2A2B] border border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 rounded-[40px] shadow-premium-utility ${
+        className={`fixed inset-y-0 left-6 z-50 w-72 h-[calc(100vh-48px)] my-6 bg-[#2A2A2B] border border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 rounded-[40px] shadow-premium-utility ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-[calc(100%+24px)]"
         }`}
       >
