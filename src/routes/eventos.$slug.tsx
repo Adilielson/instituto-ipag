@@ -61,6 +61,22 @@ function EventoPage() {
             </div>
           </Reveal>
 
+          {/* Vídeo */}
+          {evento.video_url && (
+            <Reveal delay={0.3}>
+              <section className="pt-12">
+                <h2 className="mb-8 text-2xl font-black uppercase tracking-tight">Vídeo do Evento</h2>
+                <div className="relative aspect-video overflow-hidden rounded-[32px] border border-black/5 bg-black shadow-premium">
+                  <video 
+                    src={evento.video_url} 
+                    controls 
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              </section>
+            </Reveal>
+          )}
+
           {/* Galeria */}
           {evento.galeria && evento.galeria.length > 0 && (
             <Reveal delay={0.4}>
