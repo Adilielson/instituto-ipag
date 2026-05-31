@@ -84,7 +84,10 @@ export const createEvento = createServerFn({ method: "POST" })
     data_evento: z.string(),
     local: z.string(),
     descricao: z.string().optional(),
-    status: z.string().default("publicado")
+    status: z.string().default("publicado"),
+    imagem_destaque: z.string().optional(),
+    galeria: z.array(z.string()).optional(),
+    video_url: z.string().optional()
   }))
   .handler(async ({ data }) => {
     const { data: evento, error } = await supabase
@@ -105,7 +108,10 @@ export const updateEvento = createServerFn({ method: "POST" })
     data_evento: z.string(),
     local: z.string(),
     descricao: z.string().optional(),
-    status: z.string()
+    status: z.string(),
+    imagem_destaque: z.string().optional(),
+    galeria: z.array(z.string()).optional(),
+    video_url: z.string().optional()
   }))
   .handler(async ({ data }) => {
     const { id, ...updates } = data;

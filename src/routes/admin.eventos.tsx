@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Search, Calendar, MapPin, Edit2, Trash2, Loader2, X } from "lucide-react";
+import { Plus, Search, Calendar, MapPin, Edit2, Trash2, Loader2, X, Image as ImageIcon, Film } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useMemo } from "react";
@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { FileUpload } from "@/components/admin/FileUpload";
 
 export const Route = createFileRoute("/admin/eventos")({ 
   component: AdminEventos 
@@ -28,7 +29,8 @@ function AdminEventos() {
     descricao: "",
     status: "publicado",
     imagem_destaque: "",
-    galeria: [] as string[]
+    galeria: [] as string[],
+    video_url: ""
   });
 
   const { data: eventos, isLoading } = useQuery({
@@ -84,7 +86,8 @@ function AdminEventos() {
       descricao: "",
       status: "publicado",
       imagem_destaque: "",
-      galeria: []
+      galeria: [],
+      video_url: ""
     });
     setEditingEvento(null);
   };
@@ -98,7 +101,8 @@ function AdminEventos() {
       descricao: evento.descricao || "",
       status: evento.status,
       imagem_destaque: evento.imagem_destaque || "",
-      galeria: evento.galeria || []
+      galeria: evento.galeria || [],
+      video_url: evento.video_url || ""
     });
     setIsDialogOpen(true);
   };
@@ -304,24 +308,72 @@ function AdminEventos() {
                 className="min-h-[100px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="imagem_destaque" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">URL da Imagem de Destaque</Label>
-              <Input 
-                id="imagem_destaque" 
+            <div className="grid grid-cols-2 gap-4">
+              <FileUpload 
+                label="Imagem de Destaque"
                 value={formData.imagem_destaque}
-                onChange={(e) => setFormData({...formData, imagem_destaque: e.target.value})}
-                placeholder="https://exemplo.com/imagem.jpg"
-                className="h-12 bg-[#F7F8FA] border-black/5 rounded-xl font-bold"
+                onUploadComplete={(url) => setFormData({...formData, imagem_destaque: url})}
+                onRemove={() => setFormData({...formData, imagem_destaque: ""})}
+                type="image"
+              />
+              <FileUpload 
+                label="Vídeo do Evento"
+                value={formData.video_url}
+                onUploadComplete={(url) => setFormData({...formData, video_url: url})}
+                onRemove={() => setFormData({...formData, video_url: ""})}
+                type="video"
+                accept="video/*"
               />
             </div>
-            <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Galeria (URLs separadas por vírgula)</Label>
-              <Textarea 
-                value={formData.galeria.join(', ')}
-                onChange={(e) => setFormData({...formData, galeria: e.target.value.split(',').map(s => s.trim()).filter(s => s !== '')})}
-                placeholder="URL1, URL2, URL3..."
-                className="min-h-[80px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
-              />
+
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Galeria de Fotos</Label>
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                {formData.galeria.map((url, index) => (
+                  <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border border-black/5">
+                    <img src={url} alt={`Galeria ${index}`} className="w-full h-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => setFormData({
+                        ...formData,
+                        galeria: formData.galeria.filter((_, i) => i !== index)
+                      })}
+                      className="absolute top-1 right-1 p-1 bg-white/90 rounded-md shadow-sm opacity-0 group-hover:opacity-100 transition-opacity text-destructive"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                ))}
+                <label className="flex items-center justify-center aspect-square rounded-lg border-2 border-dashed border-black/5 bg-[#F7F8FA] cursor-pointer hover:bg-black/[0.02] transition-colors">
+                  <Plus className="h-5 w-5 text-[#8E8E8F]" />
+                  <input 
+                    type="file" 
+                    className="hidden" 
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      
+                      const toastId = toast.loading("Enviando imagem...");
+                      try {
+                        const fileExt = file.name.split(".").pop();
+                        const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+                        const { error } = await supabase.storage.from("event-assets").upload(fileName, file);
+                        if (error) throw error;
+                        
+                        const { data: { publicUrl } } = supabase.storage.from("event-assets").getPublicUrl(fileName);
+                        setFormData({
+                          ...formData,
+                          galeria: [...formData.galeria, publicUrl]
+                        });
+                        toast.success("Imagem adicionada à galeria!", { id: toastId });
+                      } catch (err: any) {
+                        toast.error(`Erro: ${err.message}`, { id: toastId });
+                      }
+                    }}
+                  />
+                </label>
+              </div>
             </div>
             <DialogFooter className="pt-4">
               <Button type="button" variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-xl font-bold uppercase tracking-wider text-xs">
