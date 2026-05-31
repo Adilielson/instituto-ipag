@@ -53,7 +53,7 @@ function AdminEventos() {
                 <td className="py-5 pr-4">
                   <div className="flex flex-col">
                     <span className="text-xs font-black text-[#2A2A2B]">{e.date}</span>
-                    <span className="text-[10px] font-bold text-[#8E8E8F] uppercase tracking-wider">{e.time || "14:00"}</span>
+                    <span className="text-[10px] font-bold text-[#8E8E8F] uppercase tracking-wider">14:00</span>
                   </div>
                 </td>
                 <td className="py-5 pr-4">
