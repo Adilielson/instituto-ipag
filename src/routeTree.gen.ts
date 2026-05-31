@@ -21,6 +21,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
+import { Route as EventosSlugRouteImport } from './routes/eventos.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
 import { Route as AdminTransparenciaRouteImport } from './routes/admin.transparencia'
@@ -89,6 +90,11 @@ const ProjetosSlugRoute = ProjetosSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProjetosRoute,
 } as any)
+const EventosSlugRoute = EventosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => EventosRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -131,7 +137,7 @@ export interface FileRoutesByFullPath {
   '/bazar': typeof BazarRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
-  '/eventos': typeof EventosRoute
+  '/eventos': typeof EventosRouteWithChildren
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/admin/transparencia': typeof AdminTransparenciaRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -151,7 +158,7 @@ export interface FileRoutesByTo {
   '/bazar': typeof BazarRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
-  '/eventos': typeof EventosRoute
+  '/eventos': typeof EventosRouteWithChildren
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/admin/transparencia': typeof AdminTransparenciaRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -173,7 +181,7 @@ export interface FileRoutesById {
   '/bazar': typeof BazarRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
-  '/eventos': typeof EventosRoute
+  '/eventos': typeof EventosRouteWithChildren
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/admin/transparencia': typeof AdminTransparenciaRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -208,6 +217,7 @@ export interface FileRouteTypes {
     | '/admin/transparencia'
     | '/admin/usuarios'
     | '/blog/$slug'
+    | '/eventos/$slug'
     | '/projetos/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/admin/transparencia'
     | '/admin/usuarios'
     | '/blog/$slug'
+    | '/eventos/$slug'
     | '/projetos/$slug'
     | '/admin'
   id:
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/admin/transparencia'
     | '/admin/usuarios'
     | '/blog/$slug'
+    | '/eventos/$slug'
     | '/projetos/$slug'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -259,7 +271,7 @@ export interface RootRouteChildren {
   BazarRoute: typeof BazarRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContatoRoute: typeof ContatoRoute
-  EventosRoute: typeof EventosRoute
+  EventosRoute: typeof EventosRouteWithChildren
   ParceirosRoute: typeof ParceirosRoute
   ProjetosRoute: typeof ProjetosRouteWithChildren
   QuemSomosRoute: typeof QuemSomosRoute
@@ -352,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjetosSlugRouteImport
       parentRoute: typeof ProjetosRoute
     }
+    '/eventos/$slug': {
+      id: '/eventos/$slug'
+      path: '/$slug'
+      fullPath: '/eventos/$slug'
+      preLoaderRoute: typeof EventosSlugRouteImport
+      parentRoute: typeof EventosRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -436,6 +455,17 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface EventosRouteChildren {
+  EventosSlugRoute: typeof EventosSlugRoute
+}
+
+const EventosRouteChildren: EventosRouteChildren = {
+  EventosSlugRoute: EventosSlugRoute,
+}
+
+const EventosRouteWithChildren =
+  EventosRoute._addFileChildren(EventosRouteChildren)
+
 interface ProjetosRouteChildren {
   ProjetosSlugRoute: typeof ProjetosSlugRoute
 }
@@ -454,7 +484,7 @@ const rootRouteChildren: RootRouteChildren = {
   BazarRoute: BazarRoute,
   BlogRoute: BlogRouteWithChildren,
   ContatoRoute: ContatoRoute,
-  EventosRoute: EventosRoute,
+  EventosRoute: EventosRouteWithChildren,
   ParceirosRoute: ParceirosRoute,
   ProjetosRoute: ProjetosRouteWithChildren,
   QuemSomosRoute: QuemSomosRoute,

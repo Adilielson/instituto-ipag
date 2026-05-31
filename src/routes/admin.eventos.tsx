@@ -26,7 +26,9 @@ function AdminEventos() {
     data_evento: "",
     local: "",
     descricao: "",
-    status: "publicado"
+    status: "publicado",
+    imagem_destaque: "",
+    galeria: [] as string[]
   });
 
   const { data: eventos, isLoading } = useQuery({
@@ -80,7 +82,9 @@ function AdminEventos() {
       data_evento: "",
       local: "",
       descricao: "",
-      status: "publicado"
+      status: "publicado",
+      imagem_destaque: "",
+      galeria: []
     });
     setEditingEvento(null);
   };
@@ -92,7 +96,9 @@ function AdminEventos() {
       data_evento: new Date(evento.data_evento).toISOString().slice(0, 16),
       local: evento.local,
       descricao: evento.descricao || "",
-      status: evento.status
+      status: evento.status,
+      imagem_destaque: evento.imagem_destaque || "",
+      galeria: evento.galeria || []
     });
     setIsDialogOpen(true);
   };
@@ -159,10 +165,11 @@ function AdminEventos() {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-black/5 text-[10px] font-black uppercase tracking-[0.2em] text-[#8E8E8F]">
-                <th className="pb-4 pr-4">Evento / Detalhes</th>
-                <th className="pb-4 pr-4">Data e Hora</th>
-                <th className="pb-4 pr-4">Local</th>
-                <th className="pb-4 text-right">Ações</th>
+              <th className="pb-4 pr-4">Evento / Detalhes</th>
+              <th className="pb-4 pr-4">Imagens</th>
+              <th className="pb-4 pr-4">Data e Hora</th>
+              <th className="pb-4 pr-4">Local</th>
+              <th className="pb-4 text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-black/[0.03]">
@@ -177,6 +184,23 @@ function AdminEventos() {
                         <p className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight group-hover:text-primary transition-colors">{e.titulo}</p>
                         <p className="text-[10px] font-bold text-[#8E8E8F] truncate uppercase tracking-widest">{e.status}</p>
                       </div>
+                    </div>
+                  </td>
+                  <td className="py-5 pr-4">
+                    <div className="flex -space-x-2">
+                      {e.galeria?.slice(0, 3).map((img: string, idx: number) => (
+                        <div key={idx} className="h-8 w-8 rounded-lg border-2 border-white overflow-hidden bg-gray-100">
+                          <img src={img} className="h-full w-full object-cover" alt="" />
+                        </div>
+                      ))}
+                      {e.galeria?.length > 3 && (
+                        <div className="h-8 w-8 rounded-lg border-2 border-white bg-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500">
+                          +{e.galeria.length - 3}
+                        </div>
+                      )}
+                      {(!e.galeria || e.galeria.length === 0) && (
+                        <span className="text-[10px] text-gray-300 font-bold uppercase">Sem fotos</span>
+                      )}
                     </div>
                   </td>
                   <td className="py-5 pr-4">
@@ -278,6 +302,25 @@ function AdminEventos() {
                 value={formData.descricao}
                 onChange={(e) => setFormData({...formData, descricao: e.target.value})}
                 className="min-h-[100px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="imagem_destaque" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">URL da Imagem de Destaque</Label>
+              <Input 
+                id="imagem_destaque" 
+                value={formData.imagem_destaque}
+                onChange={(e) => setFormData({...formData, imagem_destaque: e.target.value})}
+                placeholder="https://exemplo.com/imagem.jpg"
+                className="h-12 bg-[#F7F8FA] border-black/5 rounded-xl font-bold"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Galeria (URLs separadas por vírgula)</Label>
+              <Textarea 
+                value={formData.galeria.join(', ')}
+                onChange={(e) => setFormData({...formData, galeria: e.target.value.split(',').map(s => s.trim()).filter(s => s !== '')})}
+                placeholder="URL1, URL2, URL3..."
+                className="min-h-[80px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
               />
             </div>
             <DialogFooter className="pt-4">

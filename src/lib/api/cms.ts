@@ -63,6 +63,20 @@ export const getEventos = createServerFn({ method: "GET" }).handler(async () => 
   return data;
 });
 
+export const getEventoBySlug = createServerFn({ method: "GET" })
+  .inputValidator(z.object({ slug: z.string() }))
+  .handler(async ({ data }) => {
+    const { data: evento, error } = await supabase
+      .from("eventos")
+      .select("*")
+      .eq("slug", data.slug)
+      .eq("status", "publicado")
+      .single();
+    
+    if (error) throw error;
+    return evento;
+  });
+
 export const createEvento = createServerFn({ method: "POST" })
   .inputValidator(z.object({
     titulo: z.string(),
