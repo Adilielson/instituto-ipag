@@ -28,11 +28,11 @@ function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA] flex text-[#2A2A2B]">
+    <div className="min-h-screen bg-[#F7F8FA] flex text-[#2A2A2B] p-6 gap-6">
       {/* Sidebar */}
       <aside 
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#2A2A2B] border-r border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 left-6 z-50 w-72 my-6 bg-[#2A2A2B] border border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 rounded-[40px] shadow-premium-utility ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-[calc(100%+24px)]"
         }`}
       >
         <div className="flex flex-col h-full p-6 text-white">
@@ -100,9 +100,9 @@ function AdminLayout() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+      <main className="flex-1 flex flex-col min-w-0 h-[calc(100vh-48px)] overflow-hidden">
         {/* Top Header */}
-        <header className="h-20 bg-white border-b border-black/5 flex items-center justify-between px-8 shrink-0">
+        <header className="h-20 bg-white border border-black/5 flex items-center justify-between px-8 shrink-0 rounded-[40px] mb-6 shadow-card-utility">
           <div className="flex items-center gap-4">
             <Button 
               variant="ghost" 
@@ -113,7 +113,7 @@ function AdminLayout() {
               <Menu className="h-5 w-5" />
             </Button>
             <h2 className="font-heading font-black text-lg uppercase tracking-tight">
-              Visão Geral
+              Painel Administrativo
             </h2>
           </div>
           
@@ -129,7 +129,7 @@ function AdminLayout() {
         </header>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto p-8 scrollbar-hide">
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
           <div className="w-full h-full max-w-full">
             <Outlet />
           </div>
