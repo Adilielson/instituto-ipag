@@ -47,9 +47,10 @@ function AdminEventos() {
       setIsDialogOpen(false);
       resetForm();
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error("Erro ao criar evento.");
+    onError: (error: any) => {
+      console.error("Erro ao criar evento:", error);
+      const message = error?.message || "Erro desconhecido";
+      toast.error(`Erro ao criar evento: ${message}`);
     }
   });
 
@@ -61,9 +62,10 @@ function AdminEventos() {
       setIsDialogOpen(false);
       resetForm();
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error("Erro ao atualizar evento.");
+    onError: (error: any) => {
+      console.error("Erro ao atualizar evento:", error);
+      const message = error?.message || "Erro desconhecido";
+      toast.error(`Erro ao atualizar evento: ${message}`);
     }
   });
 
@@ -95,12 +97,23 @@ function AdminEventos() {
 
   const handleEdit = (evento: any) => {
     setEditingEvento(evento);
+    
+    // Convert timestamp to datetime-local format (YYYY-MM-DDTHH:MM)
+    let formattedDate = "";
+    if (evento.data_evento) {
+      const date = new Date(evento.data_evento);
+      // Adjust for local timezone to match what the input expects
+      const offset = date.getTimezoneOffset() * 60000;
+      const localDate = new Date(date.getTime( ) - offset);
+      formattedDate = localDate.toISOString().slice(0, 16);
+    }
+
     setFormData({
       titulo: evento.titulo,
-      data_evento: new Date(evento.data_evento).toISOString().slice(0, 16),
-      local: evento.local,
+      data_evento: formattedDate,
+      local: evento.local || "",
       descricao: evento.descricao || "",
-      status: evento.status,
+      status: evento.status || "publicado",
       imagem_destaque: evento.imagem_destaque || "",
       galeria: evento.galeria || [],
       video_url: evento.video_url || ""
@@ -112,17 +125,26 @@ function AdminEventos() {
     e.preventDefault();
     const slug = formData.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     
+    // Ensure data_evento is in a format Supabase likes (ISO string)
+    // The input datetime-local gives "YYYY-MM-DDTHH:mm", which needs to be a full timestamp
+    let formattedDate = formData.data_evento;
+    if (formData.data_evento && !formData.data_evento.includes('Z')) {
+      formattedDate = new Date(formData.data_evento).toISOString();
+    }
+
+    const payload = {
+      ...formData,
+      data_evento: formattedDate,
+      slug
+    };
+    
     if (editingEvento) {
       updateMutation.mutate({
         id: editingEvento.id,
-        ...formData,
-        slug
+        ...payload
       });
     } else {
-      createMutation.mutate({
-        ...formData,
-        slug
-      });
+      createMutation.mutate(payload);
     }
   };
 
