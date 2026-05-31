@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/projetos")({ component: AdminProjet
 
 function AdminProjetos() {
   return (
-    <div className="rounded-3xl bg-white border border-black/5 p-8 shadow-card-utility animate-in fade-in duration-500">
+    <div className="rounded-[40px] bg-white border border-black/5 p-8 shadow-premium-utility animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
         <div>
           <h1 className="text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Gestão de Projetos</h1>

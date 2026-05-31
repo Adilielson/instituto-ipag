@@ -155,7 +155,7 @@ function AdminBlog() {
 
   if (isEditing) {
     return (
-      <div className="rounded-2xl border border-border bg-background p-8 shadow-card-utility space-y-8 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="rounded-[40px] border border-black/5 bg-background p-8 shadow-premium-utility space-y-8 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="flex items-center justify-between border-b pb-4">
           <div>
             <h1 className="text-2xl font-black uppercase tracking-tight">
@@ -359,7 +359,7 @@ function AdminBlog() {
   }
 
   return (
-    <div className="rounded-3xl bg-white border border-black/5 p-8 shadow-card-utility animate-in fade-in duration-500">
+    <div className="rounded-[40px] bg-white border border-black/5 p-8 shadow-premium-utility animate-in fade-in duration-500">
       <div className="flex items-center justify-between mb-10 border-b border-black/5 pb-6">
         <div>
           <h1 className="text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Gestão do Blog</h1>
