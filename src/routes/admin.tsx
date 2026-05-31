@@ -1,11 +1,13 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard, FolderKanban, Calendar, FileText, Users, Newspaper, Building2, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, FolderKanban, Calendar, FileText, Users, Newspaper, Building2, ShieldCheck, LogOut, ChevronRight, Menu, X } from "lucide-react";
 import { ADMIN_MASTER } from "@/lib/admin-mock";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — IPAG" },
+      { title: "Dashboard — IPAG" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -23,35 +25,116 @@ const ADMIN_NAV = [
 ] as const;
 
 function AdminLayout() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   return (
-    <div className="min-h-screen bg-muted/30">
-      <div className="flex w-full gap-6 px-4 py-8 md:px-8">
-        <aside className="hidden w-64 shrink-0 rounded-2xl border border-border bg-background p-4 shadow-card-utility lg:block">
-          <div className="rounded-xl gradient-flame p-4 text-primary-foreground">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
-              <ShieldCheck className="h-4 w-4" /> Admin Master
-            </div>
-            <p className="mt-2 text-sm font-bold">{ADMIN_MASTER.name}</p>
-            <p className="text-xs opacity-90">{ADMIN_MASTER.email}</p>
+    <div className="min-h-screen bg-[#F7F8FA] flex text-[#2A2A2B]">
+      {/* Sidebar */}
+      <aside 
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-black/5 transition-transform duration-300 lg:relative lg:translate-x-0 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col h-full p-6">
+          {/* Logo / Brand Area */}
+          <div className="mb-10 flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="h-10 w-10 rounded-xl gradient-flame flex items-center justify-center text-white shadow-warm-utility group-hover:scale-105 transition-transform">
+                <ShieldCheck className="h-6 w-6" />
+              </div>
+              <div>
+                <span className="font-heading font-black text-xl tracking-tight block leading-none">IPAG</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Painel Admin</span>
+              </div>
+            </Link>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden" 
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <X className="h-5 w-5" />
+            </Button>
           </div>
-          <nav className="mt-4 flex flex-col gap-1">
+
+          {/* User Profile Summary */}
+          <div className="mb-8 p-4 rounded-2xl bg-[#F7F8FA] border border-black/5">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                <Users className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-bold uppercase tracking-wider text-primary">Master Admin</p>
+                <p className="text-sm font-black truncate">{ADMIN_MASTER.name.split(' ')[0]}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 space-y-1">
+            <p className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Menu Principal</p>
             {ADMIN_NAV.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 activeOptions={{ exact: n.to === "/admin" }}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground/70 hover:bg-muted hover:text-foreground"
-                activeProps={{ className: "bg-primary/10 text-primary" }}
+                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-[#8E8E8F] transition-all duration-200 hover:bg-[#F7F8FA] hover:text-[#2A2A2B] group"
+                activeProps={{ 
+                  className: "bg-primary text-white shadow-warm-utility hover:bg-primary hover:text-white" 
+                }}
               >
-                <n.icon className="h-4 w-4" /> {n.label}
+                <n.icon className={`h-5 w-5 transition-transform group-hover:scale-110`} /> 
+                <span className="flex-1">{n.label}</span>
+                <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-40 transition-opacity" />
               </Link>
             ))}
           </nav>
-        </aside>
-        <div className="min-w-0 flex-1">
-          <Outlet />
+
+          {/* Footer Nav */}
+          <div className="mt-auto pt-6 border-t border-black/5">
+            <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/5 transition-colors">
+              <LogOut className="h-5 w-5" /> Sair do Painel
+            </button>
+          </div>
         </div>
-      </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        {/* Top Header */}
+        <header className="h-20 bg-white border-b border-black/5 flex items-center justify-between px-8 shrink-0">
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden" 
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+            <h2 className="font-heading font-black text-lg uppercase tracking-tight">
+              Visão Geral
+            </h2>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex flex-col items-end text-right mr-2">
+              <span className="text-xs font-black uppercase tracking-wider text-[#2A2A2B]">{ADMIN_MASTER.name}</span>
+              <span className="text-[10px] font-bold text-muted-foreground">{ADMIN_MASTER.email}</span>
+            </div>
+            <div className="h-10 w-10 rounded-xl bg-[#F7F8FA] border border-black/5 flex items-center justify-center shadow-sm">
+              <Users className="h-5 w-5 text-primary" />
+            </div>
+          </div>
+        </header>
+
+        {/* Content Area */}
+        <div className="flex-1 overflow-y-auto p-8 scrollbar-hide">
+          <div className="w-full h-full max-w-full">
+            <Outlet />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
