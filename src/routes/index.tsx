@@ -140,7 +140,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
       >
         <div className="flex flex-col items-center gap-4">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 rotate-180 [writing-mode:vertical-lr]">SCROLL</span>
-          <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-primary/50 to-transparent" />
+          <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-primary/50 to-transparent"></div>
         </div>
       </motion.div>
     </>
