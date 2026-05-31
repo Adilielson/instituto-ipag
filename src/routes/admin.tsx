@@ -31,11 +31,11 @@ function AdminLayout() {
     <div className="min-h-screen bg-[#F7F8FA] flex text-[#2A2A2B]">
       {/* Sidebar */}
       <aside 
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-black/5 transition-transform duration-300 lg:relative lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#2A2A2B] border-r border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex flex-col h-full p-6">
+        <div className="flex flex-col h-full p-6 text-white">
           {/* Logo / Brand Area */}
           <div className="mb-10 flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2 group">
@@ -43,14 +43,14 @@ function AdminLayout() {
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <div>
-                <span className="font-heading font-black text-xl tracking-tight block leading-none">IPAG</span>
+                <span className="font-heading font-black text-xl tracking-tight block leading-none text-white">IPAG</span>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Painel Admin</span>
               </div>
             </Link>
             <Button 
               variant="ghost" 
               size="icon" 
-              className="lg:hidden" 
+              className="lg:hidden text-white hover:bg-white/10" 
               onClick={() => setIsSidebarOpen(false)}
             >
               <X className="h-5 w-5" />
@@ -58,27 +58,27 @@ function AdminLayout() {
           </div>
 
           {/* User Profile Summary */}
-          <div className="mb-8 p-4 rounded-2xl bg-[#F7F8FA] border border-black/5">
+          <div className="mb-8 p-4 rounded-2xl bg-white/5 border border-white/5">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+              <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/30">
                 <Users className="h-5 w-5" />
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">Master Admin</p>
-                <p className="text-sm font-black truncate">{ADMIN_MASTER.name.split(' ')[0]}</p>
+                <p className="text-sm font-black truncate text-white">{ADMIN_MASTER.name.split(' ')[0]}</p>
               </div>
             </div>
           </div>
 
           {/* Navigation */}
           <nav className="flex-1 space-y-1">
-            <p className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Menu Principal</p>
+            <p className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Menu Principal</p>
             {ADMIN_NAV.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 activeOptions={{ exact: n.to === "/admin" }}
-                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-[#8E8E8F] transition-all duration-200 hover:bg-[#F7F8FA] hover:text-[#2A2A2B] group"
+                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-white/60 transition-all duration-200 hover:bg-white/5 hover:text-white group"
                 activeProps={{ 
                   className: "bg-primary text-white shadow-warm-utility hover:bg-primary hover:text-white" 
                 }}
@@ -91,8 +91,8 @@ function AdminLayout() {
           </nav>
 
           {/* Footer Nav */}
-          <div className="mt-auto pt-6 border-t border-black/5">
-            <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/5 transition-colors">
+          <div className="mt-auto pt-6 border-t border-white/5">
+            <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/10 transition-colors">
               <LogOut className="h-5 w-5" /> Sair do Painel
             </button>
           </div>
