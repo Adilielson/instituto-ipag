@@ -12,12 +12,16 @@ export const Route = createFileRoute("/admin/blog")({ component: AdminBlog });
 
 function AdminBlog() {
   const [posts, setPosts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [currentPost, setCurrentPost] = useState<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchPosts();
+    fetchCategories();
   }, []);
 
   const fetchPosts = async () => {
@@ -25,8 +29,28 @@ function AdminBlog() {
     if (data) setPosts(data);
   };
 
+  const fetchCategories = async () => {
+    const { data } = await supabase.from("blog_categories").select("*").order("nome");
+    if (data) setCategories(data);
+  };
+
+  const handleAddCategory = async () => {
+    const nome = prompt("Nome da nova categoria:");
+    if (!nome) return;
+    const { error } = await supabase.from("blog_categories").insert([{ nome }]);
+    if (error) alert(error.message);
+    else fetchCategories();
+  };
+
+  const handleDeleteCategory = async (id: string, nome: string) => {
+    if (!confirm(`Excluir a categoria "${nome}"?`)) return;
+    const { error } = await supabase.from("blog_categories").delete().eq("id", id);
+    if (error) alert(error.message);
+    else fetchCategories();
+  };
+
   const deletePost = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir?")) return;
+    if (!confirm("Tem certeza que deseja excluir este post?")) return;
     await supabase.from("posts").delete().eq("id", id);
     setPosts(posts.filter(p => p.id !== id));
   };
@@ -43,7 +67,7 @@ function AdminBlog() {
       resumo: "",
       conteudo: "",
       imagem_destaque: "",
-      categoria: "Social",
+      categoria: categories[0]?.nome || "Social",
       autor: "Editorial IPAG",
       status: "rascunho",
       data_publicacao: new Date().toISOString(),
@@ -63,11 +87,50 @@ function AdminBlog() {
       .replace(/^-+|-+$/g, '');
   };
 
+  const generateSEO = () => {
+    if (!currentPost) return;
+    
+    // Simple generation logic
+    const title = currentPost.titulo ? `${currentPost.titulo} | IPAG` : "";
+    const description = currentPost.resumo || 
+      (currentPost.conteudo ? currentPost.conteudo.substring(0, 160).replace(/<[^>]*>/g, '') : "");
+    
+    setCurrentPost({
+      ...currentPost,
+      seo_title: title.substring(0, 60),
+      seo_description: description.substring(0, 160)
+    });
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { error: uploadError, data } = await supabase.storage
+      .from('blog')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      alert("Erro no upload: " + uploadError.message);
+    } else {
+      const { data: { publicUrl } } = supabase.storage
+        .from('blog')
+        .getPublicUrl(filePath);
+      
+      setCurrentPost({ ...currentPost, imagem_destaque: publicUrl });
+    }
+    setUploading(false);
+  };
+
   const savePost = async () => {
     setLoading(true);
     const postToSave = { ...currentPost };
     
-    // Ensure slug is generated if missing
     if (!postToSave.slug && postToSave.titulo) {
       postToSave.slug = generateSlug(postToSave.titulo);
     }
