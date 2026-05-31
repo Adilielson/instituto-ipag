@@ -285,10 +285,10 @@ function Home() {
                    <span className="text-primary font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">Apoio Direto & Sustentabilidade</span>
                 </div>
                 
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-8 md:mb-12 uppercase leading-[0.9] tracking-tighter">
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter">
                   TRANSFORME <br />O DESAPEGO EM <br /><span className="text-primary">ESPERANÇA</span>
                 </h2>
-                <p className="text-lg md:text-3xl text-white/50 mb-10 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight">
+                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight">
                   Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
                 </p>
                 <div className="flex flex-wrap gap-6 md:gap-8">
