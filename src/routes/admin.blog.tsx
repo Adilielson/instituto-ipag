@@ -401,18 +401,18 @@ function AdminBlog() {
                     </div>
                   </div>
                 </td>
-                <td className="py-4 pr-4">
-                  <span className="text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full bg-primary/10 text-primary">
+                <td className="py-5 pr-4">
+                  <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl bg-primary/10 text-primary border border-primary/20">
                     {p.categoria}
                   </span>
                 </td>
-                <td className="py-4 pr-4 text-xs font-medium">
+                <td className="py-5 pr-4 text-xs font-bold text-[#8E8E8F]">
                   {new Date(p.data_publicacao).toLocaleDateString('pt-BR')}
                 </td>
-                <td className="py-4 pr-4">
+                <td className="py-5 pr-4">
                   <div className="flex items-center gap-2">
-                    <div className={`h-2 w-2 rounded-full ${p.status === 'publicado' ? 'bg-green-500' : p.status === 'rascunho' ? 'bg-yellow-500' : 'bg-gray-400'}`} />
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-70">{p.status}</span>
+                    <div className={`h-2 w-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.1)] ${p.status === 'publicado' ? 'bg-green-500 shadow-green-500/50' : p.status === 'rascunho' ? 'bg-yellow-500 shadow-yellow-500/50' : 'bg-[#8E8E8F]'}`} />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#2A2A2B] opacity-70">{p.status}</span>
                   </div>
                 </td>
                 <td className="py-4 text-right">
