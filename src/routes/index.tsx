@@ -358,6 +358,52 @@ function Home() {
         </div>
       </section>
 
+      {/* EVENTOS - Premium Preview */}
+      {loaderData.eventos && loaderData.eventos.length > 0 && (
+        <section className="py-56 bg-[#F7F8FA]">
+          <div className="max-container">
+            <Reveal>
+              <div className="flex flex-wrap items-end justify-between gap-16 mb-32 pb-16 border-b border-black/5">
+                <div className="max-w-4xl">
+                  <span className="text-primary font-black uppercase tracking-[0.5em] mb-8 block text-xs">CALENDÁRIO</span>
+                  <h2 className="gf-heading-lg uppercase text-dark tracking-tighter leading-none">PRÓXIMOS <br />ENCONTROS</h2>
+                </div>
+                <Button asChild variant="outline" className="gf-button border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-14 py-7 transition-all">
+                  <Link to="/eventos" className="text-base tracking-widest">VER TUDO</Link>
+                </Button>
+              </div>
+            </Reveal>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              {loaderData.eventos.map((e: any, i: number) => (
+                <Reveal key={e.id} delay={i * 0.1} direction="up">
+                  <div className="bg-white p-10 rounded-[40px] shadow-card-utility border border-black/5 hover:shadow-premium-utility transition-all duration-500 group h-full flex flex-col">
+                    <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                      <Calendar className="h-8 w-8" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-4 mb-4">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/5 px-4 py-1.5 rounded-full">
+                          {new Date(e.data_evento).toLocaleDateString('pt-BR')}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-dark leading-tight">{e.titulo}</h3>
+                      <p className="text-gray text-base leading-relaxed line-clamp-2 mb-6 font-light">
+                        {e.descricao}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-bold text-dark/40 uppercase tracking-widest pt-6 border-t border-black/5">
+                      <MapPin className="h-3 w-3 text-primary" />
+                      {e.local}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* PARTNERS - Premium Stripe Marquee */}
       <section className="py-48 bg-white overflow-hidden border-t border-black/5">
         <div className="max-container text-center mb-24">
