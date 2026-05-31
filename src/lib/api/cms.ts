@@ -56,7 +56,6 @@ export const getEventos = createServerFn({ method: "GET" }).handler(async () => 
   const { data, error } = await supabase
     .from("eventos")
     .select("*")
-    .eq("status", "publicado")
     .order("data_evento", { ascending: true });
   
   if (error) throw error;
@@ -70,8 +69,7 @@ export const getEventoBySlug = createServerFn({ method: "GET" })
       .from("eventos")
       .select("*")
       .eq("slug", data.slug)
-      .eq("status", "publicado")
-      .single();
+      .maybeSingle();
     
     if (error) throw error;
     return evento;
