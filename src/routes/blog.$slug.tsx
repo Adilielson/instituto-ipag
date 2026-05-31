@@ -36,7 +36,7 @@ function BlogPost() {
   return (
     <article>
       <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
         <div className="max-container relative z-10">
           <Link to="/blog" className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12">
             <ArrowLeft className="h-4 w-4" /> VOLTAR AO BLOG
