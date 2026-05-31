@@ -112,17 +112,26 @@ function AdminEventos() {
     e.preventDefault();
     const slug = formData.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     
+    // Ensure data_evento is in a format Supabase likes (ISO string)
+    // The input datetime-local gives "YYYY-MM-DDTHH:mm", which needs to be a full timestamp
+    let formattedDate = formData.data_evento;
+    if (formData.data_evento && !formData.data_evento.includes('Z')) {
+      formattedDate = new Date(formData.data_evento).toISOString();
+    }
+
+    const payload = {
+      ...formData,
+      data_evento: formattedDate,
+      slug
+    };
+    
     if (editingEvento) {
       updateMutation.mutate({
         id: editingEvento.id,
-        ...formData,
-        slug
+        ...payload
       });
     } else {
-      createMutation.mutate({
-        ...formData,
-        slug
-      });
+      createMutation.mutate(payload);
     }
   };
 
