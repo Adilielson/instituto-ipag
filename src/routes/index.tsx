@@ -244,7 +244,7 @@ function Home() {
                   O IPAG nasceu em 2006 do desejo do Pastor Antonio Gomes de promover desenvolvimento, inclusão e dignidade humana em São Mateus. 
                 </p>
                 <div className="relative pl-12 py-4">
-                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-primary/50 to-transparent" />
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-primary/50 to-transparent"></div>
                   <p className="font-bold text-dark italic text-3xl tracking-tight leading-tight">
                     "Nossa missão não é apenas assistir, mas restaurar o protagonismo humano."
                   </p>
