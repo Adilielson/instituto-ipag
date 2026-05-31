@@ -62,3 +62,58 @@ export const getEventos = createServerFn({ method: "GET" }).handler(async () => 
   if (error) throw error;
   return data;
 });
+
+export const createEvento = createServerFn({ method: "POST" })
+  .inputValidator(z.object({
+    titulo: z.string(),
+    slug: z.string(),
+    data_evento: z.string(),
+    local: z.string(),
+    descricao: z.string().optional(),
+    status: z.string().default("publicado")
+  }))
+  .handler(async ({ data }) => {
+    const { data: evento, error } = await supabase
+      .from("eventos")
+      .insert([data])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return evento;
+  });
+
+export const updateEvento = createServerFn({ method: "POST" })
+  .inputValidator(z.object({
+    id: z.string(),
+    titulo: z.string(),
+    slug: z.string(),
+    data_evento: z.string(),
+    local: z.string(),
+    descricao: z.string().optional(),
+    status: z.string()
+  }))
+  .handler(async ({ data }) => {
+    const { id, ...updates } = data;
+    const { data: evento, error } = await supabase
+      .from("eventos")
+      .update(updates)
+      .eq("id", id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return evento;
+  });
+
+export const deleteEvento = createServerFn({ method: "POST" })
+  .inputValidator(z.object({ id: z.string() }))
+  .handler(async ({ data }) => {
+    const { error } = await supabase
+      .from("eventos")
+      .delete()
+      .eq("id", data.id);
+    
+    if (error) throw error;
+    return { success: true };
+  });
