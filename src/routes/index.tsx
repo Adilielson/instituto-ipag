@@ -274,7 +274,7 @@ function Home() {
                   alt="Bazar Solidário" 
                   className="w-full h-full object-cover opacity-40 md:opacity-40"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent"></div>
               </div>
 
               <div className="relative z-10 max-w-4xl">
