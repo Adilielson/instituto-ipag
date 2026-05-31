@@ -12,13 +12,16 @@ import { useRef, useState, useEffect } from "react";
 export const Route = createFileRoute("/")({
   loader: async () => {
     try {
-      const [projetos, posts] = await Promise.all([
+      const [projetos, posts, eventos] = await Promise.all([
         getProjetos().catch(() => []),
-        getPosts().catch(() => [])
+        getPosts().catch(() => []),
+        getEventos().catch(() => [])
       ]);
       return { 
         projetos: (projetos || [])?.slice(0, 10), 
-        posts: (posts || [])?.slice(0, 3) 
+        posts: (posts || [])?.slice(0, 3),
+        eventos: (eventos || [])?.slice(0, 3)
+      };
 
       };
     } catch (e) {
