@@ -161,8 +161,8 @@ function Home() {
 
       {/* IMPACTO - Premium Institutional Style */}
       <section className="py-48 bg-dark relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-primary/3 skew-x-12 -translate-x-1/2 blur-3xl" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-primary/3 skew-x-12 -translate-x-1/2 blur-3xl"></div>
         
         <div className="max-container relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.5fr] gap-32 items-start">
