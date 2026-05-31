@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Heart, Sparkles, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy, Users, BarChart, Globe } from "lucide-react";
+import { ArrowRight, Heart, Sparkles, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy, Users, BarChart, Globe, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
