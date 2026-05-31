@@ -304,6 +304,25 @@ function AdminEventos() {
                 className="min-h-[100px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="imagem_destaque" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">URL da Imagem de Destaque</Label>
+              <Input 
+                id="imagem_destaque" 
+                value={formData.imagem_destaque}
+                onChange={(e) => setFormData({...formData, imagem_destaque: e.target.value})}
+                placeholder="https://exemplo.com/imagem.jpg"
+                className="h-12 bg-[#F7F8FA] border-black/5 rounded-xl font-bold"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Galeria (URLs separadas por vírgula)</Label>
+              <Textarea 
+                value={formData.galeria.join(', ')}
+                onChange={(e) => setFormData({...formData, galeria: e.target.value.split(',').map(s => s.trim()).filter(s => s !== '')})}
+                placeholder="URL1, URL2, URL3..."
+                className="min-h-[80px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
+              />
+            </div>
             <DialogFooter className="pt-4">
               <Button type="button" variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-xl font-bold uppercase tracking-wider text-xs">
                 Cancelar
