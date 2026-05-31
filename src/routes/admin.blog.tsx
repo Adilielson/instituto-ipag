@@ -359,62 +359,80 @@ function AdminBlog() {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
-      <div className="flex items-center justify-between mb-8 border-b pb-6">
+    <div className="rounded-3xl bg-white border border-black/5 p-8 shadow-card-utility animate-in fade-in duration-500">
+      <div className="flex items-center justify-between mb-10 border-b border-black/5 pb-6">
         <div>
-          <h1 className="text-2xl font-black uppercase tracking-tight">Gestão do Blog</h1>
-          <p className="text-sm text-muted-foreground">Crie, edite e gerencie os artigos do IPAG.</p>
+          <h1 className="text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Gestão do Blog</h1>
+          <p className="text-sm font-medium text-[#8E8E8F]">Crie, edite e gerencie os artigos do IPAG com facilidade.</p>
         </div>
-        <Button onClick={handleCreate} className="gf-button-primary"><Plus className="mr-2 h-4 w-4" /> Novo Post</Button>
+        <Button onClick={handleCreate} className="gf-button-primary shadow-warm-utility hover:scale-105 transition-transform">
+          <Plus className="mr-2 h-4 w-4" /> Novo Post
+        </Button>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
-            <tr className="border-b text-xs font-black uppercase tracking-widest text-muted-foreground">
-              <th className="pb-4 pr-4">Post</th>
+            <tr className="border-b border-black/5 text-[10px] font-black uppercase tracking-[0.2em] text-[#8E8E8F]">
+              <th className="pb-4 pr-4">Artigo / Título</th>
               <th className="pb-4 pr-4">Categoria</th>
-              <th className="pb-4 pr-4">Data</th>
+              <th className="pb-4 pr-4">Publicação</th>
               <th className="pb-4 pr-4">Status</th>
               <th className="pb-4 text-right">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             {posts.map((p) => (
-              <tr key={p.id} className="group hover:bg-muted/50 transition-colors">
-                <td className="py-4 pr-4">
+              <tr key={p.id} className="group hover:bg-[#F7F8FA] transition-all duration-200 border-b border-black/[0.03] last:border-0">
+                <td className="py-5 pr-4">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-16 shrink-0 rounded-lg overflow-hidden bg-muted shadow-sm">
+                    <div className="h-14 w-20 shrink-0 rounded-2xl overflow-hidden bg-[#F7F8FA] border border-black/5 shadow-sm">
                       {p.imagem_destaque ? (
-                        <img src={p.imagem_destaque} className="h-full w-full object-cover" alt="" />
+                        <img src={p.imagem_destaque} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
                       ) : (
-                        <div className="h-full w-full flex items-center justify-center"><ImageIcon className="h-4 w-4 opacity-20" /></div>
+                        <div className="h-full w-full flex items-center justify-center"><ImageIcon className="h-5 w-5 opacity-20" /></div>
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className="font-bold text-sm truncate uppercase tracking-tight">{p.titulo}</p>
-                      <p className="text-[10px] text-muted-foreground truncate italic">{p.slug}</p>
+                      <p className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight group-hover:text-primary transition-colors">{p.titulo}</p>
+                      <p className="text-[10px] font-bold text-[#8E8E8F] truncate italic flex items-center gap-1">
+                        <Globe className="h-3 w-3" /> /{p.slug}
+                      </p>
                     </div>
                   </div>
                 </td>
-                <td className="py-4 pr-4">
-                  <span className="text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full bg-primary/10 text-primary">
+                <td className="py-5 pr-4">
+                  <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl bg-primary/10 text-primary border border-primary/20">
                     {p.categoria}
                   </span>
                 </td>
-                <td className="py-4 pr-4 text-xs font-medium">
+                <td className="py-5 pr-4 text-xs font-bold text-[#8E8E8F]">
                   {new Date(p.data_publicacao).toLocaleDateString('pt-BR')}
                 </td>
-                <td className="py-4 pr-4">
+                <td className="py-5 pr-4">
                   <div className="flex items-center gap-2">
-                    <div className={`h-2 w-2 rounded-full ${p.status === 'publicado' ? 'bg-green-500' : p.status === 'rascunho' ? 'bg-yellow-500' : 'bg-gray-400'}`} />
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-70">{p.status}</span>
+                    <div className={`h-2 w-2 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.1)] ${p.status === 'publicado' ? 'bg-green-500 shadow-green-500/50' : p.status === 'rascunho' ? 'bg-yellow-500 shadow-yellow-500/50' : 'bg-[#8E8E8F]'}`} />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#2A2A2B] opacity-70">{p.status}</span>
                   </div>
                 </td>
-                <td className="py-4 text-right">
-                  <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button variant="ghost" size="icon" onClick={() => handleEdit(p)}><Edit2 className="h-4 w-4" /></Button>
-                    <Button variant="ghost" size="icon" onClick={() => deletePost(p.id)} className="text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button>
+                <td className="py-5 text-right">
+                  <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-x-2 group-hover:translate-x-0">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => handleEdit(p)}
+                      className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary"
+                    >
+                      <Edit2 className="h-4 w-4" />
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => deletePost(p.id)} 
+                      className="h-9 w-9 rounded-xl text-destructive hover:bg-destructive/10"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </td>
               </tr>
