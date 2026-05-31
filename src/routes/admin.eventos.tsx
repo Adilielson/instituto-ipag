@@ -345,35 +345,37 @@ function AdminEventos() {
                     </button>
                   </div>
                 ))}
-                <label className="flex items-center justify-center aspect-square rounded-lg border-2 border-dashed border-black/5 bg-[#F7F8FA] cursor-pointer hover:bg-black/[0.02] transition-colors">
-                  <Plus className="h-5 w-5 text-[#8E8E8F]" />
-                  <input 
-                    type="file" 
-                    className="hidden" 
-                    accept="image/*"
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      
-                      const toastId = toast.loading("Enviando imagem...");
-                      try {
-                        const fileExt = file.name.split(".").pop();
-                        const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-                        const { error } = await supabase.storage.from("event-assets").upload(fileName, file);
-                        if (error) throw error;
+                {formData.galeria.length < 10 && (
+                  <label className="flex items-center justify-center aspect-square rounded-lg border-2 border-dashed border-black/5 bg-[#F7F8FA] cursor-pointer hover:bg-black/[0.02] transition-colors">
+                    <Plus className="h-5 w-5 text-[#8E8E8F]" />
+                    <input 
+                      type="file" 
+                      className="hidden" 
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
                         
-                        const { data: { publicUrl } } = supabase.storage.from("event-assets").getPublicUrl(fileName);
-                        setFormData({
-                          ...formData,
-                          galeria: [...formData.galeria, publicUrl]
-                        });
-                        toast.success("Imagem adicionada à galeria!", { id: toastId });
-                      } catch (err: any) {
-                        toast.error(`Erro: ${err.message}`, { id: toastId });
-                      }
-                    }}
-                  />
-                </label>
+                        const toastId = toast.loading("Enviando imagem...");
+                        try {
+                          const fileExt = file.name.split(".").pop();
+                          const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+                          const { error } = await supabase.storage.from("event-assets").upload(fileName, file);
+                          if (error) throw error;
+                          
+                          const { data: { publicUrl } } = supabase.storage.from("event-assets").getPublicUrl(fileName);
+                          setFormData(prev => ({
+                            ...prev,
+                            galeria: [...prev.galeria, publicUrl].slice(0, 10)
+                          }));
+                          toast.success("Imagem adicionada à galeria!", { id: toastId });
+                        } catch (err: any) {
+                          toast.error(`Erro: ${err.message}`, { id: toastId });
+                        }
+                      }}
+                    />
+                  </label>
+                )}
               </div>
             </div>
             <DialogFooter className="pt-4">
