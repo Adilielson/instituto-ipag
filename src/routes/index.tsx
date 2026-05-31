@@ -265,7 +265,7 @@ function Home() {
       <section className="py-24 bg-bg">
         <div className="max-container">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[500px] md:min-h-[700px] flex items-center p-8 md:p-32 shadow-2xl group">
+            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[450px] md:min-h-[700px] flex items-center p-6 md:p-32 shadow-2xl group">
               <div className="absolute inset-0 z-0">
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}
