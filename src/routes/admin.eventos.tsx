@@ -181,6 +181,23 @@ function AdminEventos() {
                     </div>
                   </td>
                   <td className="py-5 pr-4">
+                    <div className="flex -space-x-2">
+                      {e.galeria?.slice(0, 3).map((img: string, idx: number) => (
+                        <div key={idx} className="h-8 w-8 rounded-lg border-2 border-white overflow-hidden bg-gray-100">
+                          <img src={img} className="h-full w-full object-cover" alt="" />
+                        </div>
+                      ))}
+                      {e.galeria?.length > 3 && (
+                        <div className="h-8 w-8 rounded-lg border-2 border-white bg-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500">
+                          +{e.galeria.length - 3}
+                        </div>
+                      )}
+                      {(!e.galeria || e.galeria.length === 0) && (
+                        <span className="text-[10px] text-gray-300 font-bold uppercase">Sem fotos</span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="py-5 pr-4">
                     <div className="flex flex-col">
                       <span className="text-xs font-black text-[#2A2A2B]">
                         {new Date(e.data_evento).toLocaleDateString('pt-BR')}
