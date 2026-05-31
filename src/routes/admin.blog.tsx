@@ -373,10 +373,10 @@ function AdminBlog() {
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
-            <tr className="border-b text-xs font-black uppercase tracking-widest text-muted-foreground">
-              <th className="pb-4 pr-4">Post</th>
+            <tr className="border-b border-black/5 text-[10px] font-black uppercase tracking-[0.2em] text-[#8E8E8F]">
+              <th className="pb-4 pr-4">Artigo / Título</th>
               <th className="pb-4 pr-4">Categoria</th>
-              <th className="pb-4 pr-4">Data</th>
+              <th className="pb-4 pr-4">Publicação</th>
               <th className="pb-4 pr-4">Status</th>
               <th className="pb-4 text-right">Ações</th>
             </tr>
