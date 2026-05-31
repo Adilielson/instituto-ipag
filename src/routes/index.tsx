@@ -65,7 +65,8 @@ export const Route = createFileRoute("/")({
             titulo: e.title,
             descricao: e.description,
             data_evento: new Date().toISOString(),
-            local: e.place
+            local: e.place,
+            slug: e.slug
           }));
 
       return { 
@@ -95,7 +96,8 @@ export const Route = createFileRoute("/")({
           titulo: e.title,
           descricao: e.description,
           data_evento: new Date().toISOString(),
-          local: e.place
+          local: e.place,
+          slug: e.slug
         })).slice(0, 3) 
       };
     }

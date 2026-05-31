@@ -119,18 +119,21 @@ export const POSTS = [
 
 export const EVENTS = [
   {
+    slug: "concerto-solidario",
     title: "Concerto Solidário — Tocando o Coração",
     date: "20 jun 2026",
     place: "Centro de São Mateus",
     description: "Apresentação dos alunos do projeto de formação musical.",
   },
   {
+    slug: "campanha-agasalho",
     title: "Campanha do Agasalho",
     date: "05 jul 2026",
     place: "Sede IPAG — Boa Vista",
     description: "Arrecadação e distribuição de roupas para famílias atendidas.",
   },
   {
+    slug: "encontro-de-lideres-cetel",
     title: "Encontro de Líderes CETEL",
     date: "15 ago 2026",
     place: "Auditório IPAG",

@@ -22,7 +22,8 @@ export const Route = createFileRoute("/eventos")({
               titulo: e.title,
               descricao: e.description,
               data_evento: new Date().toISOString(),
-              local: e.place
+              local: e.place,
+              slug: e.slug
             }))
       };
     } catch {
@@ -32,7 +33,8 @@ export const Route = createFileRoute("/eventos")({
           titulo: e.title,
           descricao: e.description,
           data_evento: new Date().toISOString(),
-          local: e.place
+          local: e.place,
+          slug: e.slug
         }))
       };
     }
