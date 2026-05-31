@@ -26,7 +26,9 @@ function AdminEventos() {
     data_evento: "",
     local: "",
     descricao: "",
-    status: "publicado"
+    status: "publicado",
+    imagem_destaque: "",
+    galeria: [] as string[]
   });
 
   const { data: eventos, isLoading } = useQuery({
