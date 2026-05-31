@@ -74,7 +74,7 @@ function AdminLayout() {
         {/* Sidebar - Positioned below header */}
         <aside 
           className={`fixed inset-y-0 left-6 z-50 w-72 bg-[#2A2A2B] border border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 rounded-[40px] shadow-premium-utility my-6 ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-[calc(100%+48px)]"
+            isSidebarOpen ? "translate-x-0" : "-translate-x-[calc(100%+64px)]"
           }`}
         >
           <div className="flex flex-col h-full p-6 text-white">
