@@ -84,7 +84,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           alt="IPAG Background" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
       </motion.div>
 
       <div className="max-container relative z-10 pt-20">
