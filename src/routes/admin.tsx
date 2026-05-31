@@ -70,7 +70,7 @@ function AdminLayout() {
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden gap-16">
         {/* Sidebar - Positioned below header */}
         <aside 
           className={`fixed inset-y-0 left-6 z-50 w-72 bg-[#2A2A2B] border border-white/5 transition-transform duration-300 lg:relative lg:translate-x-0 rounded-[40px] shadow-premium-utility my-6 ${
