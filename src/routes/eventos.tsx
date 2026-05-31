@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/site/Reveal";
 import { getEventos } from "@/lib/api/cms";
 
