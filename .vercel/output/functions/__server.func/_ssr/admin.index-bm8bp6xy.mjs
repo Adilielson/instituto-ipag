@@ -1,6 +1,6 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
 import { A as ADMIN_MASTER } from "./admin-mock-Cr0WxVxK.mjs";
-import { i as FolderKanban, C as Calendar, N as Newspaper, W as Users, U as TrendingUp, b as ArrowUpRight } from "../_libs/lucide-react.mjs";
+import { m as FolderKanban, C as Calendar, N as Newspaper, U as Users, T as TrendingUp, q as ArrowUpRight } from "../_libs/lucide-react.mjs";
 function AdminHome() {
   const stats = [{
     label: "Projetos Ativos",

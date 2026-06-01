@@ -1,5 +1,5 @@
 import { R as React, j as jsxRuntimeExports } from "./react.mjs";
-import { a as createContextScope } from "./radix-ui__react-context.mjs";
+import { c as createContextScope } from "./radix-ui__react-context.mjs";
 import { u as useComposedRefs } from "./radix-ui__react-compose-refs.mjs";
 import { b as createSlot } from "./radix-ui__react-slot.mjs";
 function createCollection(name) {
