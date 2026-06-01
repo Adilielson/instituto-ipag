@@ -12,7 +12,8 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  // Forçar o preset Vercel para que o roteamento SSR funcione corretamente.
+  // Use Vercel Edge for better performance and compatibility if applicable, 
+  // but standard "vercel" preset is safer for general Node.js compatibility.
   nitro: {
     preset: "vercel",
   },
