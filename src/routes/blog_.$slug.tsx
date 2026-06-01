@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/blog/$slug")({
+export const Route = createFileRoute("/blog_/$slug")({
   loader: async ({ params }) => {
     const { data: post, error: postErr } = await supabase
       .from("posts")
