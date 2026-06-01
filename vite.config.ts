@@ -12,14 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  // Force nitro on with the Vercel preset so `vite build` emits `.vercel/output`
-  // that Vercel auto-detects (Build Output API). No vercel.json routes needed.
+  // Use Vercel Edge for better performance and compatibility if applicable, 
+  // but standard "vercel" preset is safer for general Node.js compatibility.
   nitro: {
     preset: "vercel",
-    output: {
-      dir: ".vercel/output",
-      serverDir: ".vercel/output/functions/__server.func",
-      publicDir: ".vercel/output/static",
-    },
   },
 });
