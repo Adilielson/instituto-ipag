@@ -76,6 +76,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: ({ location }) => {
+    console.log('Root beforeLoad:', location.pathname);
     // Redireciona rotas antigas com underscore para as novas
     const legacyPrefixes = ['/blog_', '/eventos_', '/projetos_'];
     for (const prefix of legacyPrefixes) {
