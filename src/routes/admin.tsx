@@ -124,9 +124,12 @@ function AdminLayout() {
 
             {/* Footer Nav */}
             <div className="mt-auto pt-6 border-t border-white/5">
-              <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/10 transition-colors">
+              <Link
+                to="/"
+                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/10 transition-colors"
+              >
                 <LogOut className="h-5 w-5" /> Sair do Painel
-              </button>
+              </Link>
             </div>
           </div>
         </aside>
