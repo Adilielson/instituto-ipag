@@ -8,16 +8,14 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
   },
-  // Use Vercel Edge for better performance and compatibility if applicable, 
-  // but standard "vercel" preset is safer for general Node.js compatibility.
   nitro: {
     preset: "vercel",
-    externals: {
-      inline: ["tslib"],
+  },
+  vite: {
+    ssr: {
+      noExternal: ["tslib"],
     },
   },
 });
