@@ -4,7 +4,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/eventos/$slug")({
+export const Route = createFileRoute("/eventos_/$slug")({
   loader: async ({ params }) => {
     const { data: evento, error } = await supabase
       .from("eventos")

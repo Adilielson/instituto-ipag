@@ -24,9 +24,9 @@ import { Route as ProjetosIndexRouteImport } from './routes/projetos.index'
 import { Route as EventosIndexRouteImport } from './routes/eventos.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
-import { Route as EventosSlugRouteImport } from './routes/eventos.$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ProjetosSlugRouteImport } from './routes/projetos_.$slug'
+import { Route as EventosSlugRouteImport } from './routes/eventos_.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
 import { Route as AdminTransparenciaRouteImport } from './routes/admin.transparencia'
 import { Route as AdminProjetosRouteImport } from './routes/admin.projetos'
@@ -110,19 +110,19 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 const ProjetosSlugRoute = ProjetosSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ProjetosRoute,
+  id: '/projetos_/$slug',
+  path: '/projetos/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EventosSlugRoute = EventosSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => EventosRoute,
+  id: '/eventos_/$slug',
+  path: '/eventos/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
+  id: '/blog_/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
   id: '/usuarios',
@@ -222,9 +222,9 @@ export interface FileRoutesById {
   '/admin/projetos': typeof AdminProjetosRoute
   '/admin/transparencia': typeof AdminTransparenciaRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/eventos/$slug': typeof EventosSlugRoute
-  '/projetos/$slug': typeof ProjetosSlugRoute
+  '/blog_/$slug': typeof BlogSlugRoute
+  '/eventos_/$slug': typeof EventosSlugRoute
+  '/projetos_/$slug': typeof ProjetosSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
@@ -298,9 +298,9 @@ export interface FileRouteTypes {
     | '/admin/projetos'
     | '/admin/transparencia'
     | '/admin/usuarios'
-    | '/blog/$slug'
-    | '/eventos/$slug'
-    | '/projetos/$slug'
+    | '/blog_/$slug'
+    | '/eventos_/$slug'
+    | '/projetos_/$slug'
     | '/admin/'
     | '/blog/'
     | '/eventos/'
@@ -319,6 +319,9 @@ export interface RootRouteChildren {
   ProjetosRoute: typeof ProjetosRouteWithChildren
   QuemSomosRoute: typeof QuemSomosRoute
   TransparenciaRoute: typeof TransparenciaRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  EventosSlugRoute: typeof EventosSlugRoute
+  ProjetosSlugRoute: typeof ProjetosSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -428,26 +431,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/projetos/$slug': {
-      id: '/projetos/$slug'
-      path: '/$slug'
+    '/projetos_/$slug': {
+      id: '/projetos_/$slug'
+      path: '/projetos/$slug'
       fullPath: '/projetos/$slug'
       preLoaderRoute: typeof ProjetosSlugRouteImport
-      parentRoute: typeof ProjetosRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/eventos/$slug': {
-      id: '/eventos/$slug'
-      path: '/$slug'
+    '/eventos_/$slug': {
+      id: '/eventos_/$slug'
+      path: '/eventos/$slug'
       fullPath: '/eventos/$slug'
       preLoaderRoute: typeof EventosSlugRouteImport
-      parentRoute: typeof EventosRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
+    '/blog_/$slug': {
+      id: '/blog_/$slug'
+      path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/usuarios': {
       id: '/admin/usuarios'
@@ -517,24 +520,20 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
-  BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface EventosRouteChildren {
-  EventosSlugRoute: typeof EventosSlugRoute
   EventosIndexRoute: typeof EventosIndexRoute
 }
 
 const EventosRouteChildren: EventosRouteChildren = {
-  EventosSlugRoute: EventosSlugRoute,
   EventosIndexRoute: EventosIndexRoute,
 }
 
@@ -542,12 +541,10 @@ const EventosRouteWithChildren =
   EventosRoute._addFileChildren(EventosRouteChildren)
 
 interface ProjetosRouteChildren {
-  ProjetosSlugRoute: typeof ProjetosSlugRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
 }
 
 const ProjetosRouteChildren: ProjetosRouteChildren = {
-  ProjetosSlugRoute: ProjetosSlugRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,
 }
 
@@ -567,6 +564,9 @@ const rootRouteChildren: RootRouteChildren = {
   ProjetosRoute: ProjetosRouteWithChildren,
   QuemSomosRoute: QuemSomosRoute,
   TransparenciaRoute: TransparenciaRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  EventosSlugRoute: EventosSlugRoute,
+  ProjetosSlugRoute: ProjetosSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
