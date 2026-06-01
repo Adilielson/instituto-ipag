@@ -75,20 +75,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: ({ location }) => {
-    console.log('Root beforeLoad:', location.pathname);
-    // Redireciona rotas antigas com underscore para as novas
-    const legacyPrefixes = ['/blog_', '/eventos_', '/projetos_'];
-    for (const prefix of legacyPrefixes) {
-      if (location.pathname.startsWith(prefix + '/')) {
-        const newPath = location.pathname.replace(prefix + '/', prefix.replace('_', '') + '/');
-        throw redirect({
-          to: newPath,
-          replace: true,
-        });
-      }
-    }
-  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
