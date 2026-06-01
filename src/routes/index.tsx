@@ -225,7 +225,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
 
 function Home() {
   const heroRef = useRef(null);
-  const { projetos = [], posts = [], eventos = [] } = Route.useLoaderData() || {};
+  const { projetos = [], posts = [], eventos = [] } = Route.useLoaderData() as { projetos: any[], posts: any[], eventos: any[] };
   
   const validProjetos = (projetos || []).filter((p: any) => p && p.slug && p.titulo);
   const validPosts = (posts || []).filter((p: any) => p && p.slug && p.titulo);
@@ -284,7 +284,7 @@ function Home() {
       </section>
 
       {/* FRENTES DE AÇÃO - New Carousel Layout */}
-      <FrentesAcao projetos={validProjetos} />
+      <FrentesAcao projetos={validProjetos as any} />
 
       {/* QUEM SOMOS - Premium Editorial Storytelling */}
       <section className="py-56 bg-white overflow-hidden">

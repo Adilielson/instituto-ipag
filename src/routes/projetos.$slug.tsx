@@ -43,7 +43,7 @@ const ICON_MAP: Record<string, any> = {
 };
 
 function ProjetoDetalhe() {
-  const { project } = Route.useLoaderData();
+  const { project } = Route.useLoaderData() as { project: any };
   if (!project) return null;
   const Icon = ICON_MAP[project.categoria as string] || HeartHandshake;
   

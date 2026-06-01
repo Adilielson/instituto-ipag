@@ -42,7 +42,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPost() {
-  const { post, relatedPosts } = Route.useLoaderData();
+  const { post, relatedPosts } = Route.useLoaderData() as { post: any, relatedPosts: any[] };
   if (!post) return null;
   
   return (

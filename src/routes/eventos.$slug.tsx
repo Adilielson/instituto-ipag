@@ -25,7 +25,7 @@ export const Route = createFileRoute("/eventos/$slug")({
 });
 
 function EventoPage() {
-  const { evento } = Route.useLoaderData();
+  const { evento } = Route.useLoaderData() as { evento: any };
 
   return (
     <article className="min-h-screen bg-white pb-24">
