@@ -225,7 +225,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
 
 function Home() {
   const heroRef = useRef(null);
-  const { projetos = [], posts = [], eventos = [] } = Route.useLoaderData() || {};
+  const { projetos = [], posts = [], eventos = [] } = Route.useLoaderData() as { projetos: any[], posts: any[], eventos: any[] };
   
   const validProjetos = (projetos || []).filter((p: any) => p && p.slug && p.titulo);
   const validPosts = (posts || []).filter((p: any) => p && p.slug && p.titulo);
