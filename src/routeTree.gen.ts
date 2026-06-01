@@ -20,9 +20,9 @@ import { Route as BazarRouteImport } from './routes/bazar'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ProjetosSlugRouteImport } from './routes/projetos_.$slug'
-import { Route as EventosSlugRouteImport } from './routes/eventos_.$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
+import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
+import { Route as EventosSlugRouteImport } from './routes/eventos.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
 import { Route as AdminTransparenciaRouteImport } from './routes/admin.transparencia'
 import { Route as AdminProjetosRouteImport } from './routes/admin.projetos'
@@ -86,17 +86,17 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 const ProjetosSlugRoute = ProjetosSlugRouteImport.update({
-  id: '/projetos_/$slug',
+  id: '/projetos/$slug',
   path: '/projetos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventosSlugRoute = EventosSlugRouteImport.update({
-  id: '/eventos_/$slug',
+  id: '/eventos/$slug',
   path: '/eventos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog_/$slug',
+  id: '/blog/$slug',
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -192,9 +192,9 @@ export interface FileRoutesById {
   '/admin/projetos': typeof AdminProjetosRoute
   '/admin/transparencia': typeof AdminTransparenciaRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
-  '/blog_/$slug': typeof BlogSlugRoute
-  '/eventos_/$slug': typeof EventosSlugRoute
-  '/projetos_/$slug': typeof ProjetosSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/eventos/$slug': typeof EventosSlugRoute
+  '/projetos/$slug': typeof ProjetosSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -259,9 +259,9 @@ export interface FileRouteTypes {
     | '/admin/projetos'
     | '/admin/transparencia'
     | '/admin/usuarios'
-    | '/blog_/$slug'
-    | '/eventos_/$slug'
-    | '/projetos_/$slug'
+    | '/blog/$slug'
+    | '/eventos/$slug'
+    | '/projetos/$slug'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -360,22 +360,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/projetos_/$slug': {
-      id: '/projetos_/$slug'
+    '/projetos/$slug': {
+      id: '/projetos/$slug'
       path: '/projetos/$slug'
       fullPath: '/projetos/$slug'
       preLoaderRoute: typeof ProjetosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/eventos_/$slug': {
-      id: '/eventos_/$slug'
+    '/eventos/$slug': {
+      id: '/eventos/$slug'
       path: '/eventos/$slug'
       fullPath: '/eventos/$slug'
       preLoaderRoute: typeof EventosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog_/$slug': {
-      id: '/blog_/$slug'
+    '/blog/$slug': {
+      id: '/blog/$slug'
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
