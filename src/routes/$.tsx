@@ -6,7 +6,6 @@ export const Route = createFileRoute("/$")({
     for (const prefix of legacyPrefixes) {
       if (location.pathname.startsWith(prefix)) {
         const baseRoute = prefix.replace("/", "").replace("_", "");
-        // Extract the slug: it's everything after the prefix (e.g., "slug" from "/blog_slug")
         const slug = location.pathname.substring(prefix.length);
         
         if (slug) {
