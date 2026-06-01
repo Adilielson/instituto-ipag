@@ -74,11 +74,10 @@ const FastURL = /* @__PURE__ */ (() => {
         const url = this.href;
         const protoIndex = url.indexOf("://");
         const pathnameIndex = protoIndex === -1 ? -1 : url.indexOf("/", protoIndex + 4);
-        const qIndex = pathnameIndex === -1 ? -1 : url.indexOf("?", pathnameIndex);
         this.#pos = [
           protoIndex,
           pathnameIndex,
-          qIndex
+          pathnameIndex === -1 ? -1 : url.indexOf("?", pathnameIndex)
         ];
       }
       return this.#pos;
@@ -112,8 +111,7 @@ const FastURL = /* @__PURE__ */ (() => {
       if (this.#protocol === void 0) {
         const [protocolIndex] = this.#getPos();
         if (protocolIndex === -1) return this._url.protocol;
-        const url = this.href;
-        this.#protocol = url.slice(0, protocolIndex + 1);
+        this.#protocol = this.href.slice(0, protocolIndex + 1);
       }
       return this.#protocol;
     }

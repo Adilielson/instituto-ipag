@@ -1,4 +1,4 @@
-import { c as computePosition, o as offset$1, s as shift$1, f as flip$1, d as size$1, h as hide$1, a as arrow$2, l as limitShift$1 } from "./floating-ui__dom.mjs";
+import { c as computePosition, o as offset$1, s as shift$1, f as flip$1, a as size$1, h as hide$1, b as arrow$2, l as limitShift$1 } from "./floating-ui__dom.mjs";
 import { r as reactExports } from "./react.mjs";
 import { r as reactDomExports } from "./react-dom.mjs";
 var isClient = typeof document !== "undefined";
@@ -308,8 +308,8 @@ const arrow = (options, deps) => {
   };
 };
 export {
-  arrow as a,
-  size as b,
+  size as a,
+  arrow as b,
   flip as f,
   hide as h,
   limitShift as l,

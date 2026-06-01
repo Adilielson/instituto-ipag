@@ -1,5 +1,5 @@
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { u as useInView, m as motion } from "../_libs/framer-motion.mjs";
+import { c as useInView, m as motion } from "../_libs/framer-motion.mjs";
 function Reveal({
   children,
   delay = 0,

@@ -1,4 +1,4 @@
-import { w as getSideAxis, b as getAlignmentAxis, v as getSide, g as getAlignment, e as evaluate, t as getPaddingObject, I as rectToClientRect, h as getAxisLength, c as clamp, r as getOppositePlacement, l as getExpandedPlacements, q as getOppositeAxisPlacements, d as getAlignmentSides, H as min, G as max, p as getOppositeAxis, K as sides } from "./floating-ui__utils.mjs";
+import { g as getSideAxis, a as getAlignmentAxis, b as getSide, c as getAlignment, e as evaluate, d as getPaddingObject, r as rectToClientRect, f as getAxisLength, h as clamp, i as getOppositePlacement, j as getExpandedPlacements, k as getOppositeAxisPlacements, l as getAlignmentSides, m as min, n as max, o as getOppositeAxis, s as sides } from "./floating-ui__utils.mjs";
 function computeCoordsFromPlacement(_ref, placement, rtl) {
   let {
     reference,
@@ -715,8 +715,8 @@ const size = function(options) {
   };
 };
 export {
-  arrow as a,
-  size as b,
+  size as a,
+  arrow as b,
   computePosition as c,
   flip as f,
   hide as h,

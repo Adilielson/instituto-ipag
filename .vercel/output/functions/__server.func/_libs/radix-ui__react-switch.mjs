@@ -1,7 +1,7 @@
 import { r as reactExports, j as jsxRuntimeExports } from "./react.mjs";
 import { c as composeEventHandlers } from "./radix-ui__primitive.mjs";
 import { u as useComposedRefs } from "./radix-ui__react-compose-refs.mjs";
-import { a as createContextScope } from "./radix-ui__react-context.mjs";
+import { c as createContextScope } from "./radix-ui__react-context.mjs";
 import { u as useControllableState } from "./@radix-ui/react-use-controllable-state+[...].mjs";
 import { u as usePrevious } from "./radix-ui__react-use-previous.mjs";
 import { u as useSize } from "./radix-ui__react-use-size.mjs";
