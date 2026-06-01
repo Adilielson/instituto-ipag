@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/projetos_/$slug")({
+export const Route = createFileRoute("/projetos/$slug")({
   loader: async ({ params }) => {
     const { data: project, error } = await supabase
       .from("projetos")

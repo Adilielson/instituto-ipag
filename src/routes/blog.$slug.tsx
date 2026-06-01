@@ -4,7 +4,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/blog_/$slug")({
+export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
     const { data: post, error: postErr } = await supabase
       .from("posts")
