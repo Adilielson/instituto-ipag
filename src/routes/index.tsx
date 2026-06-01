@@ -284,7 +284,7 @@ function Home() {
       </section>
 
       {/* FRENTES DE AÇÃO - New Carousel Layout */}
-      <FrentesAcao projetos={validProjetos} />
+      <FrentesAcao projetos={validProjetos as any} />
 
       {/* QUEM SOMOS - Premium Editorial Storytelling */}
       <section className="py-56 bg-white overflow-hidden">
