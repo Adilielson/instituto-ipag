@@ -16,5 +16,8 @@ export default defineConfig({
   // but standard "vercel" preset is safer for general Node.js compatibility.
   nitro: {
     preset: "vercel",
+    externals: {
+      inline: ["tslib"],
+    },
   },
 });
