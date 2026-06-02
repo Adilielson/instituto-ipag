@@ -24,7 +24,7 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 lg:px-16">
         <Link to="/" className="flex items-center gap-2 group">
-          <img src={logo} alt="IPAG" className="h-[68px] md:h-[80px] w-auto transition-transform duration-500 group-hover:scale-105" />
+          <img src={logo} alt="IPAG" className="h-[102px] md:h-[80px] w-auto transition-transform duration-500 group-hover:scale-105" />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
