@@ -49,8 +49,22 @@ function ProjetoDetalhe() {
   
   return (
     <>
-      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
+      <section className="relative min-h-[50vh] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+        {project.imagem_destaque && (
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={project.imagem_destaque} 
+              alt={project.titulo} 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/40"></div>
+          </div>
+        )}
+        {!project.imagem_destaque && (
+          <div className="absolute inset-0 z-0 gradient-flame-soft">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
+          </div>
+        )}
         <div className="max-container relative z-10">
           <Link to="/projetos" className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12">
             <ArrowLeft className="h-4 w-4" /> TODOS OS PROJETOS
