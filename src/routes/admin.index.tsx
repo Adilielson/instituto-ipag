@@ -1,17 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FolderKanban, Calendar, Newspaper, Users, ArrowUpRight, TrendingUp } from "lucide-react";
 import { ADMIN_MASTER } from "@/lib/admin-mock";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/admin/")({
+  loader: async () => {
+    const [
+      { count: projectsCount },
+      { count: eventsCount },
+      { count: postsCount },
+      { count: categoriesCount }
+    ] = await Promise.all([
+      supabase.from("projetos").select("*", { count: 'exact', head: true }),
+      supabase.from("eventos").select("*", { count: 'exact', head: true }),
+      supabase.from("posts").select("*", { count: 'exact', head: true }),
+      supabase.from("blog_categories").select("*", { count: 'exact', head: true })
+    ]);
+
+    const { data: recentPosts } = await supabase
+      .from("posts")
+      .select("titulo, data_publicacao")
+      .order("data_publicacao", { ascending: false })
+      .limit(3);
+
+    return {
+      stats: {
+        projects: projectsCount || 0,
+        events: eventsCount || 0,
+        posts: postsCount || 0,
+        categories: categoriesCount || 0,
+      },
+      recentPosts: (recentPosts || []) as { titulo: string; data_publicacao: string }[]
+    };
+  },
   component: AdminHome,
 });
 
 function AdminHome() {
+  const { stats: data, recentPosts } = Route.useLoaderData() as any;
+
   const stats = [
-    { label: "Projetos Ativos", value: 6, icon: FolderKanban, color: "text-blue-500", bg: "bg-blue-500/10" },
-    { label: "Eventos Agendados", value: 3, icon: Calendar, color: "text-purple-500", bg: "bg-purple-500/10" },
-    { label: "Posts Publicados", value: 12, icon: Newspaper, color: "text-orange-500", bg: "bg-orange-500/10" },
-    { label: "Voluntários", value: 80, icon: Users, color: "text-green-500", bg: "bg-green-500/10" },
+    { label: "Projetos Ativos", value: data.projects, icon: FolderKanban, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { label: "Eventos Agendados", value: data.events, icon: Calendar, color: "text-purple-500", bg: "bg-purple-500/10" },
+    { label: "Posts Publicados", value: data.posts, icon: Newspaper, color: "text-orange-500", bg: "bg-orange-500/10" },
+    { label: "Categorias de Blog", value: data.categories, icon: Users, color: "text-green-500", bg: "bg-green-500/10" },
   ];
 
   return (
@@ -64,18 +96,26 @@ function AdminHome() {
             <button className="text-xs font-black uppercase tracking-widest text-primary hover:opacity-70 transition-opacity">Ver Tudo</button>
           </div>
           <div className="space-y-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-center gap-4 group cursor-pointer">
-                <div className="h-12 w-12 rounded-2xl bg-[#F7F8FA] flex items-center justify-center border border-black/5 group-hover:border-primary/30 transition-colors">
-                  <Newspaper className="h-5 w-5 text-[#8E8E8F] group-hover:text-primary transition-colors" />
+            {recentPosts.length > 0 ? (
+              recentPosts.map((post: any, i: number) => (
+                <div key={i} className="flex items-center gap-4 group cursor-pointer">
+                  <div className="h-12 w-12 rounded-2xl bg-[#F7F8FA] flex items-center justify-center border border-black/5 group-hover:border-primary/30 transition-colors">
+                    <Newspaper className="h-5 w-5 text-[#8E8E8F] group-hover:text-primary transition-colors" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-[#2A2A2B] truncate group-hover:text-primary transition-colors">
+                      {post.titulo}
+                    </p>
+                    <p className="text-[10px] font-bold text-[#8E8E8F] uppercase tracking-wider">
+                      {new Date(post.data_publicacao).toLocaleDateString('pt-BR')} • Por Admin
+                    </p>
+                  </div>
+                  <div className="h-2 w-2 rounded-full bg-primary" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-[#2A2A2B] truncate group-hover:text-primary transition-colors">Novo post publicado no blog: "Impacto da Música na Infância"</p>
-                  <p className="text-[10px] font-bold text-[#8E8E8F] uppercase tracking-wider">Há {i * 2} horas • Por Admin</p>
-                </div>
-                <div className="h-2 w-2 rounded-full bg-primary" />
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-sm text-gray/50 italic">Nenhuma atividade recente encontrada.</p>
+            )}
           </div>
         </div>
 
