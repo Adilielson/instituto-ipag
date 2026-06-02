@@ -262,9 +262,9 @@ function Home() {
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" 
                   alt="Nossa Pegada" 
-                  className="w-full h-full object-cover opacity-60 md:opacity-30 relative z-[1]"
+                  className="w-full h-full object-cover opacity-60 md:opacity-30 relative z-10"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/95 md:via-[#0F1115]/80 to-transparent z-[2]"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/95 md:via-[#0F1115]/80 to-transparent z-20"></div>
               </div>
 
               <div className="relative z-10 w-full max-w-4xl">
