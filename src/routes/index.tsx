@@ -246,27 +246,28 @@ function Home() {
   return (
     <div className="bg-white">
       {/* HERO - Cinematic Premium Layout */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px]">
+      <section ref={heroRef} className="relative h-[800px] flex items-center bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px] overflow-hidden">
         <HomeHero heroRef={heroRef} />
       </section>
 
       {/* IMPACTO - Premium Institutional Style with Bazar-like structure */}
-      <section className="py-24 bg-white">
+      <section id="impacto" className="relative py-24 bg-white">
         <div className="max-container">
           <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[450px] md:min-h-[700px] flex items-center p-6 md:p-32 shadow-2xl group">
+            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[500px] md:min-h-[700px] flex items-center p-8 md:p-32 shadow-2xl group">
               <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0 bg-[#0F1115]" />
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" 
                   alt="Nossa Pegada" 
-                  className="w-full h-full object-cover opacity-20 md:opacity-30"
+                  className="w-full h-full object-cover opacity-60 md:opacity-30 relative z-10"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/95 md:via-[#0F1115]/80 to-transparent z-20"></div>
               </div>
 
-              <div className="relative z-10 max-w-4xl">
+              <div className="relative z-10 w-full max-w-4xl">
                 <div className="inline-flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
                    <div className="h-10 w-10 md:h-14 md:w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
                       <BarChart className="w-5 h-5 md:w-7 md:h-7" />
@@ -274,15 +275,29 @@ function Home() {
                    <span className="text-primary font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">NOSSA PEGADA</span>
                 </div>
                 
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter text-center sm:text-left">
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter text-left">
                   RESULTADOS QUE <br /><span className="text-primary italic">MUDAM VIDAS</span>
                 </h2>
-                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight text-center sm:text-left">
+                <p className="text-lg md:text-3xl text-white/50 mb-10 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight text-left">
                   Monitoramos cada ação para garantir que o impacto chegue onde é mais necessário, transformando doações em desenvolvimento humano real.
                 </p>
-                <div className="flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 justify-center sm:justify-start">
+                
+                {/* Stats Grid for Mobile/Desktop */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
+                  {IMPACT_STATS.slice(0, 3).map((stat, idx) => (
+                    <div key={idx} className="flex flex-col">
+                      <div className="flex items-baseline gap-1">
+                        <Counter to={stat.value} className="text-3xl md:text-5xl font-black text-white" />
+                        <span className="text-primary font-black text-xl md:text-2xl">{stat.suffix}</span>
+                      </div>
+                      <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/40 mt-2">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 justify-start">
                   <Button asChild className="gf-button gf-button-primary h-auto group px-8 md:px-12 py-5 md:py-7 w-full sm:w-auto">
-                    <Link to="/transparencia" className="flex items-center justify-center gap-4 text-xs md:text-base tracking-widest uppercase">
+                    <Link to="/transparencia" className="flex items-center justify-center gap-4 text-sm md:text-base tracking-widest uppercase">
                       Relatório de Transparência <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-2" />
                     </Link>
                   </Button>
