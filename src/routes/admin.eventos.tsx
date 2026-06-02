@@ -21,7 +21,6 @@ function AdminEventos() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingEvento, setEditingEvento] = useState<any>(null);
 
-  // Form states
   const [formData, setFormData] = useState({
     titulo: "",
     data_evento: "",
@@ -36,10 +35,7 @@ function AdminEventos() {
   const { data: eventos, isLoading } = useQuery({
     queryKey: ["eventos"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("eventos")
-        .select("*")
-        .order("data_evento", { ascending: true });
+      const { data, error } = await supabase.from("eventos").select("*").order("data_evento", { ascending: true });
       if (error) throw error;
       return data;
     },
@@ -47,11 +43,7 @@ function AdminEventos() {
 
   const createMutation = useMutation({
     mutationFn: async (data: any) => {
-      const { data: result, error } = await supabase
-        .from("eventos")
-        .insert([data])
-        .select()
-        .single();
+      const { data: result, error } = await supabase.from("eventos").insert([data]).select().single();
       if (error) throw error;
       return result;
     },
@@ -62,83 +54,57 @@ function AdminEventos() {
       resetForm();
     },
     onError: (error: any) => {
-      console.error("Erro ao criar evento:", error);
-      const message = error?.message || "Erro desconhecido";
-      toast.error(`Erro ao criar evento: ${message}`);
+      toast.error(`Erro: ${error.message}`);
     }
   });
 
   const updateMutation = useMutation({
     mutationFn: async (data: any) => {
       const { id, ...updates } = data;
-      const { data: result, error } = await supabase
-        .from("eventos")
-        .update(updates)
-        .eq("id", id)
-        .select()
-        .single();
+      const { data: result, error } = await supabase.from("eventos").update(updates).eq("id", id).select().single();
       if (error) throw error;
       return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["eventos"] });
-      toast.success("Evento atualizado com sucesso!");
+      toast.success("Evento atualizado!");
       setIsDialogOpen(false);
       resetForm();
     },
     onError: (error: any) => {
-      console.error("Erro ao atualizar evento:", error);
-      const message = error?.message || "Erro desconhecido";
-      toast.error(`Erro ao atualizar evento: ${message}`);
+      toast.error(`Erro: ${error.message}`);
     }
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from("eventos")
-        .delete()
-        .eq("id", id);
+      const { error } = await supabase.from("eventos").delete().eq("id", id);
       if (error) throw error;
       return { success: true };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["eventos"] });
-      toast.success("Evento excluído com sucesso!");
-    },
-    onError: (error: any) => {
-      console.error(error);
-      toast.error("Erro ao excluir evento.");
+      toast.success("Evento excluído!");
     }
   });
 
   const resetForm = () => {
     setFormData({
-      titulo: "",
-      data_evento: "",
-      local: "",
-      descricao: "",
-      status: "publicado",
-      imagem_destaque: "",
-      galeria: [],
-      video_url: ""
+      titulo: "", data_evento: "", local: "", descricao: "", status: "publicado",
+      imagem_destaque: "", galeria: [], video_url: ""
     });
     setEditingEvento(null);
   };
 
   const handleEdit = (evento: any) => {
     setEditingEvento(evento);
-    
-    // Convert timestamp to datetime-local format (YYYY-MM-DDTHH:MM)
     let formattedDate = "";
     if (evento.data_evento) {
       const date = new Date(evento.data_evento);
-      // Adjust for local timezone to match what the input expects
       const offset = date.getTimezoneOffset() * 60000;
-      const localDate = new Date(date.getTime( ) - offset);
+      const localDate = new Date(date.getTime() - offset);
       formattedDate = localDate.toISOString().slice(0, 16);
     }
-
     setFormData({
       titulo: evento.titulo,
       data_evento: formattedDate,
@@ -155,28 +121,13 @@ function AdminEventos() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const slug = formData.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w ]+/g, '').replace(/ +/g, '-');
-    
-    // Ensure data_evento is in a format Supabase likes (ISO string)
-    // The input datetime-local gives "YYYY-MM-DDTHH:mm", which needs to be a full timestamp
     let formattedDate = formData.data_evento;
     if (formData.data_evento && !formData.data_evento.includes('Z')) {
       formattedDate = new Date(formData.data_evento).toISOString();
     }
-
-    const payload = {
-      ...formData,
-      data_evento: formattedDate,
-      slug
-    };
-    
-    if (editingEvento) {
-      updateMutation.mutate({
-        id: editingEvento.id,
-        ...payload
-      });
-    } else {
-      createMutation.mutate(payload);
-    }
+    const payload = { ...formData, data_evento: formattedDate, slug };
+    if (editingEvento) updateMutation.mutate({ id: editingEvento.id, ...payload });
+    else createMutation.mutate(payload);
   };
 
   const filteredEventos = useMemo(() => {
@@ -188,268 +139,130 @@ function AdminEventos() {
   }, [eventos, searchTerm]);
 
   return (
-    <div className="rounded-[40px] bg-white border border-black/5 p-8 shadow-premium-utility animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+    <div className="rounded-[32px] sm:rounded-[40px] bg-white border border-black/5 p-4 sm:p-8 shadow-premium-utility animate-in fade-in duration-500">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 sm:mb-10 gap-4">
         <div>
-          <h1 className="text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Calendário de Eventos</h1>
-          <p className="text-sm font-medium text-[#8E8E8F]">Gerencie os workshops, concertos e reuniões do IPAG.</p>
+          <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Calendário de Eventos</h1>
+          <p className="text-xs sm:text-sm font-medium text-[#8E8E8F]">Gerencie os workshops e concertos.</p>
         </div>
-        <Button 
-          onClick={() => { resetForm(); setIsDialogOpen(true); }}
-          className="gf-button-primary shadow-warm-utility hover:scale-105 transition-transform w-full md:w-auto"
-        >
-          <Plus className="mr-2 h-4 w-4" /> Novo Evento
+        <Button onClick={() => { resetForm(); setIsDialogOpen(true); }} className="gf-button-primary shadow-warm-utility w-full sm:w-auto h-12 text-base">
+          <Plus className="mr-2 h-5 w-5" /> Novo Evento
         </Button>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8E8E8F]" />
-          <Input 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Buscar eventos por nome ou local..." 
-            className="pl-10 h-11 bg-[#F7F8FA] border-black/5 rounded-xl" 
-          />
-        </div>
+      <div className="relative mb-8">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#8E8E8F]" />
+        <Input 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Buscar eventos..." 
+          className="pl-10 h-12 bg-[#F7F8FA] border-black/5 rounded-xl text-base" 
+        />
       </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
+        <div className="flex items-center justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b border-black/5 text-[10px] font-black uppercase tracking-[0.2em] text-[#8E8E8F]">
-              <th className="pb-4 pr-4">Evento / Detalhes</th>
-              <th className="pb-4 pr-4">Imagens</th>
-              <th className="pb-4 pr-4">Data e Hora</th>
-              <th className="pb-4 pr-4">Local</th>
-              <th className="pb-4 text-right">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-black/[0.03]">
-              {filteredEventos.map((e: any) => (
-                <tr key={e.id} className="group hover:bg-[#F7F8FA] transition-all duration-200">
-                  <td className="py-5 pr-4">
-                    <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 shrink-0 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                        <Calendar className="h-6 w-6 text-purple-600" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight group-hover:text-primary transition-colors">{e.titulo}</p>
-                        <p className="text-[10px] font-bold text-[#8E8E8F] truncate uppercase tracking-widest">{e.status}</p>
-                      </div>
+        <>
+          <div className="hidden sm:block overflow-x-auto">
+            <table className="w-full text-left">
+                <thead>
+                    <tr className="border-b border-black/5 text-[10px] font-black uppercase tracking-[0.2em] text-[#8E8E8F]">
+                        <th className="pb-4 pr-4">Evento</th>
+                        <th className="pb-4 pr-4">Data e Hora</th>
+                        <th className="pb-4 pr-4">Local</th>
+                        <th className="pb-4 text-right">Ações</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-black/[0.03]">
+                    {filteredEventos.map((e: any) => (
+                        <tr key={e.id} className="group hover:bg-[#F7F8FA] transition-all">
+                            <td className="py-5 pr-4">
+                                <p className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight">{e.titulo}</p>
+                            </td>
+                            <td className="py-5 pr-4 text-xs font-bold text-[#8E8E8F]">
+                                {new Date(e.data_evento).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
+                            </td>
+                            <td className="py-5 pr-4 text-xs font-bold text-[#2A2A2B]">{e.local}</td>
+                            <td className="py-5 text-right">
+                                <div className="flex justify-end gap-2">
+                                    <Button onClick={() => handleEdit(e)} variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary"><Edit2 className="h-4 w-4" /></Button>
+                                    <Button onClick={() => confirm("Excluir?") && deleteMutation.mutate(e.id)} variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+          </div>
+
+          <div className="sm:hidden space-y-4">
+            {filteredEventos.map((e: any) => (
+              <div key={e.id} className="bg-[#F7F8FA] rounded-2xl p-4 border border-black/5 shadow-sm space-y-4">
+                <div className="flex gap-4">
+                  <div className="h-16 w-16 shrink-0 rounded-xl bg-white border border-black/5 flex items-center justify-center">
+                    <Calendar className="h-8 w-8 text-primary" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-black text-sm text-[#2A2A2B] truncate uppercase tracking-tight">{e.titulo}</h3>
+                    <div className="flex items-center gap-1.5 mt-1 text-[10px] font-bold text-[#8E8E8F]">
+                        <Calendar className="h-3 w-3" />
+                        {new Date(e.data_evento).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
                     </div>
-                  </td>
-                  <td className="py-5 pr-4">
-                    <div className="flex -space-x-2">
-                      {e.galeria?.slice(0, 3).map((img: string, idx: number) => (
-                        <div key={idx} className="h-8 w-8 rounded-lg border-2 border-white overflow-hidden bg-gray-100">
-                          <img src={img} className="h-full w-full object-cover" alt="" />
-                        </div>
-                      ))}
-                      {e.galeria?.length > 3 && (
-                        <div className="h-8 w-8 rounded-lg border-2 border-white bg-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500">
-                          +{e.galeria.length - 3}
-                        </div>
-                      )}
-                      {(!e.galeria || e.galeria.length === 0) && (
-                        <span className="text-[10px] text-gray-300 font-bold uppercase">Sem fotos</span>
-                      )}
+                    <div className="flex items-center gap-1.5 mt-0.5 text-[10px] font-bold text-primary uppercase">
+                        <MapPin className="h-3 w-3" /> {e.local}
                     </div>
-                  </td>
-                  <td className="py-5 pr-4">
-                    <div className="flex flex-col">
-                      <span className="text-xs font-black text-[#2A2A2B]">
-                        {new Date(e.data_evento).toLocaleDateString('pt-BR')}
-                      </span>
-                      <span className="text-[10px] font-bold text-[#8E8E8F] uppercase tracking-wider">
-                        {new Date(e.data_evento).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="py-5 pr-4">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-[#2A2A2B]">
-                      <MapPin className="h-3 w-3 text-primary" />
-                      <span className="truncate max-w-[150px]">{e.local}</span>
-                    </div>
-                  </td>
-                  <td className="py-5 text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button 
-                        onClick={() => handleEdit(e)}
-                        variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary transition-colors"
-                      >
-                        <Edit2 className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        onClick={() => {
-                          if (confirm("Tem certeza que deseja excluir este evento?")) {
-                            deleteMutation.mutate(e.id);
-                          }
-                        }}
-                        variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-destructive hover:bg-destructive/10 transition-colors"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {filteredEventos.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="py-20 text-center text-[#8E8E8F] font-medium">
-                    Nenhum evento encontrado.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                </div>
+                <div className="flex gap-2 pt-2 border-t border-black/5">
+                  <Button onClick={() => handleEdit(e)} variant="outline" className="flex-1 h-11 text-xs font-black uppercase tracking-widest bg-white">
+                    <Edit2 className="mr-2 h-4 w-4" /> Editar
+                  </Button>
+                  <Button onClick={() => confirm("Excluir?") && deleteMutation.mutate(e.id)} variant="ghost" className="h-11 w-11 shrink-0 rounded-xl text-destructive hover:bg-destructive/10 border border-black/5">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
-      {/* Dialog for Creating/Editing */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[500px] rounded-[32px] p-8">
+        <DialogContent className="sm:max-w-[500px] rounded-[32px] p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black uppercase tracking-tight">
+            <DialogTitle className="text-xl sm:text-2xl font-black uppercase tracking-tight">
               {editingEvento ? "Editar Evento" : "Novo Evento"}
             </DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-6 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="titulo" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Título do Evento</Label>
-              <Input 
-                id="titulo" 
-                value={formData.titulo}
-                onChange={(e) => setFormData({...formData, titulo: e.target.value})}
-                required 
-                className="h-12 bg-[#F7F8FA] border-black/5 rounded-xl font-bold"
-              />
+          <form onSubmit={handleSubmit} className="space-y-5 py-4">
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium">Título do Evento</Label>
+              <Input value={formData.titulo} onChange={(e) => setFormData({...formData, titulo: e.target.value})} required className="h-12 text-base font-bold bg-[#F7F8FA] border-black/5" />
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium">Data e Hora</Label>
+                <Input type="datetime-local" value={formData.data_evento} onChange={(e) => setFormData({...formData, data_evento: e.target.value})} required className="h-12 text-base bg-[#F7F8FA] border-black/5" />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium">Local</Label>
+                <Input value={formData.local} onChange={(e) => setFormData({...formData, local: e.target.value})} required className="h-12 text-base bg-[#F7F8FA] border-black/5" />
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium">Descrição</Label>
+              <Textarea value={formData.descricao} onChange={(e) => setFormData({...formData, descricao: e.target.value})} className="min-h-[100px] text-base bg-[#F7F8FA] border-black/5" />
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="data" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Data e Hora</Label>
-                <Input 
-                  id="data" 
-                  type="datetime-local"
-                  value={formData.data_evento}
-                  onChange={(e) => setFormData({...formData, data_evento: e.target.value})}
-                  required 
-                  className="h-12 bg-[#F7F8FA] border-black/5 rounded-xl font-bold"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="local" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Local</Label>
-                <Input 
-                  id="local" 
-                  value={formData.local}
-                  onChange={(e) => setFormData({...formData, local: e.target.value})}
-                  required 
-                  className="h-12 bg-[#F7F8FA] border-black/5 rounded-xl font-bold"
-                />
-              </div>
+              <FileUpload label="Destaque" value={formData.imagem_destaque} onUploadComplete={(url) => setFormData({...formData, imagem_destaque: url})} onRemove={() => setFormData({...formData, imagem_destaque: ""})} type="image" />
+              <FileUpload label="Vídeo" value={formData.video_url} onUploadComplete={(url) => setFormData({...formData, video_url: url})} onRemove={() => setFormData({...formData, video_url: ""})} type="video" accept="video/*" />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="descricao" className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Descrição</Label>
-              <Textarea 
-                id="descricao" 
-                value={formData.descricao}
-                onChange={(e) => setFormData({...formData, descricao: e.target.value})}
-                className="min-h-[100px] bg-[#F7F8FA] border-black/5 rounded-xl font-medium"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <FileUpload 
-                label="Imagem de Destaque"
-                value={formData.imagem_destaque}
-                onUploadComplete={(url) => setFormData({...formData, imagem_destaque: url})}
-                onRemove={() => setFormData({...formData, imagem_destaque: ""})}
-                type="image"
-              />
-              <FileUpload 
-                label="Vídeo do Evento"
-                value={formData.video_url}
-                onUploadComplete={(url) => setFormData({...formData, video_url: url})}
-                onRemove={() => setFormData({...formData, video_url: ""})}
-                type="video"
-                accept="video/*"
-              />
-            </div>
-
-            <div className="space-y-3">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-[#8E8E8F]">Galeria de Fotos</Label>
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                {formData.galeria.map((url, index) => (
-                  <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border border-black/5">
-                    <img src={url} alt={`Galeria ${index}`} className="w-full h-full object-cover" />
-                    <button
-                      type="button"
-                      onClick={() => setFormData({
-                        ...formData,
-                        galeria: formData.galeria.filter((_, i) => i !== index)
-                      })}
-                      className="absolute top-1 right-1 p-1 bg-white/90 rounded-md shadow-sm opacity-0 group-hover:opacity-100 transition-opacity text-destructive"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                ))}
-                {formData.galeria.length < 30 && (
-                  <label className="flex items-center justify-center aspect-square rounded-lg border-2 border-dashed border-black/5 bg-[#F7F8FA] cursor-pointer hover:bg-black/[0.02] transition-colors">
-                    <Plus className="h-5 w-5 text-[#8E8E8F]" />
-                    <input 
-                      type="file" 
-                      className="hidden" 
-                      accept="image/*"
-                      multiple
-                      onChange={async (e) => {
-                        const files = Array.from(e.target.files || []);
-                        if (files.length === 0) return;
-                        
-                        const toastId = toast.loading(`Enviando ${files.length} imagem(ns)...`);
-                        try {
-                          const uploadPromises = files.map(async (file) => {
-                            const fileExt = file.name.split(".").pop();
-                            const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-                            const { error } = await supabase.storage.from("event-assets").upload(fileName, file);
-                            if (error) throw error;
-                            
-                            const { data: { publicUrl } } = supabase.storage.from("event-assets").getPublicUrl(fileName);
-                            return publicUrl;
-                          });
-                          
-                          const publicUrls = await Promise.all(uploadPromises);
-                          
-                          setFormData(prev => ({
-                            ...prev,
-                            galeria: [...prev.galeria, ...publicUrls].slice(0, 30)
-                          }));
-                          toast.success(`${files.length} imagem(ns) adicionada(s) à galeria!`, { id: toastId });
-                        } catch (err: any) {
-                          toast.error(`Erro no envio: ${err.message}`, { id: toastId });
-                        }
-                      }}
-                    />
-                  </label>
-                )}
-              </div>
-            </div>
-            <DialogFooter className="pt-4">
-              <Button type="button" variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-xl font-bold uppercase tracking-wider text-xs">
-                Cancelar
+            <DialogFooter className="flex flex-col sm:flex-row gap-2 pt-4">
+              <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending} className="gf-button-primary h-12 text-base font-black uppercase tracking-widest w-full order-first sm:order-last">
+                {editingEvento ? "Salvar" : "Criar"}
               </Button>
-              <Button 
-                type="submit" 
-                disabled={createMutation.isPending || updateMutation.isPending}
-                className="gf-button-primary shadow-warm-utility px-8 rounded-xl font-black uppercase tracking-widest text-xs"
-              >
-                {(createMutation.isPending || updateMutation.isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {editingEvento ? "Salvar Alterações" : "Criar Evento"}
-              </Button>
+              <Button type="button" variant="ghost" onClick={() => setIsDialogOpen(false)} className="h-12 text-base font-bold w-full">Cancelar</Button>
             </DialogFooter>
           </form>
         </DialogContent>
