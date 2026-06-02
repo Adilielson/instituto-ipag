@@ -175,34 +175,34 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           
           <Reveal delay={0.2} direction="up">
             <h1 className="gf-heading-xl text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white mb-10 leading-[0.85]">
-              TRANSFORMANDO <br />
-              REALIDADES EM <span className="text-primary relative inline-block">
-                REDE
+              TODA TRANSFORMAÇÃO <br />
+              COMEÇA QUANDO ALGUÉM <span className="text-primary relative inline-block">
+                ACREDITA
                 <motion.span 
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ delay: 1, duration: 0.8 }}
                   className="absolute -bottom-2 left-0 h-2 bg-primary/20"
                 />
-              </span>
+              </span> EM UMA VIDA.
             </h1>
           </Reveal>
 
           <Reveal delay={0.4} direction="up">
-            <p className="text-[18px] md:text-[24px] lg:text-[25px] text-white/90 mb-16 max-w-3xl font-light leading-tight tracking-tight">
-              Quase duas décadas promovendo educação, cultura e dignidade humana em São Mateus – ES.
+            <p className="text-[18px] md:text-[24px] lg:text-[25px] text-white/90 mb-16 max-w-4xl font-light leading-tight tracking-tight">
+              O IPAG nasceu do propósito de servir pessoas, criar oportunidades e fortalecer comunidades através da educação, da cultura e do desenvolvimento social.
             </p>
           </Reveal>
 
           <Reveal delay={0.6} direction="up">
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-8 items-center">
               <Button asChild className="gf-button gf-button-primary h-auto group px-12 py-7 w-full sm:w-auto">
-                <Link to="/projetos" className="flex items-center gap-4 text-base tracking-widest">
-                  CONHEÇA NOSSAS FRENTES <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
+                <Link to="/quem-somos" className="flex items-center gap-4 text-base tracking-widest uppercase">
+                  Conheça nossa história <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
                 </Link>
               </Button>
               <Button asChild variant="outline" className="gf-button bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-12 py-7 transition-all duration-300 w-full sm:w-auto">
-                <Link to="/quem-somos" className="text-base tracking-widest uppercase">NOSSA HISTÓRIA</Link>
+                <Link to="/projetos" className="text-base tracking-widest uppercase">Apoie esta missão</Link>
               </Button>
             </div>
           </Reveal>
