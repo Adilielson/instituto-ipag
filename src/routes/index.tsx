@@ -173,8 +173,6 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           className="absolute inset-0 bg-dark pointer-events-none"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
-        {/* Bottom fade to white */}
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent z-10"></div>
       </motion.div>
 
       <div className="max-container relative z-10 pt-20">
