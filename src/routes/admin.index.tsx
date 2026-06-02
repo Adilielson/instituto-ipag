@@ -9,12 +9,12 @@ export const Route = createFileRoute("/admin/")({
       { count: projectsCount },
       { count: eventsCount },
       { count: postsCount },
-      { count: volunteersCount }
+      { count: categoriesCount }
     ] = await Promise.all([
       supabase.from("projetos").select("*", { count: 'exact', head: true }),
       supabase.from("eventos").select("*", { count: 'exact', head: true }),
       supabase.from("posts").select("*", { count: 'exact', head: true }),
-      supabase.from("profiles").select("*", { count: 'exact', head: true })
+      supabase.from("blog_categories").select("*", { count: 'exact', head: true })
     ]);
 
     const { data: recentPosts } = await supabase
@@ -28,22 +28,22 @@ export const Route = createFileRoute("/admin/")({
         projects: projectsCount || 0,
         events: eventsCount || 0,
         posts: postsCount || 0,
-        volunteers: volunteersCount || 0,
+        categories: categoriesCount || 0,
       },
-      recentPosts: recentPosts || []
+      recentPosts: (recentPosts || []) as { titulo: string; data_publicacao: string }[]
     };
   },
   component: AdminHome,
 });
 
 function AdminHome() {
-  const { stats: data, recentPosts } = Route.useLoaderData();
+  const { stats: data, recentPosts } = Route.useLoaderData() as any;
 
   const stats = [
     { label: "Projetos Ativos", value: data.projects, icon: FolderKanban, color: "text-blue-500", bg: "bg-blue-500/10" },
     { label: "Eventos Agendados", value: data.events, icon: Calendar, color: "text-purple-500", bg: "bg-purple-500/10" },
     { label: "Posts Publicados", value: data.posts, icon: Newspaper, color: "text-orange-500", bg: "bg-orange-500/10" },
-    { label: "Voluntários", value: data.volunteers, icon: Users, color: "text-green-500", bg: "bg-green-500/10" },
+    { label: "Categorias de Blog", value: data.categories, icon: Users, color: "text-green-500", bg: "bg-green-500/10" },
   ];
 
   return (
