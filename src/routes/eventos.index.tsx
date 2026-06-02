@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { EVENTS } from "@/data/site";
 
@@ -53,19 +54,17 @@ export const Route = createFileRoute("/eventos/")({
 function Eventos() {
   const { eventos = [] } = Route.useLoaderData() || {};
   const validEventos = (eventos || []).filter((e: any) => e && e.slug && e.titulo);
+  const latestEvento = validEventos[0];
+  const heroImage = latestEvento?.imagem_destaque || "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop";
 
   return (
     <>
-      <section className="gradient-flame-soft py-20 md:py-28">
-        <div className="mx-auto max-w-4xl px-4 md:px-8">
-          <Reveal>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Eventos</span>
-            <h1 className="mt-4 text-5xl font-extrabold leading-[1.05] md:text-6xl">
-              Encontros que <span className="text-gradient-flame">mobilizam a comunidade</span>.
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Encontros que Mobilizam"
+        subtitle="Acompanhe as próximas ações, cursos e apresentações culturais do IPAG."
+        image={heroImage}
+        category="Eventos IPAG"
+      />
 
       <section className="py-20">
         <div className="mx-auto max-w-5xl space-y-5 px-4 md:px-8">
