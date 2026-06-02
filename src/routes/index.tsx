@@ -450,15 +450,16 @@ function Home() {
 
       {/* EVENTOS - Premium Preview */}
       {validEventos.length > 0 && (
-        <section className="py-56 bg-[#F7F8FA]">
-          <div className="max-container">
+        <section className="py-56 bg-gradient-to-br from-primary via-primary/90 to-primary/80 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+          <div className="max-container relative z-10">
             <Reveal>
-              <div className="flex flex-wrap items-end justify-between gap-16 mb-32 pb-16 border-b border-black/5">
+              <div className="flex flex-wrap items-end justify-between gap-16 mb-32 pb-16 border-b border-white/20">
                 <div className="max-w-4xl">
-                  <span className="text-primary font-black uppercase tracking-[0.5em] mb-8 block text-xs">CALENDÁRIO</span>
-                  <h2 className="gf-heading-lg uppercase text-dark tracking-tighter leading-none">EVENTOS</h2>
+                  <span className="text-white/80 font-black uppercase tracking-[0.5em] mb-8 block text-xs">CALENDÁRIO</span>
+                  <h2 className="gf-heading-lg uppercase text-white tracking-tighter leading-none">EVENTOS</h2>
                 </div>
-                <Button asChild variant="outline" className="gf-button border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-14 py-7 transition-all">
+                <Button asChild variant="outline" className="gf-button border-2 border-white text-white hover:bg-white hover:text-primary h-auto px-14 py-7 transition-all bg-transparent">
                   <Link to="/eventos" className="text-base tracking-widest">VER TUDO</Link>
                 </Button>
               </div>
