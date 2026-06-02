@@ -19,12 +19,16 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-[200] transition-all duration-500 ${
-        scrolled ? "bg-white/90 backdrop-blur-md border-b border-black/5 py-3 shadow-sm" : "bg-white py-5"
+        scrolled ? "bg-white/80 backdrop-blur-md border-b border-black/5 py-3 shadow-sm" : "bg-transparent py-5"
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 lg:px-16">
         <Link to="/" className="flex items-center gap-2 group">
-          <img src={logo} alt="IPAG" className="h-[102px] md:h-[80px] w-auto transition-transform duration-500 group-hover:scale-105" />
+          <img 
+            src={scrolled ? logo : "https://i.ibb.co/Z6Z7kLQN/LOGO-PNG-2.png"} 
+            alt="IPAG" 
+            className="h-[102px] md:h-[80px] w-auto transition-transform duration-500 group-hover:scale-105" 
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -32,7 +36,9 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className="text-[13px] font-bold uppercase tracking-widest text-dark hover:text-primary transition-colors"
+              className={`text-[13px] font-bold uppercase tracking-widest transition-colors hover:text-primary ${
+                scrolled ? "text-dark" : "text-white"
+              }`}
               activeProps={{ className: "text-primary" }}
             >
               {item.label}
@@ -48,7 +54,9 @@ export function Header() {
 
 
         <button
-          className="rounded-md p-3 lg:hidden"
+          className={`rounded-md p-3 lg:hidden transition-colors ${
+            scrolled ? "text-dark" : "text-white"
+          }`}
           onClick={() => setOpen((o) => !o)}
           aria-label="Abrir menu"
         >
