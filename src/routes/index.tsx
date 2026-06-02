@@ -158,10 +158,10 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           loop
           muted
           playsInline
-          className=\"absolute inset-0 w-full h-full object-cover\"
-          poster=\"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop\"
+          className="absolute inset-0 w-full h-full object-cover"
+          poster="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
         >
-          <source src=\"https://imgur.com/4FYIlqO.mp4\" type=\"video/mp4\" />
+          <source src="https://imgur.com/4FYIlqO.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         
@@ -170,9 +170,9 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           transition={{ duration: 2 }}
-          className=\"absolute inset-0 bg-dark pointer-events-none\"
+          className="absolute inset-0 bg-dark pointer-events-none"
         />
-        <div className=\"absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark\"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
       </motion.div>
 
       <div className="max-container relative z-10 pt-20">
