@@ -30,7 +30,7 @@ function AdminLayout() {
   return (
     <div className="min-h-screen bg-[#F7F8FA] flex flex-col text-[#2A2A2B] overflow-hidden h-screen">
       {/* Top Header - Full Width */}
-      <header className="h-20 bg-gradient-to-r from-[#f97316] to-white border-b border-black/5 flex items-center justify-between px-8 shrink-0 z-[60] shadow-sm">
+      <header className="h-20 bg-gradient-to-r from-[#f97316] to-white border-b border-black/5 flex items-center justify-between px-8 shrink-0 z-[100] shadow-sm">
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center gap-2 group">
             <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center text-[#f97316] shadow-sm group-hover:scale-105 transition-transform">
