@@ -152,13 +152,25 @@ function HomeHero({ heroRef }: { heroRef: any }) {
         style={isClient ? { y: y1, opacity, scale } : { y: 0, opacity: 1, scale: 1.1 }}
         className="absolute inset-0 z-0 overflow-hidden"
       >
-        <motion.img 
-          initial={{ scale: 1.2, opacity: 0 }}
-          animate={{ scale: 1.1, opacity: 0.4 }}
-          transition={{ duration: 3, ease: "easeOut" }}
-          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop" 
-          alt="IPAG Background" 
-          className="w-full h-full object-cover"
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          poster="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+        >
+          <source src="https://imgur.com/4FYIlqO.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Animated Overlay - keeping it subtle to show the video */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ duration: 2 }}
+          className="absolute inset-0 bg-dark pointer-events-none"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
       </motion.div>
