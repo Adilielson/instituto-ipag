@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { VALUES } from "@/data/site";
 
 export const Route = createFileRoute("/quem-somos")({
@@ -17,17 +18,11 @@ export const Route = createFileRoute("/quem-somos")({
 function QuemSomos() {
   return (
     <>
-      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
-        <div className="max-container relative z-10">
-          <Reveal>
-            <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Nossa Jornada</span>
-            <h1 className="gf-heading-lg text-dark max-w-5xl">
-              UM INSTITUTO QUE NASCEU <br />PARA <span className="text-gradient-flame">SERVIR PESSOAS</span>
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Um instituto que nasceu para servir pessoas"
+        image="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"
+        category="Nossa Jornada"
+      />
 
       <section className="py-40">
         <div className="max-container grid lg:grid-cols-2 gap-24 items-center">
