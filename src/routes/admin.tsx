@@ -35,10 +35,10 @@ function AdminLayout() {
   return (
     <div className="min-h-screen bg-[#F7F8FA] flex flex-col text-[#2A2A2B] h-screen overflow-hidden">
       {/* Top Header - Mobile and Desktop */}
-      <header className="h-14 lg:h-20 bg-gradient-to-r from-[#f97316] to-white border-b border-black/5 flex items-center justify-between px-4 lg:px-8 shrink-0 z-[300] shadow-sm">
+      <header className="h-14 lg:h-20 bg-gradient-to-r from-[#f97316] to-white lg:bg-white lg:bg-none border-b border-black/5 flex items-center justify-between px-4 lg:px-8 shrink-0 z-[300] shadow-sm">
         <div className="flex items-center gap-2">
-            <ShieldCheck className="h-6 w-6 text-white lg:text-[#f97316]" />
-            <h2 className="font-heading font-black text-lg uppercase tracking-tight text-white lg:text-[#2A2A2B]/80 truncate max-w-[200px]">
+            <ShieldCheck className="h-6 w-6 text-white lg:text-primary" />
+            <h2 className="font-heading font-black text-lg uppercase tracking-tight text-white lg:text-dark/80 truncate max-w-[200px]">
               Painel Admin
             </h2>
         </div>
