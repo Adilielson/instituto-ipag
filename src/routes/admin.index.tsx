@@ -97,7 +97,7 @@ function AdminHome() {
           </div>
           <div className="space-y-6">
             {recentPosts.length > 0 ? (
-              recentPosts.map((post, i) => (
+              recentPosts.map((post: any, i: number) => (
                 <div key={i} className="flex items-center gap-4 group cursor-pointer">
                   <div className="h-12 w-12 rounded-2xl bg-[#F7F8FA] flex items-center justify-center border border-black/5 group-hover:border-primary/30 transition-colors">
                     <Newspaper className="h-5 w-5 text-[#8E8E8F] group-hover:text-primary transition-colors" />
