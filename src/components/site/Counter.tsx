@@ -28,7 +28,7 @@ export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   }, [inView, to]);
 
   return (
-    <motion.span ref={ref} className="tabular-nums">
+    <motion.span ref={ref} className="tabular-nums text-4xl sm:text-5xl">
       {isClient ? n.toLocaleString("pt-BR") : to.toLocaleString("pt-BR")}
       {suffix}
     </motion.span>

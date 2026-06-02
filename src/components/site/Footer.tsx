@@ -6,7 +6,7 @@ import { SITE } from "@/data/site";
 export function Footer() {
   return (
     <footer className="bg-dark text-white">
-      <div className="mx-auto grid max-w-7xl gap-16 px-4 py-24 md:grid-cols-2 md:px-8 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-16 px-4 py-24 grid-cols-1 sm:grid-cols-2 md:px-8 lg:grid-cols-4">
         <div className="lg:col-span-1">
           <img src="https://i.ibb.co/Z6Z7kLQN/LOGO-PNG-2.png" alt="IPAG" className="h-20 w-auto mb-8" />
           <p className="text-white/60 text-sm leading-relaxed mb-8">
@@ -25,19 +25,19 @@ export function Footer() {
         <div>
           <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-8">Institucional</h4>
           <ul className="space-y-4 text-sm font-bold text-white/50 uppercase tracking-wider">
-            <li><Link to="/quem-somos" className="hover:text-primary transition-colors">Quem Somos</Link></li>
-            <li><Link to="/projetos" className="hover:text-primary transition-colors">Projetos</Link></li>
-            <li><Link to="/transparencia" className="hover:text-primary transition-colors">Transparência</Link></li>
-            <li><Link to="/eventos" className="hover:text-primary transition-colors">Eventos</Link></li>
+            <li><Link to="/quem-somos" className="hover:text-primary transition-colors py-2 block">Quem Somos</Link></li>
+            <li><Link to="/projetos" className="hover:text-primary transition-colors py-2 block">Projetos</Link></li>
+            <li><Link to="/transparencia" className="hover:text-primary transition-colors py-2 block">Transparência</Link></li>
+            <li><Link to="/eventos" className="hover:text-primary transition-colors py-2 block">Eventos</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-8">Como apoiar</h4>
           <ul className="space-y-4 text-sm font-bold text-white/50 uppercase tracking-wider">
-            <li><Link to="/parceiros" className="hover:text-primary transition-colors">Seja Parceiro</Link></li>
-            <li><Link to="/bazar" className="hover:text-primary transition-colors">Bazar Solidário</Link></li>
-            <li><Link to="/contato" className="hover:text-primary transition-colors">Voluntariado</Link></li>
+            <li><Link to="/parceiros" className="hover:text-primary transition-colors py-2 block">Seja Parceiro</Link></li>
+            <li><Link to="/bazar" className="hover:text-primary transition-colors py-2 block">Bazar Solidário</Link></li>
+            <li><Link to="/contato" className="hover:text-primary transition-colors py-2 block">Voluntariado</Link></li>
           </ul>
         </div>
 
@@ -61,9 +61,9 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/5 py-12 px-4 md:px-8">
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/20">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 text-xs text-center">
           <p>© {new Date().getFullYear()} {SITE.fullName}. Todos os direitos reservados.</p>
-          <p>Organização da Sociedade Civil sem fins lucrativos.</p>
+          <p className="hidden md:block">Organização da Sociedade Civil sem fins lucrativos.</p>
         </div>
       </div>
     </footer>

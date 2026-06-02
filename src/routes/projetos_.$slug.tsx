@@ -49,7 +49,7 @@ function ProjetoDetalhe() {
   
   return (
     <>
-      <section className="relative min-h-[50vh] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+      <section className="relative min-h-[250px] sm:min-h-[400px] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
         {project.imagem_destaque && (
           <div className="absolute inset-0 z-0">
             <img 
@@ -66,7 +66,7 @@ function ProjetoDetalhe() {
           </div>
         )}
         <div className="max-container relative z-10">
-          <Link to="/projetos" className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12">
+          <Link to="/projetos" className="inline-flex items-center gap-3 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12 min-h-[44px]">
             <ArrowLeft className="h-4 w-4" /> TODOS OS PROJETOS
           </Link>
           <Reveal>
@@ -80,7 +80,7 @@ function ProjetoDetalhe() {
       </section>
 
       <section className="py-40">
-        <div className="max-container grid lg:grid-cols-3 gap-24">
+        <div className="max-container grid lg:grid-cols-3 gap-24 px-4 sm:px-8 lg:px-0 max-w-3xl mx-auto">
           <div className="lg:col-span-2 space-y-12">
             <div className="prose prose-2xl max-w-none prose-headings:font-black prose-headings:uppercase prose-p:text-gray/80 prose-p:font-light prose-strong:text-dark prose-strong:font-black">
               {project.conteudo}

@@ -174,7 +174,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           </Reveal>
           
           <Reveal delay={0.2} direction="up">
-            <h1 className="gf-heading-xl text-white mb-10 leading-[0.85]">
+            <h1 className="gf-heading-xl text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white mb-10 leading-[0.85]">
               TRANSFORMANDO <br />
               REALIDADES EM <span className="text-primary relative inline-block">
                 REDE
@@ -195,13 +195,13 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           </Reveal>
 
           <Reveal delay={0.6} direction="up">
-            <div className="flex flex-wrap gap-8 items-center">
-              <Button asChild className="gf-button gf-button-primary h-auto group px-12 py-7">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-8 items-center">
+              <Button asChild className="gf-button gf-button-primary h-auto group px-12 py-7 w-full sm:w-auto">
                 <Link to="/projetos" className="flex items-center gap-4 text-base tracking-widest">
                   CONHEÇA NOSSAS FRENTES <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="gf-button bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-12 py-7 transition-all duration-300">
+              <Button asChild variant="outline" className="gf-button bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white h-auto px-12 py-7 transition-all duration-300 w-full sm:w-auto">
                 <Link to="/quem-somos" className="text-base tracking-widest uppercase">NOSSA HISTÓRIA</Link>
               </Button>
             </div>
@@ -234,7 +234,7 @@ function Home() {
   return (
     <div className="bg-white">
       {/* HERO - Cinematic Premium Layout */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark">
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark py-16 sm:py-24 lg:py-32">
         <HomeHero heroRef={heroRef} />
       </section>
 
@@ -262,17 +262,17 @@ function Home() {
               </div>
             </Reveal>
 
-            <div className="grid sm:grid-cols-2 gap-x-20 gap-y-24">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 gap-y-24">
               {IMPACT_STATS.map((s, i) => (
                 <Reveal key={s.label} delay={i * 0.1} direction="up">
-                  <div className="relative group">
+                  <div className="relative group p-4">
                     <div className="absolute -top-10 -left-10 text-[10rem] font-black text-white/[0.02] pointer-events-none transition-all group-hover:text-primary/[0.05] select-none">
                       0{i + 1}
                     </div>
-                    <p className="text-7xl md:text-9xl font-black text-primary mb-6 tracking-tighter leading-none">
+                    <p className="font-black text-primary mb-6 tracking-tighter leading-none">
                       <Counter to={s.value} suffix={s.suffix} />
                     </p>
-                    <p className="text-sm font-black uppercase tracking-[0.4em] text-white/40 border-l-2 border-primary/30 pl-6">
+                    <p className="text-sm font-black uppercase tracking-[0.4em] text-white/40 border-l-2 border-primary/30 pl-6 hidden sm:block">
                       {s.label}
                     </p>
                   </div>
@@ -289,9 +289,9 @@ function Home() {
       {/* QUEM SOMOS - Premium Editorial Storytelling */}
       <section className="py-56 bg-white overflow-hidden">
         <div className="max-container">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-32 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-32 items-center px-4 sm:px-8">
             <Reveal direction="left" className="relative group">
-              <div className="relative rounded-[80px] overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-auto lg:h-[900px]">
+              <div className="relative rounded-[40px] lg:rounded-[80px] overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-auto lg:h-[900px] w-full">
                 <motion.img 
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 1.5 }}
@@ -364,14 +364,14 @@ function Home() {
                    <span className="text-primary font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">Apoio Direto & Sustentabilidade</span>
                 </div>
                 
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter">
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter text-center sm:text-left">
                   TRANSFORME <br />O DESAPEGO EM <br /><span className="text-primary">ESPERANÇA</span>
                 </h2>
-                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight">
+                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight text-center sm:text-left">
                   Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
                 </p>
-                <div className="flex flex-wrap gap-6 md:gap-8">
-                  <Button asChild className="gf-button gf-button-primary h-auto px-10 md:px-14 py-5 md:py-8">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 justify-center sm:justify-start">
+                  <Button asChild className="gf-button gf-button-primary h-auto px-10 md:px-14 py-5 md:py-8 w-full sm:w-auto">
                     <Link to="/bazar" className="text-sm md:text-base tracking-widest">QUERO SER UM DOADOR</Link>
                   </Button>
                 </div>

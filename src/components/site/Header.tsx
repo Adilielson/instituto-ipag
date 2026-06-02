@@ -18,7 +18,7 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-[150] transition-all duration-500 ${
+      className={`sticky top-0 z-[200] transition-all duration-500 ${
         scrolled ? "bg-white/90 backdrop-blur-md border-b border-black/5 py-4 shadow-sm" : "bg-white py-6"
       }`}
     >
@@ -48,7 +48,7 @@ export function Header() {
 
 
         <button
-          className="rounded-md p-2 lg:hidden"
+          className="rounded-md p-3 lg:hidden"
           onClick={() => setOpen((o) => !o)}
           aria-label="Abrir menu"
         >
@@ -64,13 +64,13 @@ export function Header() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-muted"
+                className="rounded-md px-3 py-3 text-base font-medium text-foreground/80 hover:bg-muted"
               >
                 {item.label}
               </Link>
             ))}
-            <Button asChild className="mt-2 gradient-flame text-primary-foreground">
-              <Link to="/parceiros" onClick={() => setOpen(false)}>Seja Parceiro</Link>
+            <Button asChild className="mt-2 w-full justify-center gradient-flame text-primary-foreground py-6">
+              <Link to="/parceiros" onClick={() => setOpen(false)}>DOE AGORA</Link>
             </Button>
           </div>
         </div>

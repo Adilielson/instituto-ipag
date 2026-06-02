@@ -29,7 +29,7 @@ function EventoPage() {
 
   return (
     <article className="min-h-screen bg-white pb-24">
-      <header className="relative h-[40vh] min-h-[400px] w-full overflow-hidden bg-dark">
+      <header className="relative h-[250px] sm:h-[400px] w-full overflow-hidden bg-dark">
         <img 
           src={evento.imagem_destaque || "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop"} 
           alt={evento.titulo}
@@ -42,7 +42,7 @@ function EventoPage() {
             <Reveal direction="up">
               <Link 
                 to="/eventos" 
-                className="mb-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/80 hover:text-white"
+                className="mb-8 inline-flex items-center gap-2 text-sm sm:text-base font-bold uppercase tracking-widest text-white/80 hover:text-white min-h-[44px]"
               >
                 <ArrowLeft className="h-4 w-4" /> Voltar para eventos
               </Link>
@@ -54,7 +54,7 @@ function EventoPage() {
         </div>
       </header>
 
-      <div className="mx-auto mt-12 grid max-w-4xl gap-12 px-4 md:px-8 lg:grid-cols-[1fr_300px]">
+      <div className="mx-auto mt-12 grid max-w-3xl gap-12 px-4 sm:px-8 lg:px-0 lg:grid-cols-[1fr_300px]">
         <main className="space-y-8">
           <Reveal delay={0.2}>
             <div className="prose prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-p:text-gray/80 prose-p:leading-relaxed font-light">
