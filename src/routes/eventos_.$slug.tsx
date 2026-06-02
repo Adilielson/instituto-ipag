@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar, MapPin, ArrowLeft, Share2, Clock } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
@@ -29,30 +30,18 @@ function EventoPage() {
 
   return (
     <article className="min-h-screen bg-white pb-24">
-      <header className="relative h-[250px] sm:h-[400px] w-full overflow-hidden bg-dark">
-        <img 
-          src={evento.imagem_destaque || "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop"} 
-          alt={evento.titulo}
-          className="h-full w-full object-cover opacity-50"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
-        
-        <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto w-full max-w-4xl px-4 pb-12 md:px-8">
-            <Reveal direction="up">
-              <Link 
-                to="/eventos" 
-                className="mb-8 inline-flex items-center gap-2 text-sm sm:text-base font-bold uppercase tracking-widest text-white/80 hover:text-white min-h-[44px]"
-              >
-                <ArrowLeft className="h-4 w-4" /> Voltar para eventos
-              </Link>
-              <h1 className="text-4xl font-black uppercase tracking-tight text-white md:text-6xl">
-                {evento.titulo}
-              </h1>
-            </Reveal>
-          </div>
-        </div>
-      </header>
+      <PageHero 
+        title={evento.titulo}
+        image={evento.imagem_destaque || "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop"}
+        category="Evento IPAG"
+      >
+        <Link 
+          to="/eventos" 
+          className="mb-8 inline-flex items-center gap-2 text-sm sm:text-base font-bold uppercase tracking-widest text-white/80 hover:text-white min-h-[44px]"
+        >
+          <ArrowLeft className="h-4 w-4" /> Voltar para eventos
+        </Link>
+      </PageHero>
 
       <div className="mx-auto mt-12 grid max-w-3xl gap-12 px-4 sm:px-8 lg:px-0 lg:grid-cols-[1fr_300px]">
         <main className="space-y-8">
