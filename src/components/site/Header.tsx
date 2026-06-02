@@ -19,7 +19,7 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-[200] transition-all duration-500 ${
-        scrolled ? "bg-white/90 backdrop-blur-md border-b border-black/5 py-4 shadow-sm" : "bg-white py-6"
+        scrolled ? "bg-white/90 backdrop-blur-md border-b border-black/5 py-3 shadow-sm" : "bg-white py-5"
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 lg:px-16">
