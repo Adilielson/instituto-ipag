@@ -457,7 +457,7 @@ function Home() {
               <div className="flex flex-wrap items-end justify-between gap-16 mb-32 pb-16 border-b border-white/20">
                 <div className="max-w-4xl">
                   <span className="text-white/80 font-black uppercase tracking-[0.5em] mb-8 block text-xs">CALENDÁRIO</span>
-                  <h2 className="gf-heading-lg uppercase text-white tracking-tighter leading-none">EVENTOS</h2>
+                  <h2 className="gf-heading-lg uppercase tracking-tighter leading-none text-[#292c32]">EVENTOS</h2>
                 </div>
                 <Button asChild variant="outline" className="gf-button border-2 border-white text-white hover:bg-white hover:text-primary h-auto px-14 py-7 transition-all bg-transparent">
                   <Link to="/eventos" className="text-base tracking-widest">VER TUDO</Link>
