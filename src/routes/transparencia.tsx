@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Download } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 
 export const Route = createFileRoute("/transparencia")({
   head: () => ({
@@ -24,21 +25,12 @@ const DOCS = [
 function Transparencia() {
   return (
     <>
-      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
-        <div className="max-container relative z-10">
-          <Reveal>
-            <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Transparência</span>
-            <h1 className="gf-heading-lg text-dark max-w-4xl">
-              CLAREZA E <br />
-              <span className="text-gradient-flame">RESPONSABILIDADE</span>
-            </h1>
-            <p className="mt-8 max-w-2xl text-2xl text-gray/60 font-light leading-relaxed">
-              Disponibilizamos publicamente nossos documentos institucionais para parceiros, apoiadores e toda a comunidade de São Mateus.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Clareza e Responsabilidade"
+        subtitle="Disponibilizamos publicamente nossos documentos institucionais para parceiros, apoiadores e toda a comunidade de São Mateus."
+        image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop"
+        category="Transparência"
+      />
 
       <section className="py-20 bg-white">
         <div className="max-container grid gap-8 md:grid-cols-2">

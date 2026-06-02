@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { SITE } from "@/data/site";
 import { motion } from "framer-motion";
 
@@ -24,18 +25,11 @@ function Contato() {
   const [sent, setSent] = useState(false);
   return (
     <>
-      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
-        <div className="max-container relative z-10">
-          <Reveal>
-            <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Fale Conosco</span>
-            <h1 className="gf-heading-lg text-dark max-w-4xl">
-              VAMOS <br />
-              <span className="text-gradient-flame">CONVERSAR</span>
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Vamos conversar"
+        image="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?q=80&w=2020&auto=format&fit=crop"
+        category="Fale Conosco"
+      />
 
       <section className="py-20 bg-white">
         <div className="max-container grid gap-24 lg:grid-cols-5">
