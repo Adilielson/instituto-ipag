@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
-export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+export function Counter({ to, suffix = "", className = "" }: { to: number; suffix?: string; className?: string }) {
   const [isClient, setIsClient] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -28,7 +28,7 @@ export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   }, [inView, to]);
 
   return (
-    <motion.span ref={ref} className="tabular-nums text-4xl sm:text-5xl">
+    <motion.span ref={ref} className={`tabular-nums ${className}`}>
       {isClient ? n.toLocaleString("pt-BR") : to.toLocaleString("pt-BR")}
       {suffix}
     </motion.span>
