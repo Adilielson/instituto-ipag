@@ -246,7 +246,7 @@ function Home() {
   return (
     <div className="bg-white">
       {/* HERO - Cinematic Premium Layout */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark py-16 sm:py-24 lg:py-32">
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px]">
         <HomeHero heroRef={heroRef} />
       </section>
 
