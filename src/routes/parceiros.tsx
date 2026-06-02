@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, HandHeart, Megaphone, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { PARTNERS } from "@/data/site";
 
 export const Route = createFileRoute("/parceiros")({
@@ -26,20 +27,14 @@ const WAYS = [
 function Parceiros() {
   return (
     <>
-      <section className="gradient-flame-soft py-24 md:py-32">
-        <div className="mx-auto max-w-4xl px-4 md:px-8">
-          <Reveal>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Parceiros e investidores</span>
-            <h1 className="mt-4 text-5xl font-extrabold leading-[1.05] md:text-6xl">
-              Grandes transformações acontecem <span className="text-gradient-flame">juntos</span>.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-              O IPAG busca constantemente parcerias que ampliem o alcance dos projetos e gerem impacto social duradouro.
-            </p>
-            <Button asChild size="lg" className="mt-8 gradient-flame text-primary-foreground"><Link to="/contato">Quero ser parceiro</Link></Button>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Grandes transformações acontecem juntos"
+        subtitle="O IPAG busca constantemente parcerias que ampliem o alcance dos projetos e gerem impacto social duradouro."
+        image="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2070&auto=format&fit=crop"
+        category="Parceiros e Investidores"
+      >
+        <Button asChild size="lg" className="mb-8 gradient-flame text-primary-foreground"><Link to="/contato">Quero ser parceiro</Link></Button>
+      </PageHero>
 
       <section className="py-20">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 md:grid-cols-2 md:px-8 lg:grid-cols-4">
