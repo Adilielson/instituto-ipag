@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
 interface PageHeroProps {
@@ -7,9 +7,10 @@ interface PageHeroProps {
   subtitle?: string;
   image: string;
   category?: string;
+  children?: ReactNode;
 }
 
-export function PageHero({ title, subtitle, image, category }: PageHeroProps) {
+export function PageHero({ title, subtitle, image, category, children }: PageHeroProps) {
   const heroRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
   
@@ -28,7 +29,7 @@ export function PageHero({ title, subtitle, image, category }: PageHeroProps) {
   const scale = useSpring(useTransform(scrollYProgress, [0, 1], [1.1, 1.3]), springConfig);
 
   return (
-    <section ref={heroRef} className="relative min-h-[70vh] flex items-center overflow-hidden bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px]">
+    <section ref={heroRef} className="relative min-h-[60vh] flex items-center overflow-hidden bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px]">
       <motion.div 
         style={isClient ? { y: y1, opacity, scale } : { y: 0, opacity: 1, scale: 1.1 }}
         className="absolute inset-0 z-0 overflow-hidden"
@@ -42,8 +43,10 @@ export function PageHero({ title, subtitle, image, category }: PageHeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
       </motion.div>
 
-      <div className="max-container relative z-10 pt-20">
+      <div className="max-container relative z-10 pt-24 md:pt-32">
         <div className="max-w-5xl">
+          {children}
+          
           {category && (
             <Reveal direction="down">
               <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">
