@@ -15,6 +15,7 @@ export const SITE = {
 };
 
 export const NAV = [
+  { to: "/", label: "Home" },
   { to: "/quem-somos", label: "Quem Somos" },
   { to: "/projetos", label: "Projetos" },
   { to: "/eventos", label: "Eventos" },
