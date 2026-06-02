@@ -361,7 +361,7 @@ function Home() {
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  src="https://i.ibb.co/67Zz2x7p/image.png" 
+                  src="https://i.ibb.co/KpnYrxHV/image.png" 
                   alt="Bazar Solidário" 
                   className="w-full h-full object-cover opacity-40 md:opacity-40"
                 />
