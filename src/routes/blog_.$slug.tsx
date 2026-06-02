@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/blog_/$slug")({
@@ -46,39 +47,15 @@ function BlogPost() {
   
   return (
     <article>
-      <section className="relative min-h-[250px] sm:min-h-[400px] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
-        {post.imagem_destaque && (
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={post.imagem_destaque} 
-              alt={post.titulo} 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/40"></div>
-          </div>
-        )}
-        {!post.imagem_destaque && (
-          <div className="absolute inset-0 z-0 gradient-flame-soft">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
-          </div>
-        )}
-        <div className="max-container relative z-10">
-          <Link to="/blog" className="inline-flex items-center gap-3 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12 min-h-[44px]">
-            <ArrowLeft className="h-4 w-4" /> VOLTAR AO BLOG
-          </Link>
-          <Reveal>
-            <span className="bg-primary text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl mb-8 inline-block">
-              {post.categoria}
-            </span>
-            <h1 className="gf-heading-lg text-dark max-w-4xl uppercase">{post.titulo}</h1>
-            <div className="mt-8 flex items-center gap-4 text-gray/50 text-xs font-bold uppercase tracking-widest">
-              <span>{new Date(post.data_publicacao).toLocaleDateString('pt-BR')}</span>
-              <span className="h-1 w-1 rounded-full bg-primary" />
-              <span>POR IPAG COMUNICAÇÃO</span>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title={post.titulo}
+        image={post.imagem_destaque || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop"}
+        category={post.categoria}
+      >
+        <Link to="/blog" className="inline-flex items-center gap-3 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white/80 hover:text-white hover:gap-5 transition-all mb-12 min-h-[44px]">
+          <ArrowLeft className="h-4 w-4" /> VOLTAR AO BLOG
+        </Link>
+      </PageHero>
       <section className="py-32">
         <div className="max-container grid lg:grid-cols-3 gap-24 px-4 sm:px-8 lg:px-0 max-w-3xl mx-auto">
           <div className="lg:col-span-2 space-y-12">
