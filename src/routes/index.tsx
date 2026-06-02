@@ -246,12 +246,12 @@ function Home() {
   return (
     <div className="bg-white">
       {/* HERO - Cinematic Premium Layout */}
-      <section ref={heroRef} className="relative h-[800px] flex items-center bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px]">
+      <section ref={heroRef} className="relative h-[800px] flex items-center bg-dark py-16 sm:py-24 lg:py-32 -mt-[142px] md:-mt-[122px] overflow-visible">
         <HomeHero heroRef={heroRef} />
       </section>
 
       {/* IMPACTO - Premium Institutional Style with Bazar-like structure */}
-      <section id="impacto" className="relative py-24 bg-white">
+      <section id="impacto" className="relative py-24 bg-white overflow-visible">
         <div className="max-container">
           <Reveal direction="fade">
             <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[500px] md:min-h-[700px] flex items-center p-8 md:p-32 shadow-2xl group">
