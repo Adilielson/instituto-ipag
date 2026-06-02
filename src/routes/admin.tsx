@@ -33,7 +33,7 @@ function AdminLayout() {
   const currentPath = routerState.location.pathname;
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA] flex flex-col lg:flex-row text-[#2A2A2B] h-screen overflow-hidden">
+    <div className="min-h-screen bg-[#F7F8FA] flex flex-col text-[#2A2A2B] h-screen overflow-hidden">
       {/* Top Header - Mobile and Desktop */}
       <header className="h-14 lg:h-20 bg-gradient-to-r from-[#f97316] to-white border-b border-black/5 flex items-center justify-between px-4 lg:px-8 shrink-0 z-[300] shadow-sm">
         <div className="flex items-center gap-2">
