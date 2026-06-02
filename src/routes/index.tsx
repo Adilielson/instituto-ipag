@@ -396,11 +396,11 @@ function Home() {
             </div>
           </Reveal>
           
-          <div className="grid gap-20 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-20 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {validPosts.map((post: any, i: number) => (
               <Reveal key={post.slug} delay={i * 0.15} direction="up">
                 <Link to="/blog/$slug" params={{ slug: post.slug }} className="group block h-full">
-                  <div className="aspect-[16/10] overflow-hidden rounded-[40px] mb-12 relative shadow-2xl">
+                  <div className="aspect-video w-full overflow-hidden rounded-[40px] mb-12 relative shadow-2xl">
                     <img 
                       src={post.imagem_destaque || "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop"} 
                       alt={post.titulo} 
@@ -452,10 +452,10 @@ function Home() {
               </div>
             </Reveal>
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {validEventos.map((e: any, i: number) => (
                 <Reveal key={e.id} delay={i * 0.1} direction="up">
-                  <div className="bg-white p-10 rounded-[40px] shadow-card-utility border border-black/5 hover:shadow-premium-utility transition-all duration-500 group h-full flex flex-col">
+                  <div className="bg-white p-4 sm:p-10 rounded-[40px] shadow-card-utility border border-black/5 hover:shadow-premium-utility transition-all duration-500 group h-full flex flex-col">
                     <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
                       <Calendar className="h-8 w-8" />
                     </div>
