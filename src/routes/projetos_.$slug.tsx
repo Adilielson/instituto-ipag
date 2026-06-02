@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, HeartHandshake, Music, GraduationCap, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/projetos_/$slug")({
@@ -49,35 +50,15 @@ function ProjetoDetalhe() {
   
   return (
     <>
-      <section className="relative min-h-[250px] sm:min-h-[400px] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
-        {project.imagem_destaque && (
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={project.imagem_destaque} 
-              alt={project.titulo} 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/40"></div>
-          </div>
-        )}
-        {!project.imagem_destaque && (
-          <div className="absolute inset-0 z-0 gradient-flame-soft">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
-          </div>
-        )}
-        <div className="max-container relative z-10">
-          <Link to="/projetos" className="inline-flex items-center gap-3 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12 min-h-[44px]">
-            <ArrowLeft className="h-4 w-4" /> TODOS OS PROJETOS
-          </Link>
-          <Reveal>
-            <div className="inline-flex h-20 w-20 items-center justify-center rounded-[32px] gradient-flame text-white shadow-warm-utility mb-10">
-              <Icon className="h-10 w-10" />
-            </div>
-            <h1 className="gf-heading-lg text-dark max-w-4xl uppercase">{project.titulo}</h1>
-            <p className="mt-8 text-2xl text-gray/60 font-light leading-relaxed max-w-3xl">{project.resumo}</p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title={project.titulo}
+        image={project.imagem_destaque || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"}
+        category={project.categoria}
+      >
+        <Link to="/projetos" className="inline-flex items-center gap-3 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white/80 hover:text-white hover:gap-5 transition-all mb-12 min-h-[44px]">
+          <ArrowLeft className="h-4 w-4" /> TODOS OS PROJETOS
+        </Link>
+      </PageHero>
 
       <section className="py-40">
         <div className="max-container grid lg:grid-cols-3 gap-24 px-4 sm:px-8 lg:px-0 max-w-3xl mx-auto">
