@@ -468,24 +468,33 @@ function Home() {
             <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {validEventos.map((e: any, i: number) => (
                 <Reveal key={e.id} delay={i * 0.1} direction="up">
-                  <div className="bg-white p-4 sm:p-10 rounded-[40px] shadow-card-utility border border-black/5 hover:shadow-premium-utility transition-all duration-500 group h-full flex flex-col">
-                    <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
-                      <Calendar className="h-8 w-8" />
-                    </div>
-                    <div className="flex-1">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[40px] shadow-card-utility group cursor-pointer border border-white/10">
+                    <img 
+                      src={e.imagem_capa || `https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop&sig=${i}`} 
+                      alt={e.titulo} 
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent"></div>
+                    
+                    <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end">
                       <div className="flex items-center gap-4 mb-4">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/5 px-4 py-1.5 rounded-full">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-white bg-primary px-4 py-1.5 rounded-full shadow-lg">
                           {new Date(e.data_evento).toLocaleDateString('pt-BR')}
                         </span>
                       </div>
-                      <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-dark leading-tight">{e.titulo}</h3>
-                      <p className="text-gray text-base leading-relaxed line-clamp-2 mb-6 font-light">
+                      
+                      <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-white leading-tight group-hover:text-primary transition-colors">
+                        {e.titulo}
+                      </h3>
+                      
+                      <p className="text-white/70 text-base leading-relaxed line-clamp-2 mb-6 font-light">
                         {e.descricao}
                       </p>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs font-bold text-dark/40 uppercase tracking-widest pt-6 border-t border-black/5">
-                      <MapPin className="h-3 w-3 text-primary" />
-                      {e.local}
+                      
+                      <div className="flex items-center gap-2 text-[10px] font-black text-white/40 uppercase tracking-widest pt-6 border-t border-white/10">
+                        <MapPin className="h-4 w-4 text-primary" />
+                        {e.local}
+                      </div>
                     </div>
                   </div>
                 </Reveal>
