@@ -111,19 +111,14 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg via-bg/20 to-transparent z-10 pointer-events-none" />
 
-            <div 
-              ref={scrollRef}
-              onScroll={handleScroll}
-              className="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 pt-2 px-6 md:px-8"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollSnapType: 'x mandatory' }}
-            >
-              {loopedProjetos.map((p, i) => (
-                <div 
-                  key={`${p.slug}-${i}`} 
-                  className="snap-center md:snap-start shrink-0 w-[85vw] md:w-[400px]"
-                >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-nowrap gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory lg:scrollbar-hide pb-12 pt-2 px-4 md:px-8">
+                {loopedProjetos.map((p, i) => (
+                  <div 
+                    key={`${p.slug}-${i}`} 
+                    className="snap-center md:snap-start shrink-0 w-full sm:w-auto lg:w-[400px]"
+                  >
                   <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
-                    <div className="relative h-64 overflow-hidden bg-gray/10">
+                    <div className="relative aspect-video overflow-hidden bg-gray/10">
                       <img 
                         src={(p.imagem_destaque && p.imagem_destaque.startsWith('http')) ? p.imagem_destaque : "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop"} 
                         alt={p.titulo}
@@ -150,12 +145,12 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                       </p>
                       
                       <div className="mt-auto flex flex-wrap gap-4">
-                        <Button asChild className="gf-button-primary rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest group">
+                        <Button asChild className="gf-button-primary rounded-full px-8 py-4 h-auto min-h-[44px] text-xs font-black tracking-widest group">
                           <Link to="/projetos/$slug" params={{ slug: p.slug }}>
                             APOIAR AGORA <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                           </Link>
                         </Button>
-                        <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5 rounded-full px-8 py-4 h-auto text-xs font-black tracking-widest">
+                        <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5 rounded-full px-8 py-4 h-auto min-h-[44px] text-xs font-black tracking-widest">
                           <Link to="/projetos/$slug" params={{ slug: p.slug }}>
                             CONHECER MAIS
                           </Link>

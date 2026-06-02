@@ -46,7 +46,7 @@ function BlogPost() {
   
   return (
     <article>
-      <section className="relative min-h-[50vh] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+      <section className="relative min-h-[250px] sm:min-h-[400px] flex items-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
         {post.imagem_destaque && (
           <div className="absolute inset-0 z-0">
             <img 
@@ -63,7 +63,7 @@ function BlogPost() {
           </div>
         )}
         <div className="max-container relative z-10">
-          <Link to="/blog" className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12">
+          <Link to="/blog" className="inline-flex items-center gap-3 text-sm sm:text-base font-black uppercase tracking-[0.3em] text-primary hover:gap-5 transition-all mb-12 min-h-[44px]">
             <ArrowLeft className="h-4 w-4" /> VOLTAR AO BLOG
           </Link>
           <Reveal>
@@ -80,7 +80,7 @@ function BlogPost() {
         </div>
       </section>
       <section className="py-32">
-        <div className="max-container grid lg:grid-cols-3 gap-24">
+        <div className="max-container grid lg:grid-cols-3 gap-24 px-4 sm:px-8 lg:px-0 max-w-3xl mx-auto">
           <div className="lg:col-span-2 space-y-12">
             <p className="text-3xl text-dark font-light leading-relaxed italic border-l-4 border-primary pl-10 py-4">
               {post.resumo}
