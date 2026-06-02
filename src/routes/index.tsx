@@ -173,6 +173,8 @@ function HomeHero({ heroRef }: { heroRef: any }) {
           className="absolute inset-0 bg-dark pointer-events-none"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark"></div>
+        {/* Bottom fade to white */}
+        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent z-10"></div>
       </motion.div>
 
       <div className="max-container relative z-10 pt-20">
@@ -224,7 +226,7 @@ function HomeHero({ heroRef }: { heroRef: any }) {
       <motion.div 
         animate={{ y: [0, 15, 0] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 hidden md:block"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 hidden md:block"
       >
         <div className="flex flex-col items-center gap-4">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 rotate-180 [writing-mode:vertical-lr]">SCROLL</span>
@@ -250,48 +252,46 @@ function Home() {
         <HomeHero heroRef={heroRef} />
       </section>
 
-      {/* IMPACTO - Premium Institutional Style */}
-      <section className="py-48 bg-dark relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-primary/3 skew-x-12 -translate-x-1/2 blur-3xl"></div>
-        
-        <div className="max-container relative z-10">
-          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-32 items-start">
-            <Reveal direction="left">
-              <span className="text-primary font-black uppercase tracking-[0.4em] mb-10 block text-xs">NOSSA PEGADA</span>
-              <h2 className="gf-heading-lg text-white mb-10 leading-[0.9] uppercase">
-                RESULTADOS QUE <br />
-                <span className="text-primary italic">MUDAM VIDAS</span>
-              </h2>
-              <p className="text-2xl text-white/50 max-w-lg font-light leading-relaxed mb-12">
-                Monitoramos cada ação para garantir que o impacto chegue onde é mais necessário, transformando doações em desenvolvimento humano real.
-              </p>
-              <div className="flex items-center gap-6 group cursor-pointer">
-                <div className="h-16 w-16 rounded-full border border-white/10 flex items-center justify-center transition-all group-hover:bg-primary group-hover:border-primary">
-                  <ArrowRight className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-white font-black uppercase tracking-[0.3em] text-xs">Relatório de Transparência</span>
+      {/* IMPACTO - Replacing Counter stats with Support Section Copy */}
+      <section className="py-24 bg-white">
+        <div className="max-container">
+          <Reveal direction="fade">
+            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[450px] md:min-h-[700px] flex items-center p-6 md:p-32 shadow-2xl group">
+              <div className="absolute inset-0 z-0">
+                <motion.img 
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  src="https://i.ibb.co/KpnYrxHV/image.png" 
+                  alt="Bazar Solidário" 
+                  className="w-full h-full object-cover opacity-40 md:opacity-40"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent"></div>
               </div>
-            </Reveal>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 gap-y-24">
-              {IMPACT_STATS.map((s, i) => (
-                <Reveal key={s.label} delay={i * 0.1} direction="up">
-                  <div className="relative group p-4">
-                    <div className="absolute -top-10 -left-10 text-[10rem] font-black text-white/[0.02] pointer-events-none transition-all group-hover:text-primary/[0.05] select-none">
-                      0{i + 1}
-                    </div>
-                    <p className="font-black text-primary mb-6 tracking-tighter leading-none">
-                      <Counter to={s.value} suffix={s.suffix} />
-                    </p>
-                    <p className="text-sm font-black uppercase tracking-[0.4em] text-white/40 border-l-2 border-primary/30 pl-6 hidden sm:block">
-                      {s.label}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
+              <div className="relative z-10 max-w-4xl">
+                <div className="inline-flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
+                   <div className="h-10 w-10 md:h-14 md:w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
+                      <Heart className="w-5 h-5 md:w-7 md:h-7 fill-white" />
+                   </div>
+                   <span className="text-primary font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">Apoio Direto & Sustentabilidade</span>
+                </div>
+                
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter text-center sm:text-left">
+                  TRANSFORME <br />O DESAPEGO EM <br /><span className="text-primary">ESPERANÇA</span>
+                </h2>
+                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight text-center sm:text-left">
+                  Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
+                </p>
+                <div className="flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 justify-center sm:justify-start">
+                  <Button asChild className="gf-button gf-button-primary h-auto group px-8 md:px-12 py-5 md:py-7 w-full sm:w-auto">
+                    <Link to="/bazar" className="flex items-center justify-center gap-4 text-xs md:text-base tracking-widest uppercase">
+                      Saiba como doar <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-2" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -352,46 +352,7 @@ function Home() {
         </div>
       </section>
 
-      {/* BAZAR - High-End Impact Banner */}
-      <section className="py-24 bg-bg">
-        <div className="max-container">
-          <Reveal direction="fade">
-            <div className="relative overflow-hidden rounded-[40px] md:rounded-[80px] bg-dark min-h-[450px] md:min-h-[700px] flex items-center p-6 md:p-32 shadow-2xl group">
-              <div className="absolute inset-0 z-0">
-                <motion.img 
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  src="https://i.ibb.co/KpnYrxHV/image.png" 
-                  alt="Bazar Solidário" 
-                  className="w-full h-full object-cover opacity-40 md:opacity-40"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 md:via-dark/80 to-transparent"></div>
-              </div>
-
-              <div className="relative z-10 max-w-4xl">
-                <div className="inline-flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
-                   <div className="h-10 w-10 md:h-14 md:w-14 rounded-full bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
-                      <Heart className="w-5 h-5 md:w-7 md:h-7 fill-white" />
-                   </div>
-                   <span className="text-primary font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">Apoio Direto & Sustentabilidade</span>
-                </div>
-                
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-12 uppercase leading-[0.95] md:leading-[0.9] tracking-tighter text-center sm:text-left">
-                  TRANSFORME <br />O DESAPEGO EM <br /><span className="text-primary">ESPERANÇA</span>
-                </h2>
-                <p className="text-base md:text-3xl text-white/50 mb-8 md:mb-16 leading-relaxed font-light max-w-3xl tracking-tight text-center sm:text-left">
-                  Sua doação financia diretamente nossos projetos e gera dignidade para centenas de famílias.
-                </p>
-                <div className="flex flex-col sm:flex-row flex-wrap gap-6 md:gap-8 justify-center sm:justify-start">
-                  <Button asChild className="gf-button gf-button-primary h-auto px-10 md:px-14 py-5 md:py-8 w-full sm:w-auto">
-                    <Link to="/bazar" className="text-sm md:text-base tracking-widest">QUERO SER UM DOADOR</Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* BAZAR section removed as it was replaced above */}
 
       {/* BLOG - Editorial Magazine Style */}
       <section className="py-56 bg-white">
