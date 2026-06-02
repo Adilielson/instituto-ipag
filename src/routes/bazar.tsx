@@ -23,7 +23,7 @@ function Bazar() {
   ];
   return (
     <>
-      <section className="relative overflow-hidden py-32 md:py-48 bg-dark">
+      <section className="relative overflow-hidden py-32 md:py-48 bg-dark -mt-[142px] md:-mt-[120px]">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://i.ibb.co/KpnYrxHV/image.png" 
