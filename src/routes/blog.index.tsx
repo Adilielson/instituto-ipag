@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { POSTS } from "@/data/site";
 
@@ -52,21 +53,17 @@ export const Route = createFileRoute("/blog/")({
 function Blog() {
   const { posts = [] } = Route.useLoaderData() || {};
   const validPosts = (posts || []).filter((p: any) => p && p.slug && p.titulo);
+  const latestPost = validPosts[0];
+  const heroImage = latestPost?.imagem_destaque || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop";
 
   return (
     <>
-      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
-        <div className="max-container relative z-10">
-          <Reveal>
-            <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Editorial IPAG</span>
-            <h1 className="gf-heading-lg text-dark max-w-4xl">
-              HISTÓRIAS DE <br />
-              <span className="text-gradient-flame">TRANSFORMAÇÃO</span>
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Histórias de Transformação"
+        subtitle="Conteúdo sobre desenvolvimento social, educação, cultura e histórias reais da nossa comunidade."
+        image={heroImage}
+        category="Editorial IPAG"
+      />
 
       <section className="py-20 bg-white">
         <div className="max-container">

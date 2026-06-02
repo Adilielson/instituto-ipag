@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { PROJECTS } from "@/data/site";
 
@@ -63,21 +64,17 @@ const ICON_MAP: Record<string, any> = {
 function Projetos() {
   const { projetos = [] } = Route.useLoaderData() || {};
   const validProjetos = (projetos || []).filter((p: any) => p && p.slug && p.titulo);
+  const latestProjeto = validProjetos[0];
+  const heroImage = latestProjeto?.imagem_destaque || "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop";
 
   return (
     <>
-      <section className="gradient-flame-soft py-32 md:py-40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
-        <div className="max-container relative z-10">
-          <Reveal>
-            <span className="text-primary font-black uppercase tracking-[0.4em] mb-6 block text-sm">Nossos projetos</span>
-            <h1 className="gf-heading-lg text-dark max-w-4xl uppercase">
-              PROJETOS QUE <br />
-              <span className="text-gradient-flame">TRANSFORMAM VIDAS</span>
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero 
+        title="Projetos que Transformam"
+        subtitle="Conheça as frentes de atuação que geram impacto real na vida das famílias."
+        image={heroImage}
+        category="Nossos Projetos"
+      />
 
       <section className="py-20 bg-white">
         <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
