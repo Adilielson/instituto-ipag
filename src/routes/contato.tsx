@@ -27,7 +27,7 @@ function Contato() {
     <>
       <PageHero 
         title="Vamos conversar"
-        image="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?q=80&w=2020&auto=format&fit=crop"
+        image="https://imgur.com/4FYIlqO.png"
         category="Fale Conosco"
       />
 
