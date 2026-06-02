@@ -72,8 +72,8 @@ function AdminHome() {
       {/* Stats Grid - 2 columns on mobile */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {stats.map((s) => (
-          <div key={s.label} className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-black/5 p-4 sm:p-6 shadow-card-utility hover:shadow-premium-utility transition-all duration-300">
-            <div className="flex items-start justify-between mb-2 sm:mb-4">
+          <div key={s.label} className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-black/5 p-4 sm:p-6 shadow-card-utility hover:shadow-premium-utility transition-all duration-300 flex flex-col items-center text-center sm:items-start sm:text-left">
+            <div className="flex items-center justify-center sm:items-start sm:justify-between mb-2 sm:mb-4">
               <div className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl ${s.bg}`}>
                 <s.icon className={`h-5 w-5 sm:h-6 sm:w-6 ${s.color}`} />
               </div>
