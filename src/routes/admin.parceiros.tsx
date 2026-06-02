@@ -5,11 +5,16 @@ export const Route = createFileRoute("/admin/parceiros")({ component: AdminParce
 
 function AdminParceiros() {
   return (
-    <div className="rounded-2xl border border-border bg-background p-6 shadow-card-utility">
-      <h1 className="text-2xl font-extrabold">Parceiros</h1>
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+    <div className="rounded-[32px] border border-black/5 bg-background p-6 sm:p-8 shadow-premium-utility animate-in fade-in duration-500">
+      <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#2A2A2B]">Nossos Parceiros</h1>
+      <p className="text-xs sm:text-sm font-medium text-[#8E8E8F] mt-1 mb-8">Visualize as empresas e instituições parceiras.</p>
+      
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {PARTNERS.map((p) => (
-          <div key={p} className="rounded-lg border border-border px-4 py-3 text-sm font-medium">{p}</div>
+          <div key={p} className="rounded-xl border border-black/5 bg-[#F7F8FA] px-5 py-4 text-sm font-black uppercase tracking-tight text-[#2A2A2B] shadow-sm hover:border-primary/20 transition-colors flex items-center gap-3">
+            <div className="h-2 w-2 rounded-full bg-primary" />
+            {p}
+          </div>
         ))}
       </div>
     </div>
