@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, FolderKanban, Calendar, FileText, Users, Newspaper, Building2, ShieldCheck, LogOut, ChevronRight, Menu, X, MoreHorizontal } from "lucide-react";
+import { LayoutDashboard, FolderKanban, Calendar, FileText, Users, Newspaper, Building2, ShieldCheck, LogOut, ChevronRight, Menu, X, MoreHorizontal, Heart, Plug } from "lucide-react";
 import { ADMIN_MASTER } from "@/lib/admin-mock";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,8 @@ const ADMIN_NAV = [
 ] as const;
 
 const MORE_NAV = [
+  { to: "/admin/doacoes", label: "Doações", icon: Heart },
+  { to: "/admin/integracoes", label: "Integrações", icon: Plug },
   { to: "/admin/parceiros", label: "Parceiros", icon: Building2 },
   { to: "/admin/transparencia", label: "Transparência", icon: FileText },
   { to: "/admin/usuarios", label: "Usuários", icon: Users },
