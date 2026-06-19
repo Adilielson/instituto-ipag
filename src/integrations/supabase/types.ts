@@ -32,6 +32,75 @@ export type Database = {
         }
         Relationships: []
       }
+      donations: {
+        Row: {
+          amount: number
+          asaas_customer: string | null
+          asaas_id: string | null
+          asaas_link: string | null
+          boleto_url: string | null
+          campaign: string | null
+          created_at: string
+          donor_cpf: string
+          donor_email: string
+          donor_name: string
+          donor_phone: string | null
+          id: string
+          invoice_url: string | null
+          payment_method: string
+          pix_payload: string | null
+          pix_qrcode: string | null
+          project_id: string | null
+          status: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          asaas_customer?: string | null
+          asaas_id?: string | null
+          asaas_link?: string | null
+          boleto_url?: string | null
+          campaign?: string | null
+          created_at?: string
+          donor_cpf: string
+          donor_email: string
+          donor_name: string
+          donor_phone?: string | null
+          id?: string
+          invoice_url?: string | null
+          payment_method: string
+          pix_payload?: string | null
+          pix_qrcode?: string | null
+          project_id?: string | null
+          status?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          asaas_customer?: string | null
+          asaas_id?: string | null
+          asaas_link?: string | null
+          boleto_url?: string | null
+          campaign?: string | null
+          created_at?: string
+          donor_cpf?: string
+          donor_email?: string
+          donor_name?: string
+          donor_phone?: string | null
+          id?: string
+          invoice_url?: string | null
+          payment_method?: string
+          pix_payload?: string | null
+          pix_qrcode?: string | null
+          project_id?: string | null
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       eventos: {
         Row: {
           created_at: string
@@ -179,15 +248,86 @@ export type Database = {
         }
         Relationships: []
       }
+      system_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      projects: {
+        Row: {
+          cover_image: string | null
+          id: string | null
+          name: string | null
+          short_description: string | null
+          slug: string | null
+          status: string | null
+        }
+        Insert: {
+          cover_image?: string | null
+          id?: string | null
+          name?: string | null
+          short_description?: string | null
+          slug?: string | null
+          status?: string | null
+        }
+        Update: {
+          cover_image?: string | null
+          id?: string | null
+          name?: string | null
+          short_description?: string | null
+          slug?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -314,6 +454,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
