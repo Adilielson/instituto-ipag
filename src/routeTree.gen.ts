@@ -14,6 +14,7 @@ import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as ProjetosRouteImport } from './routes/projetos'
 import { Route as ParceirosRouteImport } from './routes/parceiros'
 import { Route as EventosRouteImport } from './routes/eventos'
+import { Route as DoarRouteImport } from './routes/doar'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BazarRouteImport } from './routes/bazar'
@@ -31,8 +32,13 @@ import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
 import { Route as AdminTransparenciaRouteImport } from './routes/admin.transparencia'
 import { Route as AdminProjetosRouteImport } from './routes/admin.projetos'
 import { Route as AdminParceirosRouteImport } from './routes/admin.parceiros'
+import { Route as AdminIntegracoesRouteImport } from './routes/admin.integracoes'
 import { Route as AdminEventosRouteImport } from './routes/admin.eventos'
+import { Route as AdminDoacoesRouteImport } from './routes/admin.doacoes'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/public/donations/webhook'
+import { Route as ApiPublicDonationsStatusRouteImport } from './routes/api/public/donations/status'
+import { Route as ApiPublicDonationsCreateRouteImport } from './routes/api/public/donations/create'
 
 const TransparenciaRoute = TransparenciaRouteImport.update({
   id: '/transparencia',
@@ -57,6 +63,11 @@ const ParceirosRoute = ParceirosRouteImport.update({
 const EventosRoute = EventosRouteImport.update({
   id: '/eventos',
   path: '/eventos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoarRoute = DoarRouteImport.update({
+  id: '/doar',
+  path: '/doar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -144,9 +155,19 @@ const AdminParceirosRoute = AdminParceirosRouteImport.update({
   path: '/parceiros',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminIntegracoesRoute = AdminIntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminEventosRoute = AdminEventosRouteImport.update({
   id: '/eventos',
   path: '/eventos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDoacoesRoute = AdminDoacoesRouteImport.update({
+  id: '/doacoes',
+  path: '/doacoes',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminBlogRoute = AdminBlogRouteImport.update({
@@ -154,6 +175,24 @@ const AdminBlogRoute = AdminBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicDonationsWebhookRoute =
+  ApiPublicDonationsWebhookRouteImport.update({
+    id: '/api/public/donations/webhook',
+    path: '/api/public/donations/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicDonationsStatusRoute =
+  ApiPublicDonationsStatusRouteImport.update({
+    id: '/api/public/donations/status',
+    path: '/api/public/donations/status',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicDonationsCreateRoute =
+  ApiPublicDonationsCreateRouteImport.update({
+    id: '/api/public/donations/create',
+    path: '/api/public/donations/create',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -162,13 +201,16 @@ export interface FileRoutesByFullPath {
   '/bazar': typeof BazarRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
+  '/doar': typeof DoarRoute
   '/eventos': typeof EventosRouteWithChildren
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
+  '/admin/doacoes': typeof AdminDoacoesRoute
   '/admin/eventos': typeof AdminEventosRoute
+  '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/parceiros': typeof AdminParceirosRoute
   '/admin/projetos': typeof AdminProjetosRoute
   '/admin/transparencia': typeof AdminTransparenciaRoute
@@ -180,17 +222,23 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
+  '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/bazar': typeof BazarRoute
   '/contato': typeof ContatoRoute
+  '/doar': typeof DoarRoute
   '/parceiros': typeof ParceirosRoute
   '/quem-somos': typeof QuemSomosRoute
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
+  '/admin/doacoes': typeof AdminDoacoesRoute
   '/admin/eventos': typeof AdminEventosRoute
+  '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/parceiros': typeof AdminParceirosRoute
   '/admin/projetos': typeof AdminProjetosRoute
   '/admin/transparencia': typeof AdminTransparenciaRoute
@@ -202,6 +250,9 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/eventos': typeof EventosIndexRoute
   '/projetos': typeof ProjetosIndexRoute
+  '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
+  '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,13 +262,16 @@ export interface FileRoutesById {
   '/bazar': typeof BazarRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
+  '/doar': typeof DoarRoute
   '/eventos': typeof EventosRouteWithChildren
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
+  '/admin/doacoes': typeof AdminDoacoesRoute
   '/admin/eventos': typeof AdminEventosRoute
+  '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/parceiros': typeof AdminParceirosRoute
   '/admin/projetos': typeof AdminProjetosRoute
   '/admin/transparencia': typeof AdminTransparenciaRoute
@@ -229,6 +283,9 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
+  '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -239,13 +296,16 @@ export interface FileRouteTypes {
     | '/bazar'
     | '/blog'
     | '/contato'
+    | '/doar'
     | '/eventos'
     | '/parceiros'
     | '/projetos'
     | '/quem-somos'
     | '/transparencia'
     | '/admin/blog'
+    | '/admin/doacoes'
     | '/admin/eventos'
+    | '/admin/integracoes'
     | '/admin/parceiros'
     | '/admin/projetos'
     | '/admin/transparencia'
@@ -257,17 +317,23 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/eventos/'
     | '/projetos/'
+    | '/api/public/donations/create'
+    | '/api/public/donations/status'
+    | '/api/public/donations/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$'
     | '/bazar'
     | '/contato'
+    | '/doar'
     | '/parceiros'
     | '/quem-somos'
     | '/transparencia'
     | '/admin/blog'
+    | '/admin/doacoes'
     | '/admin/eventos'
+    | '/admin/integracoes'
     | '/admin/parceiros'
     | '/admin/projetos'
     | '/admin/transparencia'
@@ -279,6 +345,9 @@ export interface FileRouteTypes {
     | '/blog'
     | '/eventos'
     | '/projetos'
+    | '/api/public/donations/create'
+    | '/api/public/donations/status'
+    | '/api/public/donations/webhook'
   id:
     | '__root__'
     | '/'
@@ -287,13 +356,16 @@ export interface FileRouteTypes {
     | '/bazar'
     | '/blog'
     | '/contato'
+    | '/doar'
     | '/eventos'
     | '/parceiros'
     | '/projetos'
     | '/quem-somos'
     | '/transparencia'
     | '/admin/blog'
+    | '/admin/doacoes'
     | '/admin/eventos'
+    | '/admin/integracoes'
     | '/admin/parceiros'
     | '/admin/projetos'
     | '/admin/transparencia'
@@ -305,6 +377,9 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/eventos/'
     | '/projetos/'
+    | '/api/public/donations/create'
+    | '/api/public/donations/status'
+    | '/api/public/donations/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -314,6 +389,7 @@ export interface RootRouteChildren {
   BazarRoute: typeof BazarRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContatoRoute: typeof ContatoRoute
+  DoarRoute: typeof DoarRoute
   EventosRoute: typeof EventosRouteWithChildren
   ParceirosRoute: typeof ParceirosRoute
   ProjetosRoute: typeof ProjetosRouteWithChildren
@@ -322,6 +398,9 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   EventosSlugRoute: typeof EventosSlugRoute
   ProjetosSlugRoute: typeof ProjetosSlugRoute
+  ApiPublicDonationsCreateRoute: typeof ApiPublicDonationsCreateRoute
+  ApiPublicDonationsStatusRoute: typeof ApiPublicDonationsStatusRoute
+  ApiPublicDonationsWebhookRoute: typeof ApiPublicDonationsWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -359,6 +438,13 @@ declare module '@tanstack/react-router' {
       path: '/eventos'
       fullPath: '/eventos'
       preLoaderRoute: typeof EventosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doar': {
+      id: '/doar'
+      path: '/doar'
+      fullPath: '/doar'
+      preLoaderRoute: typeof DoarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -480,11 +566,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminParceirosRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/integracoes': {
+      id: '/admin/integracoes'
+      path: '/integracoes'
+      fullPath: '/admin/integracoes'
+      preLoaderRoute: typeof AdminIntegracoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/eventos': {
       id: '/admin/eventos'
       path: '/eventos'
       fullPath: '/admin/eventos'
       preLoaderRoute: typeof AdminEventosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/doacoes': {
+      id: '/admin/doacoes'
+      path: '/doacoes'
+      fullPath: '/admin/doacoes'
+      preLoaderRoute: typeof AdminDoacoesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/blog': {
@@ -494,12 +594,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/donations/webhook': {
+      id: '/api/public/donations/webhook'
+      path: '/api/public/donations/webhook'
+      fullPath: '/api/public/donations/webhook'
+      preLoaderRoute: typeof ApiPublicDonationsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/donations/status': {
+      id: '/api/public/donations/status'
+      path: '/api/public/donations/status'
+      fullPath: '/api/public/donations/status'
+      preLoaderRoute: typeof ApiPublicDonationsStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/donations/create': {
+      id: '/api/public/donations/create'
+      path: '/api/public/donations/create'
+      fullPath: '/api/public/donations/create'
+      preLoaderRoute: typeof ApiPublicDonationsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminBlogRoute: typeof AdminBlogRoute
+  AdminDoacoesRoute: typeof AdminDoacoesRoute
   AdminEventosRoute: typeof AdminEventosRoute
+  AdminIntegracoesRoute: typeof AdminIntegracoesRoute
   AdminParceirosRoute: typeof AdminParceirosRoute
   AdminProjetosRoute: typeof AdminProjetosRoute
   AdminTransparenciaRoute: typeof AdminTransparenciaRoute
@@ -509,7 +632,9 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogRoute: AdminBlogRoute,
+  AdminDoacoesRoute: AdminDoacoesRoute,
   AdminEventosRoute: AdminEventosRoute,
+  AdminIntegracoesRoute: AdminIntegracoesRoute,
   AdminParceirosRoute: AdminParceirosRoute,
   AdminProjetosRoute: AdminProjetosRoute,
   AdminTransparenciaRoute: AdminTransparenciaRoute,
@@ -559,6 +684,7 @@ const rootRouteChildren: RootRouteChildren = {
   BazarRoute: BazarRoute,
   BlogRoute: BlogRouteWithChildren,
   ContatoRoute: ContatoRoute,
+  DoarRoute: DoarRoute,
   EventosRoute: EventosRouteWithChildren,
   ParceirosRoute: ParceirosRoute,
   ProjetosRoute: ProjetosRouteWithChildren,
@@ -567,17 +693,10 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   EventosSlugRoute: EventosSlugRoute,
   ProjetosSlugRoute: ProjetosSlugRoute,
+  ApiPublicDonationsCreateRoute: ApiPublicDonationsCreateRoute,
+  ApiPublicDonationsStatusRoute: ApiPublicDonationsStatusRoute,
+  ApiPublicDonationsWebhookRoute: ApiPublicDonationsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
