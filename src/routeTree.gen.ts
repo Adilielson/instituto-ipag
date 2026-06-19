@@ -33,6 +33,9 @@ import { Route as AdminProjetosRouteImport } from './routes/admin.projetos'
 import { Route as AdminParceirosRouteImport } from './routes/admin.parceiros'
 import { Route as AdminEventosRouteImport } from './routes/admin.eventos'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/public/donations/webhook'
+import { Route as ApiPublicDonationsStatusRouteImport } from './routes/api/public/donations/status'
+import { Route as ApiPublicDonationsCreateRouteImport } from './routes/api/public/donations/create'
 
 const TransparenciaRoute = TransparenciaRouteImport.update({
   id: '/transparencia',
@@ -154,6 +157,24 @@ const AdminBlogRoute = AdminBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicDonationsWebhookRoute =
+  ApiPublicDonationsWebhookRouteImport.update({
+    id: '/api/public/donations/webhook',
+    path: '/api/public/donations/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicDonationsStatusRoute =
+  ApiPublicDonationsStatusRouteImport.update({
+    id: '/api/public/donations/status',
+    path: '/api/public/donations/status',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicDonationsCreateRoute =
+  ApiPublicDonationsCreateRouteImport.update({
+    id: '/api/public/donations/create',
+    path: '/api/public/donations/create',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -180,6 +201,9 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
+  '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -202,6 +226,9 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/eventos': typeof EventosIndexRoute
   '/projetos': typeof ProjetosIndexRoute
+  '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
+  '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -229,6 +256,9 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
+  '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -257,6 +287,9 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/eventos/'
     | '/projetos/'
+    | '/api/public/donations/create'
+    | '/api/public/donations/status'
+    | '/api/public/donations/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -279,6 +312,9 @@ export interface FileRouteTypes {
     | '/blog'
     | '/eventos'
     | '/projetos'
+    | '/api/public/donations/create'
+    | '/api/public/donations/status'
+    | '/api/public/donations/webhook'
   id:
     | '__root__'
     | '/'
@@ -305,6 +341,9 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/eventos/'
     | '/projetos/'
+    | '/api/public/donations/create'
+    | '/api/public/donations/status'
+    | '/api/public/donations/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -322,6 +361,9 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   EventosSlugRoute: typeof EventosSlugRoute
   ProjetosSlugRoute: typeof ProjetosSlugRoute
+  ApiPublicDonationsCreateRoute: typeof ApiPublicDonationsCreateRoute
+  ApiPublicDonationsStatusRoute: typeof ApiPublicDonationsStatusRoute
+  ApiPublicDonationsWebhookRoute: typeof ApiPublicDonationsWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -494,6 +536,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/donations/webhook': {
+      id: '/api/public/donations/webhook'
+      path: '/api/public/donations/webhook'
+      fullPath: '/api/public/donations/webhook'
+      preLoaderRoute: typeof ApiPublicDonationsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/donations/status': {
+      id: '/api/public/donations/status'
+      path: '/api/public/donations/status'
+      fullPath: '/api/public/donations/status'
+      preLoaderRoute: typeof ApiPublicDonationsStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/donations/create': {
+      id: '/api/public/donations/create'
+      path: '/api/public/donations/create'
+      fullPath: '/api/public/donations/create'
+      preLoaderRoute: typeof ApiPublicDonationsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -567,17 +630,10 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   EventosSlugRoute: EventosSlugRoute,
   ProjetosSlugRoute: ProjetosSlugRoute,
+  ApiPublicDonationsCreateRoute: ApiPublicDonationsCreateRoute,
+  ApiPublicDonationsStatusRoute: ApiPublicDonationsStatusRoute,
+  ApiPublicDonationsWebhookRoute: ApiPublicDonationsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
