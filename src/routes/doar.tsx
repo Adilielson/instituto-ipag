@@ -156,9 +156,10 @@ function DoarPage() {
     <div className="min-h-screen bg-background">
       <Header />
       <PageHero
-        eyebrow="DOE AGORA"
+        category="DOE AGORA"
         title={project?.name ? `Apoie: ${project.name}` : "Sua doação transforma"}
         subtitle={project?.short_description || "Cada contribuição fortalece nosso impacto em São Mateus."}
+        image={project?.cover_image || "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2400&auto=format&fit=crop"}
       />
 
       <section className="container mx-auto px-4 py-12 lg:py-20">
