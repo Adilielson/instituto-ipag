@@ -56,6 +56,7 @@ export async function asaasFetch<T = any>(
     ...init,
     headers: {
       "Content-Type": "application/json",
+      "User-Agent": "IPAG-Doacoes/1.0",
       access_token: cfg.apiKey,
       ...(init.headers || {}),
     },
