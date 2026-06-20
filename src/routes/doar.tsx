@@ -354,7 +354,7 @@ function DoarPage() {
 
                   <Button type="submit" size="lg" className="w-full font-black text-base" disabled={loading}>
                     {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Heart className="h-5 w-5 mr-2" />}
-                    {loading ? "Processando..." : `Doar R$ ${Number(amount || 0).toFixed(2)}`}
+                    {loading ? "Processando..." : `Doar ${currency(Number(amount || 0))}`}
                   </Button>
                 </form>
               )}
