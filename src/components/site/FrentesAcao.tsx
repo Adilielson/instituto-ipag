@@ -146,7 +146,7 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
                       
                       <div className="mt-auto flex flex-wrap gap-4">
                         <Button asChild className="gf-button-primary rounded-full px-8 py-4 h-auto min-h-[44px] text-xs font-black tracking-widest group">
-                          <Link to="/projetos/$slug" params={{ slug: p.slug }}>
+                          <Link to="/doar" search={{ project: p.slug }}>
                             APOIAR AGORA <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                           </Link>
                         </Button>
