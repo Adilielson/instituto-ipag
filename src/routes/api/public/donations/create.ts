@@ -70,9 +70,15 @@ export const Route = createFileRoute("/api/public/donations/create")({
         };
 
         // Build payload
-        const description = data.campaign
-          ? `Doação IPAG — ${data.campaign}`
-          : "Doação IPAG";
+        const projectLabel = data.campaign || "Geral";
+        const description = `Doação IPAG — Projeto: ${projectLabel} — Doador: ${data.donor_name}`;
+        // externalReference helps identify the donation in the Asaas dashboard
+        const externalReference = JSON.stringify({
+          project_id: data.project_id || null,
+          project: projectLabel,
+          donor_cpf: data.donor_cpf.replace(/\D/g, ""),
+          type: data.type,
+        });
 
         let asaasResp: any;
         try {
@@ -84,6 +90,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
               nextDueDate: dueDateStr,
               cycle: "MONTHLY",
               description,
+              externalReference,
             };
             if (data.payment_method === "CREDIT_CARD" && data.card) {
               subPayload.creditCard = {
@@ -113,6 +120,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
               value: data.amount,
               dueDate: dueDateStr,
               description,
+              externalReference,
             };
             if (data.payment_method === "CREDIT_CARD" && data.card) {
               payPayload.creditCard = {
