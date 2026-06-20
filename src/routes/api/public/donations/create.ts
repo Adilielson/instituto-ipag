@@ -72,13 +72,9 @@ export const Route = createFileRoute("/api/public/donations/create")({
         // Build payload
         const projectLabel = data.campaign || "Geral";
         const description = `Doação IPAG — Projeto: ${projectLabel} — Doador: ${data.donor_name}`;
-        // externalReference helps identify the donation in the Asaas dashboard
-        const externalReference = JSON.stringify({
-          project_id: data.project_id || null,
-          project: projectLabel,
-          donor_cpf: data.donor_cpf.replace(/\D/g, ""),
-          type: data.type,
-        });
+        // externalReference must be <= 100 chars in Asaas. Keep it short and parseable.
+        const refRaw = `proj:${data.project_id || "geral"}|t:${data.type === "MONTHLY" ? "M" : "O"}`;
+        const externalReference = refRaw.slice(0, 100);
 
         let asaasResp: any;
         try {
