@@ -30,11 +30,19 @@ export const Route = createFileRoute("/doar")({
     let project: Project | null = null;
     if (deps.project) {
       const { data } = await supabase
-        .from("projects")
-        .select("id,slug,name,short_description,cover_image")
+        .from("projetos")
+        .select("id,slug,titulo,resumo,imagem_destaque")
         .eq("slug", deps.project)
         .maybeSingle();
-      project = (data as Project) || null;
+      if (data) {
+        project = {
+          id: (data as any).id,
+          slug: (data as any).slug,
+          name: (data as any).titulo,
+          short_description: (data as any).resumo,
+          cover_image: (data as any).imagem_destaque,
+        };
+      }
     }
     return { project };
   },
