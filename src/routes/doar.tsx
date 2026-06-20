@@ -59,6 +59,10 @@ export const Route = createFileRoute("/doar")({
 
 const PRESETS = [25, 50, 100, 250, 500];
 
+function currency(n: number) {
+  return `R$ ${n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 function DoarPage() {
   const { project } = Route.useLoaderData() as { project: Project | null };
   const totalFn = useServerFn(totalConfirmedPublic);
@@ -70,6 +74,7 @@ function DoarPage() {
   const [type, setType] = useState<"ONE_TIME" | "MONTHLY">("ONE_TIME");
   const [method, setMethod] = useState<"PIX" | "BOLETO" | "CREDIT_CARD">("PIX");
   const [amount, setAmount] = useState<number>(50);
+  const [customAmount, setCustomAmount] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
@@ -256,16 +261,35 @@ function DoarPage() {
                         <button
                           key={v}
                           type="button"
-                          onClick={() => setAmount(v)}
+                          onClick={() => { setAmount(v); setCustomAmount(false); }}
                           className={`px-4 py-2 rounded-full border-2 text-sm font-bold ${
-                            amount === v ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
+                            amount === v && !customAmount ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
                           }`}
                         >
-                          R$ {v}
+                          {currency(v)}
                         </button>
                       ))}
+                      <button
+                        type="button"
+                        onClick={() => setCustomAmount(true)}
+                        className={`px-4 py-2 rounded-full border-2 text-sm font-bold ${
+                          customAmount ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        Outro valor
+                      </button>
                     </div>
-                    <Input type="number" min={5} step="0.01" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
+                    {customAmount && (
+                      <Input
+                        type="number"
+                        min={5}
+                        step="0.01"
+                        autoFocus
+                        placeholder="Digite o valor"
+                        value={amount}
+                        onChange={(e) => setAmount(Number(e.target.value))}
+                      />
+                    )}
                   </div>
 
                   {/* Method */}
@@ -330,7 +354,7 @@ function DoarPage() {
 
                   <Button type="submit" size="lg" className="w-full font-black text-base" disabled={loading}>
                     {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Heart className="h-5 w-5 mr-2" />}
-                    {loading ? "Processando..." : `Doar R$ ${Number(amount || 0).toFixed(2)}`}
+                    {loading ? "Processando..." : `Doar ${currency(Number(amount || 0))}`}
                   </Button>
                 </form>
               )}
