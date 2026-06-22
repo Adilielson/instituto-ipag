@@ -82,6 +82,23 @@ function templateToForm(t: Template): typeof EMPTY {
   };
 }
 
+function isFormDirty(form: typeof EMPTY, template: Template) {
+  return JSON.stringify(form) !== JSON.stringify(templateToForm(template));
+}
+
+function buildPayload(form: typeof EMPTY) {
+  return {
+    slug: form.slug.trim(),
+    name: form.name.trim(),
+    subject: form.subject,
+    header_image_url: form.header_image_url ? form.header_image_url.trim() : null,
+    body_html: form.body_html,
+    footer_html: form.footer_html || null,
+    is_active: form.is_active,
+    variables: Array.isArray(form.variables) ? (form.variables as string[]) : [],
+  };
+}
+
 function AdminEmails() {
   const listFn = useServerFn(listEmailTemplates);
   const getFn = useServerFn(getEmailTemplate);
