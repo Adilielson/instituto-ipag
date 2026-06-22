@@ -83,7 +83,7 @@ function wrapLayout(opts: {
 }) {
   const header = opts.headerImageUrl
     ? `<tr><td style="padding:0"><img src="${opts.headerImageUrl}" alt="Instituto IPAG" style="display:block;width:100%;max-width:560px;height:auto"/></td></tr>`
-    : `<tr><td style="padding:24px 28px;background:#0f3460;color:#ffffff"><h1 style="margin:0;font-size:20px">Instituto IPAG</h1></td></tr>`;
+    : `<tr><td style="padding:28px;background:linear-gradient(135deg,#F79B34 0%,#F57C2B 100%);background-color:#F79B34;color:#ffffff;text-align:center"><h1 style="margin:0;font-size:22px;letter-spacing:0.5px;font-weight:700">Instituto IPAG</h1></td></tr>`;
   const footer = opts.footerHtml
     ? `<tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">${opts.footerHtml}</td></tr>`
     : `<tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">Este é um email automático do Instituto IPAG.</td></tr>`;
