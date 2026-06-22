@@ -1,7 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -173,7 +171,6 @@ function DoarPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <PageHero
         category="DOE AGORA"
         title={project?.name ? `Apoie: ${project.name}` : "Sua doação transforma"}
@@ -412,7 +409,6 @@ function DoarPage() {
           </aside>
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
