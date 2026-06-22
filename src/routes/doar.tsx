@@ -65,6 +65,7 @@ function currency(n: number) {
 
 function DoarPage() {
   const { project } = Route.useLoaderData() as { project: Project | null };
+  const navigate = useNavigate();
   const totalFn = useServerFn(totalConfirmedPublic);
   const totalQuery = useQuery({
     queryKey: ["donations-total", project?.id],
