@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
@@ -7,9 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
-import { totalConfirmedPublic } from "@/lib/admin.functions";
-import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
 import { Heart, QrCode, FileText, CreditCard, Copy, CheckCircle2, Loader2, AlertTriangle, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
@@ -66,11 +63,6 @@ function currency(n: number) {
 function DoarPage() {
   const { project } = Route.useLoaderData() as { project: Project | null };
   const navigate = useNavigate();
-  const totalFn = useServerFn(totalConfirmedPublic);
-  const totalQuery = useQuery({
-    queryKey: ["donations-total", project?.id],
-    queryFn: () => totalFn({ data: { project_id: project?.id ?? null } }),
-  });
 
   const [type, setType] = useState<"ONE_TIME" | "MONTHLY">("ONE_TIME");
   const [method, setMethod] = useState<"PIX" | "BOLETO" | "CREDIT_CARD">("PIX");
@@ -103,18 +95,12 @@ function DoarPage() {
         const j = await r.json();
         if (!cancelled && j?.status === "CONFIRMED") {
           setConfirmed(true);
-          totalQuery.refetch();
           navigate({ to: "/doar/obrigado", search: { id } });
         }
       } catch {}
     }, 5000);
     return () => { cancelled = true; clearInterval(interval); };
-  }, [result, method, confirmed, totalQuery, navigate]);
-
-  const formattedTotal = useMemo(
-    () => (totalQuery.data?.total || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
-    [totalQuery.data],
-  );
+  }, [result, method, confirmed, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

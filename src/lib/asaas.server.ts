@@ -11,6 +11,22 @@ export interface AsaasConfig {
   webhookToken?: string;
 }
 
+export type DonationStatus = "CONFIRMED" | "PENDING" | "FAILED" | "REFUNDED" | "CANCELLED";
+
+export function mapAsaasStatus(status?: string | null): DonationStatus {
+  const s = String(status || "").toUpperCase();
+  if (["CONFIRMED", "RECEIVED", "RECEIVED_IN_CASH", "ACTIVE"].includes(s)) return "CONFIRMED";
+  if (["REFUNDED", "PARTIALLY_REFUNDED"].includes(s)) return "REFUNDED";
+  if (["DELETED", "CANCELLED", "CHARGEBACK_REQUESTED", "CHARGEBACK_DISPUTE", "AWAITING_CHARGEBACK_REVERSAL"].includes(s)) return "CANCELLED";
+  if (["OVERDUE", "FAILED", "INACTIVE", "EXPIRED"].includes(s)) return "FAILED";
+  return "PENDING";
+}
+
+export function cleanPhone(phone?: string | null) {
+  const digits = phone?.replace(/\D/g, "") || "";
+  return digits.length >= 10 && digits.length <= 11 ? digits : undefined;
+}
+
 function admin() {
   return createClient<Database>(
     process.env.SUPABASE_URL!,
@@ -84,14 +100,34 @@ export async function findOrCreateCustomer(
   );
   if (search?.data?.length) return search.data[0];
 
-  return asaasFetch<any>(cfg, `/customers`, {
-    method: "POST",
-    body: JSON.stringify({
-      name: customer.name,
-      email: customer.email,
-      cpfCnpj: customer.cpfCnpj.replace(/\D/g, ""),
-      mobilePhone: customer.phone?.replace(/\D/g, ""),
-      notificationDisabled: false,
-    }),
-  });
+  const mobilePhone = cleanPhone(customer.phone);
+  const payload: Record<string, string | boolean> = {
+    name: customer.name,
+    email: customer.email,
+    cpfCnpj: customer.cpfCnpj.replace(/\D/g, ""),
+    notificationDisabled: false,
+  };
+  if (mobilePhone) payload.mobilePhone = mobilePhone;
+
+  try {
+    return await asaasFetch<any>(cfg, `/customers`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  } catch (e: any) {
+    const msg = String(e?.message || "").toLowerCase();
+    if (mobilePhone && (msg.includes("celular") || msg.includes("telefone"))) {
+      delete payload.mobilePhone;
+      return asaasFetch<any>(cfg, `/customers`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+    }
+    throw e;
+  }
+}
+
+export async function getAsaasCharge(cfg: AsaasConfig, id: string) {
+  if (id.startsWith("sub_")) return asaasFetch<any>(cfg, `/subscriptions/${id}`);
+  return asaasFetch<any>(cfg, `/payments/${id}`);
 }
