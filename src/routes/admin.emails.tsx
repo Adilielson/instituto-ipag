@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   ArrowLeft,
 } from "lucide-react";
+import { FileUpload } from "@/components/admin/FileUpload";
 
 export const Route = createFileRoute("/admin/emails")({
   head: () => ({
