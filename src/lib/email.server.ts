@@ -1,7 +1,8 @@
 import process from "node:process";
 
-const FROM = "Instituto IPAG <onboarding@resend.dev>";
+const FROM = "Instituto IPAG <instituto.ipag@gmail.com>";
 const ADMIN_EMAIL = "instituto.ipag@gmail.com";
+const GMAIL_GATEWAY = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
 
 type SendArgs = {
   to: string | string[];
@@ -10,30 +11,58 @@ type SendArgs = {
   replyTo?: string;
 };
 
+function b64url(str: string) {
+  // UTF-8 safe base64url
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function buildRawEmail(opts: {
+  from: string;
+  to: string[];
+  subject: string;
+  html: string;
+  replyTo?: string;
+}) {
+  // Encode subject as UTF-8 (RFC 2047) to support accents
+  const subjectEncoded = `=?UTF-8?B?${btoa(unescape(encodeURIComponent(opts.subject)))}?=`;
+  const headers = [
+    `From: ${opts.from}`,
+    `To: ${opts.to.join(", ")}`,
+    `Subject: ${subjectEncoded}`,
+    "MIME-Version: 1.0",
+    'Content-Type: text/html; charset="UTF-8"',
+    "Content-Transfer-Encoding: 7bit",
+  ];
+  if (opts.replyTo) headers.push(`Reply-To: ${opts.replyTo}`);
+  return b64url(headers.join("\r\n") + "\r\n\r\n" + opts.html);
+}
+
 async function sendEmail({ to, subject, html, replyTo }: SendArgs) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.warn("[email] RESEND_API_KEY ausente — pulando envio");
+  const lovableKey = process.env.LOVABLE_API_KEY;
+  const gmailKey = process.env.GOOGLE_MAIL_API_KEY;
+  if (!lovableKey || !gmailKey) {
+    console.warn("[email] LOVABLE_API_KEY ou GOOGLE_MAIL_API_KEY ausente — pulando envio");
     return { skipped: true };
   }
-  const res = await fetch("https://api.resend.com/emails", {
+  const recipients = Array.isArray(to) ? to : [to];
+  const raw = buildRawEmail({ from: FROM, to: recipients, subject, html, replyTo });
+
+  const res = await fetch(`${GMAIL_GATEWAY}/users/me/messages/send`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${lovableKey}`,
+      "X-Connection-Api-Key": gmailKey,
     },
-    body: JSON.stringify({
-      from: FROM,
-      to: Array.isArray(to) ? to : [to],
-      subject,
-      html,
-      ...(replyTo ? { reply_to: replyTo } : {}),
-    }),
+    body: JSON.stringify({ raw }),
   });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    console.error("[resend]", res.status, text);
-    throw new Error(`Falha ao enviar email (${res.status})`);
+    console.error("[gmail]", res.status, text);
+    throw new Error(`Falha ao enviar email via Gmail (${res.status})`);
   }
   return res.json();
 }
