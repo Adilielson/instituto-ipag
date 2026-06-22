@@ -1,7 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,6 +53,14 @@ export const Route = createFileRoute("/doar")({
 });
 
 const PRESETS = [25, 50, 100, 250, 500];
+const DONATION_API_ORIGIN = "https://institutoipag.lovable.app";
+
+function donationApi(path: string) {
+  if (typeof window === "undefined") return path;
+  const host = window.location.hostname;
+  if (host === "localhost" || host.endsWith(".lovable.app") || host.endsWith(".lovable.dev")) return path;
+  return `${DONATION_API_ORIGIN}${path}`;
+}
 
 function currency(n: number) {
   return `R$ ${n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -78,6 +84,7 @@ function DoarPage() {
   const [result, setResult] = useState<any>(null);
   const [confirmed, setConfirmed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Poll status when PIX
   useEffect(() => {
@@ -87,7 +94,7 @@ function DoarPage() {
     const id = result.donation.id;
     const interval = setInterval(async () => {
       try {
-        const r = await fetch("/api/public/donations/status", {
+        const r = await fetch(donationApi("/api/public/donations/status"), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id }),
@@ -105,17 +112,18 @@ function DoarPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (loading) return;
-    if (!name.trim() || !email.trim() || !cpf.trim()) { toast.error("Preencha nome, email e CPF."); return; }
-    if (!amount || amount < 5) { toast.error("Valor mínimo: R$ 5,00"); return; }
+    setErrorMessage("");
+    if (!name.trim() || !email.trim() || !cpf.trim()) { setErrorMessage("Preencha nome, email e CPF."); toast.error("Preencha nome, email e CPF."); return; }
+    if (!amount || amount < 5) { setErrorMessage("Valor mínimo: R$ 5,00"); toast.error("Valor mínimo: R$ 5,00"); return; }
     if (method === "CREDIT_CARD" && (!card.number || !card.holderName || !card.expiryMonth || !card.expiryYear || !card.ccv)) {
-      toast.error("Preencha todos os dados do cartão."); return;
+      setErrorMessage("Preencha todos os dados do cartão."); toast.error("Preencha todos os dados do cartão."); return;
     }
 
     setLoading(true);
     setResult(null);
     setConfirmed(false);
     try {
-      const res = await fetch("/api/public/donations/create", {
+      const res = await fetch(donationApi("/api/public/donations/create"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -133,7 +141,9 @@ function DoarPage() {
       });
       const j = await res.json();
       if (!res.ok || !j.success) {
-        toast.error(j.error || "Erro ao processar doação");
+        const message = j.error || "Erro ao processar doação";
+        setErrorMessage(message);
+        toast.error(message);
       } else {
         setResult(j);
         if (j.donation?.status === "CONFIRMED") {
@@ -144,7 +154,9 @@ function DoarPage() {
         if (method === "BOLETO" && j.boleto_url) window.open(j.boleto_url, "_blank");
       }
     } catch (err: any) {
-      toast.error(err?.message || "Erro de rede");
+      const message = err?.message || "Erro de rede";
+      setErrorMessage(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -159,7 +171,6 @@ function DoarPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <PageHero
         category="DOE AGORA"
         title={project?.name ? `Apoie: ${project.name}` : "Sua doação transforma"}
@@ -365,6 +376,12 @@ function DoarPage() {
                     </div>
                   )}
 
+                  {errorMessage && (
+                    <div className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <Button type="submit" size="lg" className="w-full font-black text-base" disabled={loading}>
                     {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Heart className="h-5 w-5 mr-2" />}
                     {loading ? "Processando..." : `Doar ${currency(Number(amount || 0))}`}
@@ -392,7 +409,6 @@ function DoarPage() {
           </aside>
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
