@@ -104,11 +104,12 @@ function DoarPage() {
         if (!cancelled && j?.status === "CONFIRMED") {
           setConfirmed(true);
           totalQuery.refetch();
+          navigate({ to: "/doar/obrigado", search: { id } });
         }
       } catch {}
     }, 5000);
     return () => { cancelled = true; clearInterval(interval); };
-  }, [result, method, confirmed, totalQuery]);
+  }, [result, method, confirmed, totalQuery, navigate]);
 
   const formattedTotal = useMemo(
     () => (totalQuery.data?.total || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
