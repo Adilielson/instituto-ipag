@@ -139,6 +139,22 @@ function AdminEmails() {
     setPreview(false);
   }
 
+  async function togglePreview() {
+    if (!preview && editing) {
+      setLoading(true);
+      try {
+        const savedTemplate = await getFn({ data: { password, id: editing.id } });
+        setEditing(savedTemplate as Template);
+        setForm(templateToForm(savedTemplate as Template));
+      } catch (e: any) {
+        toast.error(e?.message || "Erro ao atualizar pré-visualização");
+      } finally {
+        setLoading(false);
+      }
+    }
+    setPreview((p) => !p);
+  }
+
   async function save() {
     setLoading(true);
     try {
@@ -246,7 +262,7 @@ function AdminEmails() {
             <ArrowLeft className="h-4 w-4" /> Voltar
           </button>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setPreview((p) => !p)}>
+            <Button variant="outline" onClick={togglePreview} disabled={loading}>
               <Eye className="h-4 w-4 mr-2" /> {preview ? "Editar" : "Pré-visualizar"}
             </Button>
             <Button onClick={save} disabled={loading}>
