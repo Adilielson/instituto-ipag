@@ -39,7 +39,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
         if (!parsed.success) return jsonError(parsed.error.issues[0]?.message || "Dados inválidos");
         const data = parsed.data;
 
-        const { getAsaasConfig, asaasFetch, findOrCreateCustomer } = await import("@/lib/asaas.server");
+        const { getAsaasConfig, asaasFetch, findOrCreateCustomer, mapAsaasStatus, cleanPhone } = await import("@/lib/asaas.server");
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         let cfg;
@@ -99,9 +99,9 @@ export const Route = createFileRoute("/api/public/donations/create")({
                 name: data.donor_name,
                 email: data.donor_email,
                 cpfCnpj: data.donor_cpf.replace(/\D/g, ""),
-                postalCode: "00000000",
+                postalCode: "29931225",
                 addressNumber: "0",
-                phone: data.donor_phone?.replace(/\D/g, "") || "",
+                phone: cleanPhone(data.donor_phone) || undefined,
               };
             }
             asaasResp = await asaasFetch(cfg, "/subscriptions", {
@@ -129,9 +129,9 @@ export const Route = createFileRoute("/api/public/donations/create")({
                 name: data.donor_name,
                 email: data.donor_email,
                 cpfCnpj: data.donor_cpf.replace(/\D/g, ""),
-                postalCode: "00000000",
+                postalCode: "29931225",
                 addressNumber: "0",
-                phone: data.donor_phone?.replace(/\D/g, "") || "",
+                phone: cleanPhone(data.donor_phone) || undefined,
               };
             }
             asaasResp = await asaasFetch(cfg, "/payments", {
@@ -163,11 +163,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
         }
 
         // Map status
-        const internalStatus =
-          status === "CONFIRMED" || status === "RECEIVED" ? "CONFIRMED"
-          : status === "REFUNDED" ? "REFUNDED"
-          : status === "OVERDUE" || status === "FAILED" ? "FAILED"
-          : "PENDING";
+        const internalStatus = mapAsaasStatus(status);
 
         // Insert donation
         const { data: donation, error: insErr } = await supabaseAdmin
