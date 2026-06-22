@@ -86,7 +86,7 @@ export const updateEmailTemplate = createServerFn({ method: "POST" })
     if (t.variables !== undefined) patch.variables = t.variables;
     const { data: row, error } = await supabaseAdmin
       .from("email_templates")
-      .update(patch)
+      .update(patch as never)
       .eq("id", data.id)
       .select()
       .single();
