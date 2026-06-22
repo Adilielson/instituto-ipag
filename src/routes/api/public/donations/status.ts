@@ -3,14 +3,25 @@ import { z } from "zod";
 
 const Schema = z.object({ id: z.string().uuid() });
 
+function corsHeaders(request: Request) {
+  const origin = request.headers.get("Origin") || "*";
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    Vary: "Origin",
+  };
+}
+
 export const Route = createFileRoute("/api/public/donations/status")({
   server: {
     handlers: {
+      OPTIONS: async ({ request }) => new Response(null, { status: 204, headers: corsHeaders(request) }),
       POST: async ({ request }) => {
         let body: any;
-        try { body = await request.json(); } catch { return new Response("Bad request", { status: 400 }); }
+        try { body = await request.json(); } catch { return new Response("Bad request", { status: 400, headers: corsHeaders(request) }); }
         const parsed = Schema.safeParse(body);
-        if (!parsed.success) return new Response("Invalid", { status: 400 });
+        if (!parsed.success) return new Response("Invalid", { status: 400, headers: corsHeaders(request) });
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { data } = await supabaseAdmin
@@ -18,7 +29,7 @@ export const Route = createFileRoute("/api/public/donations/status")({
           .select("id,status,payment_method,type,amount,campaign,donor_email,donor_name,asaas_id,confirmation_email_sent_at")
           .eq("id", parsed.data.id)
           .maybeSingle();
-        if (!data) return new Response(JSON.stringify({ success: false }), { status: 404, headers: { "Content-Type": "application/json" } });
+        if (!data) return new Response(JSON.stringify({ success: false }), { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders(request) } });
         let donation = data;
 
         if (donation.status === "PENDING" && donation.asaas_id) {
@@ -65,7 +76,7 @@ export const Route = createFileRoute("/api/public/donations/status")({
           }
         }
 
-        return Response.json({ success: true, ...donation });
+        return Response.json({ success: true, ...donation }, { headers: corsHeaders(request) });
       },
     },
   },
