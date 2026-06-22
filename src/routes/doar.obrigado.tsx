@@ -103,7 +103,7 @@ function ObrigadoPage() {
           </div>
         </div>
       </main>
-      <Footer />
+      
     </div>
   );
 }
