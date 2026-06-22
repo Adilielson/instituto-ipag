@@ -199,6 +199,29 @@ export const Route = createFileRoute("/api/public/donations/create")({
           return jsonError("Erro ao salvar doação", 500);
         }
 
+        // Se já vem confirmado (típico de cartão de crédito aprovado no ato),
+        // dispara email imediatamente — webhook não chegará a tempo.
+        if (internalStatus === "CONFIRMED" && donation && !donation.confirmation_email_sent_at) {
+          try {
+            const { sendDonationConfirmedEmails } = await import("@/lib/email.server");
+            await sendDonationConfirmedEmails({
+              donor_name: donation.donor_name,
+              donor_email: donation.donor_email,
+              amount: Number(donation.amount),
+              payment_method: donation.payment_method,
+              type: donation.type,
+              campaign: donation.campaign ?? undefined,
+              asaas_id: donation.asaas_id ?? paymentId,
+            });
+            await supabaseAdmin
+              .from("donations")
+              .update({ confirmation_email_sent_at: new Date().toISOString() })
+              .eq("id", donation.id);
+          } catch (e) {
+            console.error("[email confirmação imediata]", e);
+          }
+        }
+
         return Response.json({
           success: true,
           donation,
