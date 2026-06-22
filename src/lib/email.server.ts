@@ -170,7 +170,7 @@ export async function sendDonationConfirmedEmails(d: {
     asaas_id: d.asaas_id,
   };
 
-  await Promise.allSettled([
+  const results = await Promise.allSettled([
     renderAndSendTemplate({ slug: "donation_confirmation_donor", to: d.donor_email, vars }),
     renderAndSendTemplate({
       slug: "donation_confirmation_admin",
@@ -179,4 +179,6 @@ export async function sendDonationConfirmedEmails(d: {
       replyTo: d.donor_email,
     }),
   ]);
+  const failed = results.find((r) => r.status === "rejected");
+  if (failed?.status === "rejected") throw failed.reason;
 }
