@@ -393,11 +393,12 @@ function DoarPage() {
             {project?.cover_image && (
               <img src={project.cover_image} alt={project.name || ""} className="rounded-3xl w-full aspect-video object-cover" />
             )}
-            <div className="rounded-3xl bg-gradient-to-br from-primary to-orange-600 text-white p-6">
-              <p className="text-xs uppercase tracking-wider opacity-80">Total arrecadado</p>
-              <p className="text-4xl font-black mt-1">{formattedTotal}</p>
-              <p className="text-sm mt-2 opacity-90">{project?.name ? `Para ${project.name}` : "Em todos os projetos"}</p>
-            </div>
+            {project?.name && (
+              <div className="rounded-3xl bg-gradient-to-br from-primary to-orange-600 text-white p-6">
+                <p className="text-xs uppercase tracking-wider opacity-80">Você está apoiando</p>
+                <p className="text-2xl font-black mt-1">{project.name}</p>
+              </div>
+            )}
             <div className="rounded-3xl bg-muted/40 p-6 text-sm space-y-2">
               <p className="font-bold">Pagamento processado por Asaas</p>
               <p className="text-muted-foreground">Seus dados são protegidos. Não armazenamos dados de cartão.</p>
