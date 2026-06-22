@@ -22,21 +22,32 @@ const Schema = z.object({
     .optional(),
 });
 
-function jsonError(message: string, status = 400) {
+function corsHeaders(request: Request) {
+  const origin = request.headers.get("Origin") || "*";
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    Vary: "Origin",
+  };
+}
+
+function jsonError(message: string, request: Request, status = 400) {
   return new Response(JSON.stringify({ success: false, error: message }), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...corsHeaders(request) },
   });
 }
 
 export const Route = createFileRoute("/api/public/donations/create")({
   server: {
     handlers: {
+      OPTIONS: async ({ request }) => new Response(null, { status: 204, headers: corsHeaders(request) }),
       POST: async ({ request }) => {
         let body: unknown;
-        try { body = await request.json(); } catch { return jsonError("Corpo inválido"); }
+        try { body = await request.json(); } catch { return jsonError("Corpo inválido", request); }
         const parsed = Schema.safeParse(body);
-        if (!parsed.success) return jsonError(parsed.error.issues[0]?.message || "Dados inválidos");
+        if (!parsed.success) return jsonError(parsed.error.issues[0]?.message || "Dados inválidos", request);
         const data = parsed.data;
 
         const { getAsaasConfig, asaasFetch, findOrCreateCustomer, mapAsaasStatus, cleanPhone } = await import("@/lib/asaas.server");
@@ -44,7 +55,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
 
         let cfg;
         try { cfg = await getAsaasConfig(); }
-        catch (e: any) { return jsonError(e?.message || "Asaas não configurado", 500); }
+        catch (e: any) { return jsonError(e?.message || "Asaas não configurado", request, 500); }
 
         const { data: draftDonation, error: draftErr } = await supabaseAdmin
           .from("donations")
@@ -64,7 +75,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
           .single();
         if (draftErr || !draftDonation) {
           console.error("[donation draft]", draftErr);
-          return jsonError("Erro ao iniciar doação", 500);
+          return jsonError("Erro ao iniciar doação", request, 500);
         }
 
         let customer;
@@ -78,7 +89,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
         } catch (e: any) {
           console.error("[asaas customer]", e);
           await supabaseAdmin.from("donations").update({ status: "FAILED" }).eq("id", draftDonation.id);
-          return jsonError(e?.message || "Erro ao criar cliente", 502);
+          return jsonError(e?.message || "Erro ao criar cliente", request, 502);
         }
 
         const dueDate = new Date();
@@ -164,7 +175,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
         } catch (e: any) {
           console.error("[asaas create]", e);
           await supabaseAdmin.from("donations").update({ status: "FAILED" }).eq("id", draftDonation.id);
-          return jsonError(e?.message || "Erro ao processar pagamento", 502);
+          return jsonError(e?.message || "Erro ao processar pagamento", request, 502);
         }
 
         // Extract details
@@ -207,7 +218,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
 
         if (insErr) {
           console.error("[donation insert]", insErr);
-          return jsonError("Erro ao salvar doação", 500);
+          return jsonError("Erro ao salvar doação", request, 500);
         }
 
         // Se já vem confirmado (típico de cartão de crédito aprovado no ato),
@@ -240,7 +251,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
           pix_payload: pixPayload,
           boleto_url: bankSlipUrl,
           invoice_url: invoiceUrl,
-        });
+        }, { headers: corsHeaders(request) });
       },
     },
   },
