@@ -15,7 +15,7 @@ export const Route = createFileRoute("/api/public/donations/status")({
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { data } = await supabaseAdmin
           .from("donations")
-          .select("id,status,payment_method,type,amount")
+          .select("id,status,payment_method,type,amount,campaign,donor_email,donor_name")
           .eq("id", parsed.data.id)
           .maybeSingle();
         if (!data) return new Response(JSON.stringify({ success: false }), { status: 404, headers: { "Content-Type": "application/json" } });

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useMemo, useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { totalConfirmedPublic } from "@/lib/admin.functions";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { Heart, QrCode, FileText, CreditCard, Copy, CheckCircle2, Loader2 } from "lucide-react";
+import { Heart, QrCode, FileText, CreditCard, Copy, CheckCircle2, Loader2, AlertTriangle, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 type Project = {
@@ -65,6 +65,7 @@ function currency(n: number) {
 
 function DoarPage() {
   const { project } = Route.useLoaderData() as { project: Project | null };
+  const navigate = useNavigate();
   const totalFn = useServerFn(totalConfirmedPublic);
   const totalQuery = useQuery({
     queryKey: ["donations-total", project?.id],
@@ -103,11 +104,12 @@ function DoarPage() {
         if (!cancelled && j?.status === "CONFIRMED") {
           setConfirmed(true);
           totalQuery.refetch();
+          navigate({ to: "/doar/obrigado", search: { id } });
         }
       } catch {}
     }, 5000);
     return () => { cancelled = true; clearInterval(interval); };
-  }, [result, method, confirmed, totalQuery]);
+  }, [result, method, confirmed, totalQuery, navigate]);
 
   const formattedTotal = useMemo(
     () => (totalQuery.data?.total || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
@@ -148,7 +150,11 @@ function DoarPage() {
         toast.error(j.error || "Erro ao processar doação");
       } else {
         setResult(j);
-        if (j.donation?.status === "CONFIRMED") setConfirmed(true);
+        if (j.donation?.status === "CONFIRMED") {
+          setConfirmed(true);
+          navigate({ to: "/doar/obrigado", search: { id: j.donation.id } });
+          return;
+        }
         if (method === "BOLETO" && j.boleto_url) window.open(j.boleto_url, "_blank");
       }
     } catch (err: any) {
@@ -210,6 +216,27 @@ function DoarPage() {
                         </div>
                       )}
                       <p className="text-xs text-muted-foreground mt-4 flex items-center justify-center gap-2">
+                        <Loader2 className="h-3 w-3 animate-spin" /> Aguardando confirmação automática...
+                      </p>
+                    </div>
+                  )}
+                  {method === "PIX" && !result.pix_qrcode && (
+                    <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+                      <div className="flex items-start gap-3 mb-3">
+                        <AlertTriangle className="h-5 w-5 mt-0.5 shrink-0" />
+                        <div>
+                          <p className="font-bold mb-1">QR Code não pôde ser gerado agora.</p>
+                          <p className="opacity-90">A cobrança PIX foi criada, mas o QR não chegou. Use o link abaixo para concluir o pagamento direto na página segura do Asaas — ele inclui PIX Copia e Cola e QR.</p>
+                        </div>
+                      </div>
+                      {result.invoice_url && (
+                        <a href={result.invoice_url} target="_blank" rel="noreferrer">
+                          <Button className="w-full">
+                            <ExternalLink className="h-4 w-4 mr-2" /> Pagar pelo Asaas
+                          </Button>
+                        </a>
+                      )}
+                      <p className="text-xs mt-3 flex items-center gap-2">
                         <Loader2 className="h-3 w-3 animate-spin" /> Aguardando confirmação automática...
                       </p>
                     </div>
