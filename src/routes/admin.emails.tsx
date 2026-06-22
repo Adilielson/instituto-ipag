@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   listEmailTemplates,
+  getEmailTemplate,
   createEmailTemplate,
   updateEmailTemplate,
   deleteEmailTemplate,
@@ -68,8 +69,22 @@ const EMPTY: Omit<Template, "id" | "created_at" | "updated_at"> = {
   variables: [],
 };
 
+function templateToForm(t: Template): typeof EMPTY {
+  return {
+    slug: t.slug,
+    name: t.name,
+    subject: t.subject,
+    header_image_url: t.header_image_url || "",
+    body_html: t.body_html,
+    footer_html: t.footer_html || "",
+    is_active: t.is_active,
+    variables: Array.isArray(t.variables) ? (t.variables as string[]) : [],
+  };
+}
+
 function AdminEmails() {
   const listFn = useServerFn(listEmailTemplates);
+  const getFn = useServerFn(getEmailTemplate);
   const createFn = useServerFn(createEmailTemplate);
   const updateFn = useServerFn(updateEmailTemplate);
   const deleteFn = useServerFn(deleteEmailTemplate);
