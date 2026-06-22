@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   listEmailTemplates,
+  getEmailTemplate,
   createEmailTemplate,
   updateEmailTemplate,
   deleteEmailTemplate,
@@ -68,8 +69,39 @@ const EMPTY: Omit<Template, "id" | "created_at" | "updated_at"> = {
   variables: [],
 };
 
+function templateToForm(t: Template): typeof EMPTY {
+  return {
+    slug: t.slug,
+    name: t.name,
+    subject: t.subject,
+    header_image_url: t.header_image_url || "",
+    body_html: t.body_html,
+    footer_html: t.footer_html || "",
+    is_active: t.is_active,
+    variables: Array.isArray(t.variables) ? (t.variables as string[]) : [],
+  };
+}
+
+function isFormDirty(form: typeof EMPTY, template: Template) {
+  return JSON.stringify(form) !== JSON.stringify(templateToForm(template));
+}
+
+function buildPayload(form: typeof EMPTY) {
+  return {
+    slug: form.slug.trim(),
+    name: form.name.trim(),
+    subject: form.subject,
+    header_image_url: form.header_image_url ? form.header_image_url.trim() : null,
+    body_html: form.body_html,
+    footer_html: form.footer_html || null,
+    is_active: form.is_active,
+    variables: Array.isArray(form.variables) ? (form.variables as string[]) : [],
+  };
+}
+
 function AdminEmails() {
   const listFn = useServerFn(listEmailTemplates);
+  const getFn = useServerFn(getEmailTemplate);
   const createFn = useServerFn(createEmailTemplate);
   const updateFn = useServerFn(updateEmailTemplate);
   const deleteFn = useServerFn(deleteEmailTemplate);
@@ -89,6 +121,21 @@ function AdminEmails() {
     const r = await listFn({ data: { password: pwd } });
     setTemplates(r.templates as Template[]);
   }
+
+  useEffect(() => {
+    if (!preview || !editing || form.header_image_url || isFormDirty(form, editing)) return;
+    let cancelled = false;
+    getFn({ data: { password, id: editing.id } })
+      .then((savedTemplate) => {
+        if (cancelled || !(savedTemplate as Template).header_image_url) return;
+        setEditing(savedTemplate as Template);
+        setForm(templateToForm(savedTemplate as Template));
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [preview, editing?.id, form.header_image_url]);
 
   async function unlock(e: React.FormEvent) {
     e.preventDefault();
@@ -111,20 +158,21 @@ function AdminEmails() {
     setPreview(false);
   }
 
-  function openEdit(t: Template) {
-    setEditing(t);
+  async function openEdit(t: Template) {
     setCreating(false);
     setPreview(false);
-    setForm({
-      slug: t.slug,
-      name: t.name,
-      subject: t.subject,
-      header_image_url: t.header_image_url || "",
-      body_html: t.body_html,
-      footer_html: t.footer_html || "",
-      is_active: t.is_active,
-      variables: Array.isArray(t.variables) ? (t.variables as string[]) : [],
-    });
+    setLoading(true);
+    try {
+      const savedTemplate = await getFn({ data: { password, id: t.id } });
+      setEditing(savedTemplate as Template);
+      setForm(templateToForm(savedTemplate as Template));
+    } catch (e: any) {
+      setEditing(t);
+      setForm(templateToForm(t));
+      toast.error(e?.message || "Erro ao carregar template atualizado");
+    } finally {
+      setLoading(false);
+    }
   }
 
   function closeEditor() {
@@ -133,19 +181,26 @@ function AdminEmails() {
     setPreview(false);
   }
 
+  async function togglePreview() {
+    if (!preview && editing && !isFormDirty(form, editing)) {
+      setLoading(true);
+      try {
+        const savedTemplate = await getFn({ data: { password, id: editing.id } });
+        setEditing(savedTemplate as Template);
+        setForm(templateToForm(savedTemplate as Template));
+      } catch (e: any) {
+        toast.error(e?.message || "Erro ao atualizar pré-visualização");
+      } finally {
+        setLoading(false);
+      }
+    }
+    setPreview((p) => !p);
+  }
+
   async function save() {
     setLoading(true);
     try {
-      const payload = {
-        slug: form.slug.trim(),
-        name: form.name.trim(),
-        subject: form.subject,
-        header_image_url: form.header_image_url ? form.header_image_url.trim() : null,
-        body_html: form.body_html,
-        footer_html: form.footer_html || null,
-        is_active: form.is_active,
-        variables: Array.isArray(form.variables) ? (form.variables as string[]) : [],
-      };
+      const payload = buildPayload(form);
       if (editing) {
         await updateFn({ data: { password, id: editing.id, template: payload } });
         toast.success("Template atualizado");
@@ -184,6 +239,12 @@ function AdminEmails() {
     }
     setLoading(true);
     try {
+      const savedTemplate = isFormDirty(form, editing)
+        ? await updateFn({ data: { password, id: editing.id, template: buildPayload(form) } })
+        : await getFn({ data: { password, id: editing.id } });
+      const savedForm = templateToForm(savedTemplate as Template);
+      setEditing(savedTemplate as Template);
+      setForm(savedForm);
       await testFn({ data: { password, id: editing.id, to: testEmail } });
       toast.success(`Email de teste enviado para ${testEmail}`);
     } catch (e: any) {
@@ -236,7 +297,7 @@ function AdminEmails() {
             <ArrowLeft className="h-4 w-4" /> Voltar
           </button>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setPreview((p) => !p)}>
+            <Button variant="outline" onClick={togglePreview} disabled={loading}>
               <Eye className="h-4 w-4 mr-2" /> {preview ? "Editar" : "Pré-visualizar"}
             </Button>
             <Button onClick={save} disabled={loading}>
@@ -429,8 +490,8 @@ function PreviewPane({ form }: { form: typeof EMPTY }) {
     s.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, k) => sample[k] ?? "");
 
   const header = form.header_image_url
-    ? `<img src="${form.header_image_url}" style="display:block;width:100%;max-width:560px;height:auto"/>`
-    : `<div style="padding:24px 28px;background:#0f3460;color:#fff"><h1 style="margin:0;font-size:20px">Instituto IPAG</h1></div>`;
+    ? `<img src="${form.header_image_url}" alt="Instituto IPAG" style="display:block;width:100%;max-width:560px;height:auto"/>`
+    : `<div style="padding:24px 28px;background:linear-gradient(135deg,#F79B34 0%,#F57C2B 100%);background-color:#F79B34;color:#fff"><h1 style="margin:0;font-size:20px">Instituto IPAG</h1></div>`;
   const footer = form.footer_html
     ? `<div style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">${render(form.footer_html)}</div>`
     : `<div style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">Email automático do Instituto IPAG.</div>`;
