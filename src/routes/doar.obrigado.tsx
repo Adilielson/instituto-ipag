@@ -51,7 +51,6 @@ function ObrigadoPage() {
 
   return (
     <div className="min-h-screen bg-bg flex flex-col">
-      <Header />
       <main className="flex-1 flex items-center relative -mt-[142px] md:-mt-[122px] bg-gradient-to-b from-dark via-dark to-bg">
         <div className="container mx-auto px-4 pt-[180px] md:pt-[180px] pb-16 md:pb-24 max-w-3xl">
           <div className="bg-white rounded-[40px] border border-black/5 shadow-warm-utility p-8 md:p-14 text-center">
