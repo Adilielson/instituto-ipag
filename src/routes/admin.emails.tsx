@@ -28,9 +28,18 @@ import {
 import { FileUpload } from "@/components/admin/FileUpload";
 
 export const Route = createFileRoute("/admin/emails")({
+  ssr: false,
   head: () => ({
     meta: [{ title: "Templates de Email — Admin" }, { name: "robots", content: "noindex" }],
   }),
+  pendingComponent: () => (
+    <div className="max-w-md mx-auto mt-12">
+      <div className="bg-white rounded-3xl p-8 shadow-premium-utility border border-black/5 flex items-center gap-3">
+        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+        <span className="text-sm font-bold text-muted-foreground">Carregando painel de emails…</span>
+      </div>
+    </div>
+  ),
   component: AdminEmails,
 });
 
