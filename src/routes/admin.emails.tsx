@@ -130,16 +130,7 @@ function AdminEmails() {
     setEditing(t);
     setCreating(false);
     setPreview(false);
-    setForm({
-      slug: t.slug,
-      name: t.name,
-      subject: t.subject,
-      header_image_url: t.header_image_url || "",
-      body_html: t.body_html,
-      footer_html: t.footer_html || "",
-      is_active: t.is_active,
-      variables: Array.isArray(t.variables) ? (t.variables as string[]) : [],
-    });
+    setForm(templateToForm(t));
   }
 
   function closeEditor() {
@@ -199,6 +190,10 @@ function AdminEmails() {
     }
     setLoading(true);
     try {
+      const savedTemplate = await getFn({ data: { password, id: editing.id } });
+      const savedForm = templateToForm(savedTemplate as Template);
+      setEditing(savedTemplate as Template);
+      setForm(savedForm);
       await testFn({ data: { password, id: editing.id, to: testEmail } });
       toast.success(`Email de teste enviado para ${testEmail}`);
     } catch (e: any) {
