@@ -379,6 +379,12 @@ function DoarPage() {
                     </div>
                   )}
 
+                  {errorMessage && (
+                    <div className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <Button type="submit" size="lg" className="w-full font-black text-base" disabled={loading}>
                     {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Heart className="h-5 w-5 mr-2" />}
                     {loading ? "Processando..." : `Doar ${currency(Number(amount || 0))}`}
