@@ -46,6 +46,27 @@ export const Route = createFileRoute("/api/public/donations/create")({
         try { cfg = await getAsaasConfig(); }
         catch (e: any) { return jsonError(e?.message || "Asaas não configurado", 500); }
 
+        const { data: draftDonation, error: draftErr } = await supabaseAdmin
+          .from("donations")
+          .insert({
+            donor_name: data.donor_name,
+            donor_email: data.donor_email,
+            donor_cpf: data.donor_cpf.replace(/\D/g, ""),
+            donor_phone: data.donor_phone || null,
+            amount: data.amount,
+            type: data.type,
+            payment_method: data.payment_method,
+            status: "PENDING",
+            campaign: data.campaign || null,
+            project_id: data.project_id || null,
+          })
+          .select()
+          .single();
+        if (draftErr || !draftDonation) {
+          console.error("[donation draft]", draftErr);
+          return jsonError("Erro ao iniciar doação", 500);
+        }
+
         let customer;
         try {
           customer = await findOrCreateCustomer(cfg, {
@@ -56,6 +77,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
           });
         } catch (e: any) {
           console.error("[asaas customer]", e);
+          await supabaseAdmin.from("donations").update({ status: "FAILED" }).eq("id", draftDonation.id);
           return jsonError(e?.message || "Erro ao criar cliente", 502);
         }
 
@@ -141,6 +163,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
           }
         } catch (e: any) {
           console.error("[asaas create]", e);
+          await supabaseAdmin.from("donations").update({ status: "FAILED" }).eq("id", draftDonation.id);
           return jsonError(e?.message || "Erro ao processar pagamento", 502);
         }
 
@@ -165,17 +188,10 @@ export const Route = createFileRoute("/api/public/donations/create")({
         // Map status
         const internalStatus = mapAsaasStatus(status);
 
-        // Insert donation
+        // Atualiza a doação criada antes da cobrança, mantendo histórico mesmo em falhas
         const { data: donation, error: insErr } = await supabaseAdmin
           .from("donations")
-          .insert({
-            donor_name: data.donor_name,
-            donor_email: data.donor_email,
-            donor_cpf: data.donor_cpf.replace(/\D/g, ""),
-            donor_phone: data.donor_phone || null,
-            amount: data.amount,
-            type: data.type,
-            payment_method: data.payment_method,
+          .update({
             status: internalStatus,
             asaas_id: paymentId,
             asaas_customer: customer.id,
@@ -184,9 +200,8 @@ export const Route = createFileRoute("/api/public/donations/create")({
             pix_payload: pixPayload || null,
             boleto_url: bankSlipUrl || null,
             invoice_url: invoiceUrl || null,
-            campaign: data.campaign || null,
-            project_id: data.project_id || null,
           })
+          .eq("id", draftDonation.id)
           .select()
           .single();
 
