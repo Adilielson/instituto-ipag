@@ -37,6 +37,7 @@ import { Route as AdminEventosRouteImport } from './routes/admin.eventos'
 import { Route as AdminEmailsRouteImport } from './routes/admin.emails'
 import { Route as AdminDoacoesRouteImport } from './routes/admin.doacoes'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as ApiPublicTestGmailRouteImport } from './routes/api/public/test-gmail'
 import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/public/donations/webhook'
 import { Route as ApiPublicDonationsStatusRouteImport } from './routes/api/public/donations/status'
 import { Route as ApiPublicDonationsCreateRouteImport } from './routes/api/public/donations/create'
@@ -181,6 +182,11 @@ const AdminBlogRoute = AdminBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicTestGmailRoute = ApiPublicTestGmailRouteImport.update({
+  id: '/api/public/test-gmail',
+  path: '/api/public/test-gmail',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicDonationsWebhookRoute =
   ApiPublicDonationsWebhookRouteImport.update({
     id: '/api/public/donations/webhook',
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/test-gmail': typeof ApiPublicTestGmailRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/eventos': typeof EventosIndexRoute
   '/projetos': typeof ProjetosIndexRoute
+  '/api/public/test-gmail': typeof ApiPublicTestGmailRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/test-gmail': typeof ApiPublicTestGmailRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
@@ -327,6 +336,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/eventos/'
     | '/projetos/'
+    | '/api/public/test-gmail'
     | '/api/public/donations/create'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/eventos'
     | '/projetos'
+    | '/api/public/test-gmail'
     | '/api/public/donations/create'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
@@ -389,6 +400,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/eventos/'
     | '/projetos/'
+    | '/api/public/test-gmail'
     | '/api/public/donations/create'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
@@ -410,6 +422,7 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   EventosSlugRoute: typeof EventosSlugRoute
   ProjetosSlugRoute: typeof ProjetosSlugRoute
+  ApiPublicTestGmailRoute: typeof ApiPublicTestGmailRoute
   ApiPublicDonationsCreateRoute: typeof ApiPublicDonationsCreateRoute
   ApiPublicDonationsStatusRoute: typeof ApiPublicDonationsStatusRoute
   ApiPublicDonationsWebhookRoute: typeof ApiPublicDonationsWebhookRoute
@@ -613,6 +626,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/test-gmail': {
+      id: '/api/public/test-gmail'
+      path: '/api/public/test-gmail'
+      fullPath: '/api/public/test-gmail'
+      preLoaderRoute: typeof ApiPublicTestGmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/donations/webhook': {
       id: '/api/public/donations/webhook'
       path: '/api/public/donations/webhook'
@@ -714,6 +734,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   EventosSlugRoute: EventosSlugRoute,
   ProjetosSlugRoute: ProjetosSlugRoute,
+  ApiPublicTestGmailRoute: ApiPublicTestGmailRoute,
   ApiPublicDonationsCreateRoute: ApiPublicDonationsCreateRoute,
   ApiPublicDonationsStatusRoute: ApiPublicDonationsStatusRoute,
   ApiPublicDonationsWebhookRoute: ApiPublicDonationsWebhookRoute,
