@@ -439,8 +439,8 @@ function PreviewPane({ form }: { form: typeof EMPTY }) {
     s.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, k) => sample[k] ?? "");
 
   const header = form.header_image_url
-    ? `<img src="${form.header_image_url}" style="display:block;width:100%;max-width:560px;height:auto"/>`
-    : `<div style="padding:24px 28px;background:#0f3460;color:#fff"><h1 style="margin:0;font-size:20px">Instituto IPAG</h1></div>`;
+    ? `<img src="${form.header_image_url}" alt="Instituto IPAG" style="display:block;width:100%;max-width:560px;height:auto"/>`
+    : `<div style="padding:24px 28px;background:linear-gradient(135deg,#F79B34 0%,#F57C2B 100%);background-color:#F79B34;color:#fff"><h1 style="margin:0;font-size:20px">Instituto IPAG</h1></div>`;
   const footer = form.footer_html
     ? `<div style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">${render(form.footer_html)}</div>`
     : `<div style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">Email automático do Instituto IPAG.</div>`;
