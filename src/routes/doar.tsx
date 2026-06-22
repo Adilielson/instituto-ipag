@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useMemo, useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { totalConfirmedPublic } from "@/lib/admin.functions";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { Heart, QrCode, FileText, CreditCard, Copy, CheckCircle2, Loader2 } from "lucide-react";
+import { Heart, QrCode, FileText, CreditCard, Copy, CheckCircle2, Loader2, AlertTriangle, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 type Project = {
