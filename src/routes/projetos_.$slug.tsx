@@ -76,9 +76,14 @@ function ProjetoDetalhe() {
                 <p className="text-lg text-gray/60 font-light leading-relaxed mb-10">
                   Quer participar como voluntário ou apoiar este projeto? Entre em contato e faça parte da nossa rede.
                 </p>
-                <Button asChild className="gf-button gf-button-primary w-full h-auto py-6">
-                  <Link to="/contato">FALAR COM O IPAG</Link>
-                </Button>
+                <div className="space-y-4">
+                  <Button asChild className="gf-button gf-button-primary w-full h-auto py-6">
+                    <Link to="/doar" search={{ project: project.slug }}>APOIAR A CAUSA</Link>
+                  </Button>
+                  <Button asChild variant="outline" className="w-full h-auto py-6 border-primary text-primary hover:bg-primary/5 rounded-full font-black tracking-widest">
+                    <Link to="/contato">FALAR COM O IPAG</Link>
+                  </Button>
+                </div>
               </div>
             </Reveal>
           </div>
