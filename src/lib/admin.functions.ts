@@ -90,11 +90,29 @@ export const markDonationConfirmed = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
+    const { data: donation, error } = await supabaseAdmin
       .from("donations")
       .update({ status: "CONFIRMED" })
-      .eq("id", data.id);
+      .eq("id", data.id)
+      .select()
+      .maybeSingle();
     if (error) throw new Error(error.message);
+    if (donation && !donation.confirmation_email_sent_at) {
+      const { sendDonationConfirmedEmails } = await import("@/lib/email.server");
+      await sendDonationConfirmedEmails({
+        donor_name: donation.donor_name,
+        donor_email: donation.donor_email,
+        amount: Number(donation.amount),
+        payment_method: donation.payment_method,
+        type: donation.type,
+        campaign: donation.campaign ?? undefined,
+        asaas_id: donation.asaas_id ?? donation.id,
+      });
+      await supabaseAdmin
+        .from("donations")
+        .update({ confirmation_email_sent_at: new Date().toISOString() })
+        .eq("id", donation.id);
+    }
     return { ok: true };
   });
 
