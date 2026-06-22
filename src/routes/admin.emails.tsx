@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   ArrowLeft,
 } from "lucide-react";
+import { FileUpload } from "@/components/admin/FileUpload";
 
 export const Route = createFileRoute("/admin/emails")({
   head: () => ({
@@ -268,11 +269,24 @@ function AdminEmails() {
               />
             </div>
             <div>
-              <Label>URL da imagem do topo (banner)</Label>
+              <Label>Imagem do topo (banner)</Label>
+              <p className="text-xs text-muted-foreground mb-2">
+                Tamanho ideal: <strong>560 × 200 px</strong> (ou 1120 × 400 px para retina). PNG ou JPG.
+              </p>
+              <FileUpload
+                label=""
+                value={form.header_image_url || ""}
+                onUploadComplete={(url) => setForm({ ...form, header_image_url: url })}
+                onRemove={() => setForm({ ...form, header_image_url: "" })}
+                bucket="event-assets"
+                type="image"
+                accept="image/*"
+              />
               <Input
+                className="mt-2"
                 value={form.header_image_url || ""}
                 onChange={(e) => setForm({ ...form, header_image_url: e.target.value })}
-                placeholder="https://... (opcional — deixe vazio para usar topo padrão)"
+                placeholder="Ou cole uma URL de imagem (opcional)"
               />
             </div>
             <div>
