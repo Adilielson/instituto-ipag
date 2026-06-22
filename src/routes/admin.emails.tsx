@@ -157,7 +157,7 @@ function AdminEmails() {
   }
 
   async function togglePreview() {
-    if (!preview && editing) {
+    if (!preview && editing && !isFormDirty(form, editing)) {
       setLoading(true);
       try {
         const savedTemplate = await getFn({ data: { password, id: editing.id } });
@@ -175,16 +175,7 @@ function AdminEmails() {
   async function save() {
     setLoading(true);
     try {
-      const payload = {
-        slug: form.slug.trim(),
-        name: form.name.trim(),
-        subject: form.subject,
-        header_image_url: form.header_image_url ? form.header_image_url.trim() : null,
-        body_html: form.body_html,
-        footer_html: form.footer_html || null,
-        is_active: form.is_active,
-        variables: Array.isArray(form.variables) ? (form.variables as string[]) : [],
-      };
+      const payload = buildPayload(form);
       if (editing) {
         await updateFn({ data: { password, id: editing.id, template: payload } });
         toast.success("Template atualizado");
@@ -223,7 +214,9 @@ function AdminEmails() {
     }
     setLoading(true);
     try {
-      const savedTemplate = await getFn({ data: { password, id: editing.id } });
+      const savedTemplate = isFormDirty(form, editing)
+        ? await updateFn({ data: { password, id: editing.id, template: buildPayload(form) } })
+        : await getFn({ data: { password, id: editing.id } });
       const savedForm = templateToForm(savedTemplate as Template);
       setEditing(savedTemplate as Template);
       setForm(savedForm);
