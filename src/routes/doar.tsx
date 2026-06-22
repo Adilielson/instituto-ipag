@@ -220,6 +220,27 @@ function DoarPage() {
                       </p>
                     </div>
                   )}
+                  {method === "PIX" && !result.pix_qrcode && (
+                    <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+                      <div className="flex items-start gap-3 mb-3">
+                        <AlertTriangle className="h-5 w-5 mt-0.5 shrink-0" />
+                        <div>
+                          <p className="font-bold mb-1">QR Code não pôde ser gerado agora.</p>
+                          <p className="opacity-90">A cobrança PIX foi criada, mas o QR não chegou. Use o link abaixo para concluir o pagamento direto na página segura do Asaas — ele inclui PIX Copia e Cola e QR.</p>
+                        </div>
+                      </div>
+                      {result.invoice_url && (
+                        <a href={result.invoice_url} target="_blank" rel="noreferrer">
+                          <Button className="w-full">
+                            <ExternalLink className="h-4 w-4 mr-2" /> Pagar pelo Asaas
+                          </Button>
+                        </a>
+                      )}
+                      <p className="text-xs mt-3 flex items-center gap-2">
+                        <Loader2 className="h-3 w-3 animate-spin" /> Aguardando confirmação automática...
+                      </p>
+                    </div>
+                  )}
                   {method === "BOLETO" && result.boleto_url && (
                     <div className="text-center">
                       <p className="mb-4">O boleto foi aberto em uma nova aba.</p>
