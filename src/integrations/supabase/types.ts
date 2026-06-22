@@ -40,6 +40,7 @@ export type Database = {
           asaas_link: string | null
           boleto_url: string | null
           campaign: string | null
+          confirmation_email_sent_at: string | null
           created_at: string
           donor_cpf: string
           donor_email: string
@@ -62,6 +63,7 @@ export type Database = {
           asaas_link?: string | null
           boleto_url?: string | null
           campaign?: string | null
+          confirmation_email_sent_at?: string | null
           created_at?: string
           donor_cpf: string
           donor_email: string
@@ -84,6 +86,7 @@ export type Database = {
           asaas_link?: string | null
           boleto_url?: string | null
           campaign?: string | null
+          confirmation_email_sent_at?: string | null
           created_at?: string
           donor_cpf?: string
           donor_email?: string
