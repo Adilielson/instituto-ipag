@@ -143,11 +143,21 @@ function AdminEmails() {
     setPreview(false);
   }
 
-  function openEdit(t: Template) {
-    setEditing(t);
+  async function openEdit(t: Template) {
     setCreating(false);
     setPreview(false);
-    setForm(templateToForm(t));
+    setLoading(true);
+    try {
+      const savedTemplate = await getFn({ data: { password, id: t.id } });
+      setEditing(savedTemplate as Template);
+      setForm(templateToForm(savedTemplate as Template));
+    } catch (e: any) {
+      setEditing(t);
+      setForm(templateToForm(t));
+      toast.error(e?.message || "Erro ao carregar template atualizado");
+    } finally {
+      setLoading(false);
+    }
   }
 
   function closeEditor() {
