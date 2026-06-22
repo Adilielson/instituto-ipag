@@ -41,20 +41,82 @@ async function sendEmail({ to, subject, html, replyTo }: SendArgs) {
 const brl = (n: number) =>
   n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-function baseLayout(title: string, body: string) {
+function render(template: string, vars: Record<string, string>) {
+  return template.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, key) =>
+    vars[key] !== undefined ? String(vars[key]) : "",
+  );
+}
+
+function wrapLayout(opts: {
+  headerImageUrl?: string | null;
+  bodyHtml: string;
+  footerHtml?: string | null;
+}) {
+  const header = opts.headerImageUrl
+    ? `<tr><td style="padding:0"><img src="${opts.headerImageUrl}" alt="Instituto IPAG" style="display:block;width:100%;max-width:560px;height:auto"/></td></tr>`
+    : `<tr><td style="padding:24px 28px;background:#0f3460;color:#ffffff"><h1 style="margin:0;font-size:20px">Instituto IPAG</h1></td></tr>`;
+  const footer = opts.footerHtml
+    ? `<tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">${opts.footerHtml}</td></tr>`
+    : `<tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">Este é um email automático do Instituto IPAG.</td></tr>`;
   return `<!doctype html><html><body style="font-family:Arial,sans-serif;background:#f6f7f9;margin:0;padding:24px;color:#1a1a1a">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #eaeaea">
-      <tr><td style="padding:24px 28px;background:#0f3460;color:#ffffff">
-        <h1 style="margin:0;font-size:20px">Instituto IPAG</h1>
-      </td></tr>
-      <tr><td style="padding:28px">
-        <h2 style="margin:0 0 16px;font-size:18px;color:#0f3460">${title}</h2>
-        ${body}
-      </td></tr>
-      <tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px;text-align:center">
-        Este é um email automático do Instituto IPAG.
-      </td></tr>
+      ${header}
+      <tr><td style="padding:28px">${opts.bodyHtml}</td></tr>
+      ${footer}
     </table></body></html>`;
+}
+
+async function loadTemplate(slug: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin
+    .from("email_templates")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .maybeSingle();
+  if (error) {
+    console.error("[email] erro ao carregar template", slug, error.message);
+    return null;
+  }
+  return data;
+}
+
+async function loadTemplateById(id: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin
+    .from("email_templates")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error || !data) throw new Error("Template não encontrado");
+  return data;
+}
+
+export async function renderAndSendTemplate(args: {
+  templateId?: string;
+  slug?: string;
+  to: string | string[];
+  vars: Record<string, string>;
+  replyTo?: string;
+}) {
+  const tpl = args.templateId
+    ? await loadTemplateById(args.templateId)
+    : args.slug
+      ? await loadTemplate(args.slug)
+      : null;
+  if (!tpl) {
+    console.warn("[email] template ausente", args.slug || args.templateId);
+    return;
+  }
+  const subject = render(tpl.subject, args.vars);
+  const body = render(tpl.body_html, args.vars);
+  const footer = tpl.footer_html ? render(tpl.footer_html, args.vars) : null;
+  const html = wrapLayout({
+    headerImageUrl: tpl.header_image_url,
+    bodyHtml: body,
+    footerHtml: footer,
+  });
+  return sendEmail({ to: args.to, subject, html, replyTo: args.replyTo });
 }
 
 export async function sendDonationConfirmedEmails(d: {
@@ -68,46 +130,23 @@ export async function sendDonationConfirmedEmails(d: {
 }) {
   const projeto = d.campaign || "Doação Geral";
   const tipo = d.type === "MONTHLY" ? "Doação mensal" : "Doação única";
-
-  // Doador
-  const donorHtml = baseLayout(
-    "Recebemos sua doação 💙",
-    `<p>Olá <strong>${d.donor_name}</strong>,</p>
-     <p>Confirmamos o recebimento da sua contribuição. Obrigado por apoiar o Instituto IPAG e transformar vidas com a gente.</p>
-     <table style="width:100%;border-collapse:collapse;margin:16px 0">
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Projeto</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${projeto}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Valor</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${brl(d.amount)}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Tipo</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${tipo}</td></tr>
-       <tr><td style="padding:8px"><strong>Forma de pagamento</strong></td><td style="padding:8px">${d.payment_method}</td></tr>
-     </table>
-     <p style="color:#555">Em caso de dúvidas, basta responder este email.</p>`
-  );
-
-  // Admin
-  const adminHtml = baseLayout(
-    "Nova doação confirmada",
-    `<p>Uma nova doação foi confirmada no Asaas.</p>
-     <table style="width:100%;border-collapse:collapse;margin:16px 0">
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Doador</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${d.donor_name}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Email</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${d.donor_email}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Projeto</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${projeto}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Valor</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${brl(d.amount)}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Tipo</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${tipo}</td></tr>
-       <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Pagamento</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${d.payment_method}</td></tr>
-       <tr><td style="padding:8px"><strong>Asaas ID</strong></td><td style="padding:8px">${d.asaas_id}</td></tr>
-     </table>`
-  );
+  const vars: Record<string, string> = {
+    donor_name: d.donor_name,
+    donor_email: d.donor_email,
+    project: projeto,
+    amount: brl(d.amount),
+    date: new Date().toLocaleString("pt-BR"),
+    type: tipo,
+    payment_method: d.payment_method,
+    asaas_id: d.asaas_id,
+  };
 
   await Promise.allSettled([
-    sendEmail({
-      to: d.donor_email,
-      subject: "Recebemos sua doação — Instituto IPAG",
-      html: donorHtml,
-    }),
-    sendEmail({
+    renderAndSendTemplate({ slug: "donation_confirmation_donor", to: d.donor_email, vars }),
+    renderAndSendTemplate({
+      slug: "donation_confirmation_admin",
       to: ADMIN_EMAIL,
-      subject: `Nova doação confirmada — ${d.donor_name} (${brl(d.amount)})`,
-      html: adminHtml,
+      vars,
       replyTo: d.donor_email,
     }),
   ]);

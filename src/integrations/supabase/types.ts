@@ -104,6 +104,48 @@ export type Database = {
         }
         Relationships: []
       }
+      email_templates: {
+        Row: {
+          body_html: string
+          created_at: string
+          footer_html: string | null
+          header_image_url: string | null
+          id: string
+          is_active: boolean
+          name: string
+          slug: string
+          subject: string
+          updated_at: string
+          variables: Json
+        }
+        Insert: {
+          body_html: string
+          created_at?: string
+          footer_html?: string | null
+          header_image_url?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          subject: string
+          updated_at?: string
+          variables?: Json
+        }
+        Update: {
+          body_html?: string
+          created_at?: string
+          footer_html?: string | null
+          header_image_url?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          subject?: string
+          updated_at?: string
+          variables?: Json
+        }
+        Relationships: []
+      }
       eventos: {
         Row: {
           created_at: string
