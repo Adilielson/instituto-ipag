@@ -70,11 +70,10 @@ export const Route = createFileRoute("/api/public/donations/create")({
         };
 
         // Build payload
-        const projectLabel = data.campaign || "Geral";
+        const projectLabel = data.campaign || "Doação Geral";
         const description = `Doação IPAG — Projeto: ${projectLabel} — Doador: ${data.donor_name}`;
-        // externalReference must be <= 100 chars in Asaas. Keep it short and parseable.
-        const refRaw = `proj:${data.project_id || "geral"}|t:${data.type === "MONTHLY" ? "M" : "O"}`;
-        const externalReference = refRaw.slice(0, 100);
+        // externalReference: apenas o nome do projeto (limite 100 chars no Asaas)
+        const externalReference = projectLabel.slice(0, 100);
 
         let asaasResp: any;
         try {
