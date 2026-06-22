@@ -51,7 +51,7 @@ export const Route = createFileRoute("/api/public/donations/webhook")({
               payment_method: updated.payment_method,
               type: updated.type,
               campaign: updated.campaign ?? undefined,
-              asaas_id: updated.asaas_id,
+              asaas_id: updated.asaas_id ?? asaasId,
             });
             await supabaseAdmin
               .from("donations")
