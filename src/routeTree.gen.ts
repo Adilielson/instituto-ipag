@@ -34,6 +34,7 @@ import { Route as AdminProjetosRouteImport } from './routes/admin.projetos'
 import { Route as AdminParceirosRouteImport } from './routes/admin.parceiros'
 import { Route as AdminIntegracoesRouteImport } from './routes/admin.integracoes'
 import { Route as AdminEventosRouteImport } from './routes/admin.eventos'
+import { Route as AdminEmailsRouteImport } from './routes/admin.emails'
 import { Route as AdminDoacoesRouteImport } from './routes/admin.doacoes'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/public/donations/webhook'
@@ -165,6 +166,11 @@ const AdminEventosRoute = AdminEventosRouteImport.update({
   path: '/eventos',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminEmailsRoute = AdminEmailsRouteImport.update({
+  id: '/emails',
+  path: '/emails',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminDoacoesRoute = AdminDoacoesRouteImport.update({
   id: '/doacoes',
   path: '/doacoes',
@@ -209,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/doacoes': typeof AdminDoacoesRoute
+  '/admin/emails': typeof AdminEmailsRoute
   '/admin/eventos': typeof AdminEventosRoute
   '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/parceiros': typeof AdminParceirosRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/doacoes': typeof AdminDoacoesRoute
+  '/admin/emails': typeof AdminEmailsRoute
   '/admin/eventos': typeof AdminEventosRoute
   '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/parceiros': typeof AdminParceirosRoute
@@ -270,6 +278,7 @@ export interface FileRoutesById {
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/doacoes': typeof AdminDoacoesRoute
+  '/admin/emails': typeof AdminEmailsRoute
   '/admin/eventos': typeof AdminEventosRoute
   '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/parceiros': typeof AdminParceirosRoute
@@ -304,6 +313,7 @@ export interface FileRouteTypes {
     | '/transparencia'
     | '/admin/blog'
     | '/admin/doacoes'
+    | '/admin/emails'
     | '/admin/eventos'
     | '/admin/integracoes'
     | '/admin/parceiros'
@@ -332,6 +342,7 @@ export interface FileRouteTypes {
     | '/transparencia'
     | '/admin/blog'
     | '/admin/doacoes'
+    | '/admin/emails'
     | '/admin/eventos'
     | '/admin/integracoes'
     | '/admin/parceiros'
@@ -364,6 +375,7 @@ export interface FileRouteTypes {
     | '/transparencia'
     | '/admin/blog'
     | '/admin/doacoes'
+    | '/admin/emails'
     | '/admin/eventos'
     | '/admin/integracoes'
     | '/admin/parceiros'
@@ -580,6 +592,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEventosRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/emails': {
+      id: '/admin/emails'
+      path: '/emails'
+      fullPath: '/admin/emails'
+      preLoaderRoute: typeof AdminEmailsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/doacoes': {
       id: '/admin/doacoes'
       path: '/doacoes'
@@ -621,6 +640,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminBlogRoute: typeof AdminBlogRoute
   AdminDoacoesRoute: typeof AdminDoacoesRoute
+  AdminEmailsRoute: typeof AdminEmailsRoute
   AdminEventosRoute: typeof AdminEventosRoute
   AdminIntegracoesRoute: typeof AdminIntegracoesRoute
   AdminParceirosRoute: typeof AdminParceirosRoute
@@ -633,6 +653,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogRoute: AdminBlogRoute,
   AdminDoacoesRoute: AdminDoacoesRoute,
+  AdminEmailsRoute: AdminEmailsRoute,
   AdminEventosRoute: AdminEventosRoute,
   AdminIntegracoesRoute: AdminIntegracoesRoute,
   AdminParceirosRoute: AdminParceirosRoute,
