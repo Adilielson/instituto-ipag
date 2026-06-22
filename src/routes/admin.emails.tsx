@@ -122,6 +122,21 @@ function AdminEmails() {
     setTemplates(r.templates as Template[]);
   }
 
+  useEffect(() => {
+    if (!preview || !editing || form.header_image_url || isFormDirty(form, editing)) return;
+    let cancelled = false;
+    getFn({ data: { password, id: editing.id } })
+      .then((savedTemplate) => {
+        if (cancelled || !(savedTemplate as Template).header_image_url) return;
+        setEditing(savedTemplate as Template);
+        setForm(templateToForm(savedTemplate as Template));
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [preview, editing?.id, form.header_image_url]);
+
   async function unlock(e: React.FormEvent) {
     e.preventDefault();
     if (!password) return;
