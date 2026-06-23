@@ -78,7 +78,13 @@ function Projetos() {
       />
 
       <section className="py-20 bg-white">
-        <div className="max-container grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="max-container">
+          <Reveal>
+            <p className="mb-12 md:mb-16 max-w-2xl text-base md:text-lg text-gray/70 font-light leading-relaxed">
+              Escolha o projeto que mais toca o seu coração e transforme vidas com a sua doação.
+            </p>
+          </Reveal>
+          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           {validProjetos.map((p: any, i: number) => (
             <Reveal key={p.slug} delay={i * 0.1} direction="up">
               <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
@@ -124,6 +130,7 @@ function Projetos() {
               </div>
             </Reveal>
           ))}
+          </div>
         </div>
       </section>
     </>

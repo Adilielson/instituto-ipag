@@ -115,6 +115,11 @@ export function FrentesAcao({ projetos }: FrentesAcaoProps) {
               <span className="text-primary italic">GERA VALOR</span>
             </h2>
           </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mt-6 max-w-2xl text-base md:text-lg text-gray/70 font-light leading-relaxed">
+              Escolha o projeto que mais toca o seu coração e transforme vidas com a sua doação.
+            </p>
+          </Reveal>
         </div>
 
         <div className="relative">
