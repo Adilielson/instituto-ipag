@@ -78,7 +78,7 @@ export function Header() {
               </Link>
             ))}
             <Button asChild className="mt-2 w-full justify-center gradient-flame text-primary-foreground py-6">
-              <Link to="/parceiros" onClick={() => setOpen(false)}>DOE AGORA</Link>
+              <Link to="/projetos" onClick={() => setOpen(false)}>DOE AGORA</Link>
             </Button>
           </div>
         </div>
