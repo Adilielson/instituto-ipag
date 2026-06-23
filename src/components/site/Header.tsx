@@ -48,7 +48,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <Button asChild className="gf-button gf-button-primary py-3 px-6 rounded-[12px]">
-            <Link to="/parceiros">DOE AGORA</Link>
+            <Link to="/projetos">DOE AGORA</Link>
           </Button>
         </div>
 
@@ -78,7 +78,7 @@ export function Header() {
               </Link>
             ))}
             <Button asChild className="mt-2 w-full justify-center gradient-flame text-primary-foreground py-6">
-              <Link to="/parceiros" onClick={() => setOpen(false)}>DOE AGORA</Link>
+              <Link to="/projetos" onClick={() => setOpen(false)}>DOE AGORA</Link>
             </Button>
           </div>
         </div>
