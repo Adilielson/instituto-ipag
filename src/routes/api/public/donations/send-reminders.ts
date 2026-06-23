@@ -69,6 +69,9 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
         const methodLabel = (m: string) =>
           m === "PIX" ? "PIX" : m === "BOLETO" ? "Boleto" : m === "CREDIT_CARD" ? "Cartão de crédito" : m;
 
+
+
+
         let sent = 0;
         let skipped = 0;
         const errors: string[] = [];
