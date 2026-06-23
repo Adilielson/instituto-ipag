@@ -7,7 +7,13 @@ function checkSuperadmin(pwd: string | undefined) {
   if (!pwd || pwd !== expected) throw new Error("Senha de superadministrador inválida.");
 }
 
-const SETTING_KEYS = ["ASAAS_API_KEY", "ASAAS_ENV", "ASAAS_WEBHOOK_TOKEN"] as const;
+const SETTING_KEYS = [
+  "ASAAS_API_KEY",
+  "ASAAS_ENV",
+  "ASAAS_WEBHOOK_TOKEN",
+  "REMINDERS_ENABLED",
+  "REMINDERS_DAYS_BEFORE",
+] as const;
 
 export const listSettings = createServerFn({ method: "POST" })
   .inputValidator(z.object({ password: z.string() }))
@@ -24,6 +30,8 @@ export const listSettings = createServerFn({ method: "POST" })
       ASAAS_API_KEY: map.ASAAS_API_KEY || "",
       ASAAS_ENV: map.ASAAS_ENV || "sandbox",
       ASAAS_WEBHOOK_TOKEN: map.ASAAS_WEBHOOK_TOKEN || "",
+      REMINDERS_ENABLED: (map.REMINDERS_ENABLED ?? "true"),
+      REMINDERS_DAYS_BEFORE: (map.REMINDERS_DAYS_BEFORE ?? "3"),
     };
   });
 
@@ -34,6 +42,8 @@ export const saveSettings = createServerFn({ method: "POST" })
       ASAAS_API_KEY: z.string().optional(),
       ASAAS_ENV: z.enum(["sandbox", "production"]).optional(),
       ASAAS_WEBHOOK_TOKEN: z.string().optional(),
+      REMINDERS_ENABLED: z.enum(["true", "false"]).optional(),
+      REMINDERS_DAYS_BEFORE: z.string().optional(),
     }),
   )
   .handler(async ({ data }) => {
@@ -43,11 +53,30 @@ export const saveSettings = createServerFn({ method: "POST" })
     if (data.ASAAS_API_KEY !== undefined) rows.push({ key: "ASAAS_API_KEY", value: data.ASAAS_API_KEY });
     if (data.ASAAS_ENV !== undefined) rows.push({ key: "ASAAS_ENV", value: data.ASAAS_ENV });
     if (data.ASAAS_WEBHOOK_TOKEN !== undefined) rows.push({ key: "ASAAS_WEBHOOK_TOKEN", value: data.ASAAS_WEBHOOK_TOKEN });
+    if (data.REMINDERS_ENABLED !== undefined) rows.push({ key: "REMINDERS_ENABLED", value: data.REMINDERS_ENABLED });
+    if (data.REMINDERS_DAYS_BEFORE !== undefined) rows.push({ key: "REMINDERS_DAYS_BEFORE", value: data.REMINDERS_DAYS_BEFORE });
     if (rows.length) {
       const { error } = await supabaseAdmin.from("system_settings").upsert(rows);
       if (error) throw new Error(error.message);
     }
     return { ok: true };
+  });
+
+export const runRemindersNow = createServerFn({ method: "POST" })
+  .inputValidator(z.object({ password: z.string() }))
+  .handler(async ({ data }) => {
+    checkSuperadmin(data.password);
+    // Chama a própria rota pública usando a senha como autenticação
+    const origin = process.env.SITE_URL || "https://institutoipag.lovable.app";
+    const res = await fetch(`${origin}/api/public/donations/send-reminders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-password": data.password },
+    });
+    const text = await res.text();
+    let json: any = {};
+    try { json = JSON.parse(text); } catch { json = { raw: text }; }
+    if (!res.ok) throw new Error(json?.error || text || `Erro ${res.status}`);
+    return json;
   });
 
 export const testAsaas = createServerFn({ method: "POST" })
