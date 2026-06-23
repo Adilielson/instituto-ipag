@@ -85,7 +85,12 @@ function Projetos() {
               Escolha o projeto que mais toca o seu coração e transforme vidas com a sua doação.
             </p>
           </Reveal>
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+        </div>
+        {/* Mobile/tablet: carrossel igual da home */}
+        <div className="lg:hidden -mt-12 md:-mt-16">
+          <FrentesAcao projetos={validProjetos as any} />
+        </div>
+        <div className="max-container hidden lg:grid gap-12 lg:grid-cols-3">
           {validProjetos.map((p: any, i: number) => (
             <Reveal key={p.slug} delay={i * 0.1} direction="up">
               <div className="bg-white rounded-[40px] overflow-hidden shadow-warm-utility h-full flex flex-col border border-black/5 transition-transform duration-500 hover:scale-[1.02]">
