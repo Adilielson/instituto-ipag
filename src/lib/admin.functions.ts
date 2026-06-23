@@ -7,7 +7,13 @@ function checkSuperadmin(pwd: string | undefined) {
   if (!pwd || pwd !== expected) throw new Error("Senha de superadministrador inválida.");
 }
 
-const SETTING_KEYS = ["ASAAS_API_KEY", "ASAAS_ENV", "ASAAS_WEBHOOK_TOKEN"] as const;
+const SETTING_KEYS = [
+  "ASAAS_API_KEY",
+  "ASAAS_ENV",
+  "ASAAS_WEBHOOK_TOKEN",
+  "REMINDERS_ENABLED",
+  "REMINDERS_DAYS_BEFORE",
+] as const;
 
 export const listSettings = createServerFn({ method: "POST" })
   .inputValidator(z.object({ password: z.string() }))

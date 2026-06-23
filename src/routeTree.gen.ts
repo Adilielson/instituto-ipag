@@ -40,6 +40,7 @@ import { Route as AdminDoacoesRouteImport } from './routes/admin.doacoes'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/public/donations/webhook'
 import { Route as ApiPublicDonationsStatusRouteImport } from './routes/api/public/donations/status'
+import { Route as ApiPublicDonationsSendRemindersRouteImport } from './routes/api/public/donations/send-reminders'
 import { Route as ApiPublicDonationsCreateRouteImport } from './routes/api/public/donations/create'
 
 const TransparenciaRoute = TransparenciaRouteImport.update({
@@ -199,6 +200,12 @@ const ApiPublicDonationsStatusRoute =
     path: '/api/public/donations/status',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicDonationsSendRemindersRoute =
+  ApiPublicDonationsSendRemindersRouteImport.update({
+    id: '/api/public/donations/send-reminders',
+    path: '/api/public/donations/send-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicDonationsCreateRoute =
   ApiPublicDonationsCreateRouteImport.update({
     id: '/api/public/donations/create',
@@ -237,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
@@ -267,6 +275,7 @@ export interface FileRoutesByTo {
   '/eventos': typeof EventosIndexRoute
   '/projetos': typeof ProjetosIndexRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
@@ -302,6 +311,7 @@ export interface FileRoutesById {
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
 }
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/eventos/'
     | '/projetos/'
     | '/api/public/donations/create'
+    | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -368,6 +379,7 @@ export interface FileRouteTypes {
     | '/eventos'
     | '/projetos'
     | '/api/public/donations/create'
+    | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
   id:
@@ -402,6 +414,7 @@ export interface FileRouteTypes {
     | '/eventos/'
     | '/projetos/'
     | '/api/public/donations/create'
+    | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
   fileRoutesById: FileRoutesById
@@ -423,6 +436,7 @@ export interface RootRouteChildren {
   EventosSlugRoute: typeof EventosSlugRoute
   ProjetosSlugRoute: typeof ProjetosSlugRoute
   ApiPublicDonationsCreateRoute: typeof ApiPublicDonationsCreateRoute
+  ApiPublicDonationsSendRemindersRoute: typeof ApiPublicDonationsSendRemindersRoute
   ApiPublicDonationsStatusRoute: typeof ApiPublicDonationsStatusRoute
   ApiPublicDonationsWebhookRoute: typeof ApiPublicDonationsWebhookRoute
 }
@@ -646,6 +660,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDonationsStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/donations/send-reminders': {
+      id: '/api/public/donations/send-reminders'
+      path: '/api/public/donations/send-reminders'
+      fullPath: '/api/public/donations/send-reminders'
+      preLoaderRoute: typeof ApiPublicDonationsSendRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/donations/create': {
       id: '/api/public/donations/create'
       path: '/api/public/donations/create'
@@ -744,6 +765,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventosSlugRoute: EventosSlugRoute,
   ProjetosSlugRoute: ProjetosSlugRoute,
   ApiPublicDonationsCreateRoute: ApiPublicDonationsCreateRoute,
+  ApiPublicDonationsSendRemindersRoute: ApiPublicDonationsSendRemindersRoute,
   ApiPublicDonationsStatusRoute: ApiPublicDonationsStatusRoute,
   ApiPublicDonationsWebhookRoute: ApiPublicDonationsWebhookRoute,
 }
