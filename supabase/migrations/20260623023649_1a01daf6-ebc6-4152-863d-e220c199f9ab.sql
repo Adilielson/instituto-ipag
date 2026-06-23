@@ -1,0 +1,1 @@
+ALTER TABLE public.donations ADD COLUMN IF NOT EXISTS last_reminder_charge_id TEXT, ADD COLUMN IF NOT EXISTS last_reminder_sent_at TIMESTAMPTZ;

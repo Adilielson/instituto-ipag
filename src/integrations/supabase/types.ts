@@ -48,6 +48,8 @@ export type Database = {
           donor_phone: string | null
           id: string
           invoice_url: string | null
+          last_reminder_charge_id: string | null
+          last_reminder_sent_at: string | null
           payment_method: string
           pix_payload: string | null
           pix_qrcode: string | null
@@ -71,6 +73,8 @@ export type Database = {
           donor_phone?: string | null
           id?: string
           invoice_url?: string | null
+          last_reminder_charge_id?: string | null
+          last_reminder_sent_at?: string | null
           payment_method: string
           pix_payload?: string | null
           pix_qrcode?: string | null
@@ -94,6 +98,8 @@ export type Database = {
           donor_phone?: string | null
           id?: string
           invoice_url?: string | null
+          last_reminder_charge_id?: string | null
+          last_reminder_sent_at?: string | null
           payment_method?: string
           pix_payload?: string | null
           pix_qrcode?: string | null
