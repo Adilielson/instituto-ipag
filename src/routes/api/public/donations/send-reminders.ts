@@ -23,11 +23,6 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
           return new Response("Unauthorized", { status: 401 });
         }
 
-        // Parse body (opcional, suporta modo teste)
-        let body: any = {};
-        try { body = await request.json(); } catch { body = {}; }
-        const testDonationId: string | undefined = body?.test_donation_id;
-
         // Carrega settings
         const { data: settings } = await supabaseAdmin
           .from("system_settings")
