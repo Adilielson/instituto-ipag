@@ -17,16 +17,20 @@ function AdminIntegracoes() {
   const listFn = useServerFn(listSettings);
   const saveFn = useServerFn(saveSettings);
   const testFn = useServerFn(testAsaas);
+  const runRemindersFn = useServerFn(runRemindersNow);
 
   const [password, setPassword] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [testing, setTesting] = useState(false);
+  const [runningReminders, setRunningReminders] = useState(false);
 
   const [form, setForm] = useState({
     ASAAS_API_KEY: "",
     ASAAS_ENV: "sandbox" as "sandbox" | "production",
     ASAAS_WEBHOOK_TOKEN: "",
+    REMINDERS_ENABLED: "true" as "true" | "false",
+    REMINDERS_DAYS_BEFORE: "3",
   });
 
   async function unlock(e: React.FormEvent) {
@@ -39,6 +43,8 @@ function AdminIntegracoes() {
         ASAAS_API_KEY: s.ASAAS_API_KEY,
         ASAAS_ENV: (s.ASAAS_ENV as any) || "sandbox",
         ASAAS_WEBHOOK_TOKEN: s.ASAAS_WEBHOOK_TOKEN,
+        REMINDERS_ENABLED: ((s as any).REMINDERS_ENABLED === "false" ? "false" : "true"),
+        REMINDERS_DAYS_BEFORE: ((s as any).REMINDERS_DAYS_BEFORE || "3"),
       });
       setUnlocked(true);
     } catch (e: any) {
@@ -62,6 +68,15 @@ function AdminIntegracoes() {
       toast.success(`Conexão OK — Ambiente: ${r.env}`);
     } catch (e: any) { toast.error(e?.message || "Falha na conexão"); }
     finally { setTesting(false); }
+  }
+
+  async function runReminders() {
+    setRunningReminders(true);
+    try {
+      const r: any = await runRemindersFn({ data: { password } });
+      toast.success(`Lembretes processados — enviados: ${r.sent ?? 0} · ignorados: ${r.skipped ?? 0}`);
+    } catch (e: any) { toast.error(e?.message || "Falha ao enviar lembretes"); }
+    finally { setRunningReminders(false); }
   }
 
   return (
