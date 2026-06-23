@@ -30,6 +30,8 @@ export const listSettings = createServerFn({ method: "POST" })
       ASAAS_API_KEY: map.ASAAS_API_KEY || "",
       ASAAS_ENV: map.ASAAS_ENV || "sandbox",
       ASAAS_WEBHOOK_TOKEN: map.ASAAS_WEBHOOK_TOKEN || "",
+      REMINDERS_ENABLED: (map.REMINDERS_ENABLED ?? "true"),
+      REMINDERS_DAYS_BEFORE: (map.REMINDERS_DAYS_BEFORE ?? "3"),
     };
   });
 
@@ -40,6 +42,8 @@ export const saveSettings = createServerFn({ method: "POST" })
       ASAAS_API_KEY: z.string().optional(),
       ASAAS_ENV: z.enum(["sandbox", "production"]).optional(),
       ASAAS_WEBHOOK_TOKEN: z.string().optional(),
+      REMINDERS_ENABLED: z.enum(["true", "false"]).optional(),
+      REMINDERS_DAYS_BEFORE: z.string().optional(),
     }),
   )
   .handler(async ({ data }) => {
