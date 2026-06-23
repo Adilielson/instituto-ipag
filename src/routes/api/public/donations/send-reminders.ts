@@ -74,6 +74,37 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
         const methodLabel = (m: string) =>
           m === "PIX" ? "PIX" : m === "BOLETO" ? "Boleto" : m === "CREDIT_CARD" ? "Cartão de crédito" : m;
 
+        // ===== MODO TESTE: envia 1 email a um doador específico, sem consultar Asaas =====
+        if (testDonationId) {
+          const { data: d } = await supabaseAdmin
+            .from("donations")
+            .select("*")
+            .eq("id", testDonationId)
+            .eq("type", "MONTHLY")
+            .maybeSingle();
+          if (!d) return new Response("Doação mensal não encontrada", { status: 404 });
+          try {
+            await renderAndSendTemplate({
+              slug: "donation_reminder_donor",
+              to: d.donor_email,
+              vars: {
+                donor_name: d.donor_name,
+                project: d.campaign || "Doação Geral",
+                amount: brl(Number(d.amount)),
+                due_date: fmtDate(targetDate),
+                payment_method: methodLabel(d.payment_method),
+                invoice_url: d.invoice_url || "",
+                days_before: String(daysBefore),
+              },
+            });
+            return Response.json({ ok: true, test: true, sent_to: d.donor_email, donation_id: d.id });
+          } catch (e: any) {
+            return new Response(`Erro: ${e?.message || "fail"}`, { status: 500 });
+          }
+        }
+
+
+
         let sent = 0;
         let skipped = 0;
         const errors: string[] = [];
