@@ -3,6 +3,7 @@ import { ArrowRight, Music, GraduationCap, HeartHandshake, Brain, Scissors, Life
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
 import { PageHero } from "@/components/site/PageHero";
+import { FrentesAcao } from "@/components/site/FrentesAcao";
 import { supabase } from "@/integrations/supabase/client";
 import { PROJECTS } from "@/data/site";
 
