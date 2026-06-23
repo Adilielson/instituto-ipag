@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useServerFn } from "@tanstack/react-start";
-import { listSettings, saveSettings, testAsaas } from "@/lib/admin.functions";
+import { listSettings, saveSettings, testAsaas, runRemindersNow } from "@/lib/admin.functions";
 import { toast } from "sonner";
-import { ShieldCheck, Loader2, Plug, KeyRound } from "lucide-react";
+import { ShieldCheck, Loader2, Plug, KeyRound, Bell, Send } from "lucide-react";
 
 export const Route = createFileRoute("/admin/integracoes")({
   head: () => ({ meta: [{ title: "Integrações — Admin" }, { name: "robots", content: "noindex" }] }),
