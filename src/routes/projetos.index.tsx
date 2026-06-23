@@ -130,6 +130,7 @@ function Projetos() {
               </div>
             </Reveal>
           ))}
+          </div>
         </div>
       </section>
     </>
