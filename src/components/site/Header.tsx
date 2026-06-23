@@ -48,7 +48,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <Button asChild className="gf-button gf-button-primary py-3 px-6 rounded-[12px]">
-            <Link to="/parceiros">DOE AGORA</Link>
+            <Link to="/projetos">DOE AGORA</Link>
           </Button>
         </div>
 
