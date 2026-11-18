@@ -135,46 +135,30 @@ export const listDonations = createServerFn({ method: "POST" })
     return { donations: rows || [], totalConfirmed, totalAll };
   });
 
+// Backwards-compatible entry point: confirmation is now verified at the provider.
 export const markDonationConfirmed = createServerFn({ method: "POST" })
   .middleware([requireArea("doacoes")])
   .inputValidator(z.object({ password: z.string(), id: z.string().uuid() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: donation, error } = await supabaseAdmin
-      .from("donations")
-      .update({ status: "CONFIRMED" })
-      .eq("id", data.id)
-      .select()
-      .maybeSingle();
-    if (error) throw new Error(error.message);
-    if (donation && !donation.confirmation_email_sent_at) {
-      const { sendDonationConfirmedEmails } = await import("@/lib/email.server");
-      await sendDonationConfirmedEmails({
-        donor_name: donation.donor_name,
-        donor_email: donation.donor_email,
-        amount: Number(donation.amount),
-        payment_method: donation.payment_method,
-        type: donation.type,
-        campaign: donation.campaign ?? undefined,
-        asaas_id: donation.asaas_id ?? donation.id,
-      });
-      await supabaseAdmin
-        .from("donations")
-        .update({ confirmation_email_sent_at: new Date().toISOString() })
-        .eq("id", donation.id);
-    }
+    const { ledgerDb, checked, syncDonation } = await import("@/lib/donations/ledger.server");
+    const { getAsaasConfig } = await import("@/lib/asaas.server");
+    const donation = checked(
+      await ledgerDb.from("donations").select("*").eq("id", data.id).single(),
+    ).data;
+    await syncDonation(await getAsaasConfig(), donation);
     return { ok: true };
   });
 
 export const totalConfirmedPublic = createServerFn({ method: "POST" })
   .inputValidator(z.object({ project_id: z.string().uuid().optional().nullable() }).optional())
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    let q = supabaseAdmin.from("donations").select("amount").eq("status", "CONFIRMED");
-    if (data?.project_id) q = q.eq("project_id", data.project_id);
-    const { data: rows, error } = await q;
-    if (error) return { total: 0 };
-    const total = (rows || []).reduce((acc: number, r: any) => acc + Number(r.amount || 0), 0);
-    return { total };
+    const { ledgerDb, checked } = await import("@/lib/donations/ledger.server");
+    const { getAsaasConfig } = await import("@/lib/asaas.server");
+    const cfg = await getAsaasConfig();
+    if (cfg.env !== "production") return { total: 0 };
+    const result = checked(
+      await ledgerDb.rpc("donation_public_total", { project: data?.project_id || null }),
+    ).data;
+    return { total: Number(result || 0) };
   });

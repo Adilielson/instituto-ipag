@@ -43,6 +43,7 @@ import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/public/donations/webhook'
 import { Route as ApiPublicDonationsStatusRouteImport } from './routes/api/public/donations/status'
 import { Route as ApiPublicDonationsSendRemindersRouteImport } from './routes/api/public/donations/send-reminders'
+import { Route as ApiPublicDonationsReconcileRouteImport } from './routes/api/public/donations/reconcile'
 import { Route as ApiPublicDonationsCreateRouteImport } from './routes/api/public/donations/create'
 
 const TransparenciaRoute = TransparenciaRouteImport.update({
@@ -218,6 +219,12 @@ const ApiPublicDonationsSendRemindersRoute =
     path: '/api/public/donations/send-reminders',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicDonationsReconcileRoute =
+  ApiPublicDonationsReconcileRouteImport.update({
+    id: '/api/public/donations/reconcile',
+    path: '/api/public/donations/reconcile',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicDonationsCreateRoute =
   ApiPublicDonationsCreateRouteImport.update({
     id: '/api/public/donations/create',
@@ -258,6 +265,7 @@ export interface FileRoutesByFullPath {
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/reconcile': typeof ApiPublicDonationsReconcileRoute
   '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
@@ -291,6 +299,7 @@ export interface FileRoutesByTo {
   '/eventos': typeof EventosIndexRoute
   '/projetos': typeof ProjetosIndexRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/reconcile': typeof ApiPublicDonationsReconcileRoute
   '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
@@ -329,6 +338,7 @@ export interface FileRoutesById {
   '/eventos/': typeof EventosIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
   '/api/public/donations/create': typeof ApiPublicDonationsCreateRoute
+  '/api/public/donations/reconcile': typeof ApiPublicDonationsReconcileRoute
   '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
@@ -368,6 +378,7 @@ export interface FileRouteTypes {
     | '/eventos/'
     | '/projetos/'
     | '/api/public/donations/create'
+    | '/api/public/donations/reconcile'
     | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
@@ -401,6 +412,7 @@ export interface FileRouteTypes {
     | '/eventos'
     | '/projetos'
     | '/api/public/donations/create'
+    | '/api/public/donations/reconcile'
     | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
@@ -438,6 +450,7 @@ export interface FileRouteTypes {
     | '/eventos/'
     | '/projetos/'
     | '/api/public/donations/create'
+    | '/api/public/donations/reconcile'
     | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
@@ -462,6 +475,7 @@ export interface RootRouteChildren {
   EventosSlugRoute: typeof EventosSlugRoute
   ProjetosSlugRoute: typeof ProjetosSlugRoute
   ApiPublicDonationsCreateRoute: typeof ApiPublicDonationsCreateRoute
+  ApiPublicDonationsReconcileRoute: typeof ApiPublicDonationsReconcileRoute
   ApiPublicDonationsSendRemindersRoute: typeof ApiPublicDonationsSendRemindersRoute
   ApiPublicDonationsStatusRoute: typeof ApiPublicDonationsStatusRoute
   ApiPublicDonationsWebhookRoute: typeof ApiPublicDonationsWebhookRoute
@@ -707,6 +721,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDonationsSendRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/donations/reconcile': {
+      id: '/api/public/donations/reconcile'
+      path: '/api/public/donations/reconcile'
+      fullPath: '/api/public/donations/reconcile'
+      preLoaderRoute: typeof ApiPublicDonationsReconcileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/donations/create': {
       id: '/api/public/donations/create'
       path: '/api/public/donations/create'
@@ -807,6 +828,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventosSlugRoute: EventosSlugRoute,
   ProjetosSlugRoute: ProjetosSlugRoute,
   ApiPublicDonationsCreateRoute: ApiPublicDonationsCreateRoute,
+  ApiPublicDonationsReconcileRoute: ApiPublicDonationsReconcileRoute,
   ApiPublicDonationsSendRemindersRoute: ApiPublicDonationsSendRemindersRoute,
   ApiPublicDonationsStatusRoute: ApiPublicDonationsStatusRoute,
   ApiPublicDonationsWebhookRoute: ApiPublicDonationsWebhookRoute,

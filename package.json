@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test:security": "node tests/admin-security.mjs"
+    "test:security": "node tests/admin-security.mjs",
+    "test:donations": "node tests/donation-ledger.mjs && node tests/donation-webhook.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",

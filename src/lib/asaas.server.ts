@@ -15,9 +15,18 @@ export type DonationStatus = "CONFIRMED" | "PENDING" | "FAILED" | "REFUNDED" | "
 
 export function mapAsaasStatus(status?: string | null): DonationStatus {
   const s = String(status || "").toUpperCase();
-  if (["CONFIRMED", "RECEIVED", "RECEIVED_IN_CASH", "ACTIVE"].includes(s)) return "CONFIRMED";
+  if (["CONFIRMED", "RECEIVED", "RECEIVED_IN_CASH"].includes(s)) return "CONFIRMED";
   if (["REFUNDED", "PARTIALLY_REFUNDED"].includes(s)) return "REFUNDED";
-  if (["DELETED", "CANCELLED", "CHARGEBACK_REQUESTED", "CHARGEBACK_DISPUTE", "AWAITING_CHARGEBACK_REVERSAL"].includes(s)) return "CANCELLED";
+  if (
+    [
+      "DELETED",
+      "CANCELLED",
+      "CHARGEBACK_REQUESTED",
+      "CHARGEBACK_DISPUTE",
+      "AWAITING_CHARGEBACK_REVERSAL",
+    ].includes(s)
+  )
+    return "CANCELLED";
   if (["OVERDUE", "FAILED", "INACTIVE", "EXPIRED"].includes(s)) return "FAILED";
   return "PENDING";
 }
@@ -28,15 +37,17 @@ export function cleanPhone(phone?: string | null) {
 }
 
 function admin() {
-  return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
+  return createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+  });
 }
 
 export async function getSetting(key: string): Promise<string | null> {
-  const { data } = await admin().from("system_settings").select("value").eq("key", key).maybeSingle();
+  const { data } = await admin()
+    .from("system_settings")
+    .select("value")
+    .eq("key", key)
+    .maybeSingle();
   return data?.value ?? null;
 }
 
@@ -45,17 +56,17 @@ export async function setSetting(key: string, value: string): Promise<void> {
 }
 
 export async function getAsaasConfig(): Promise<AsaasConfig> {
-  const apiKey =
-    (await getSetting("ASAAS_API_KEY")) || process.env.ASAAS_API_KEY || "";
-  const envRaw =
-    ((await getSetting("ASAAS_ENV")) || process.env.ASAAS_ENV || "sandbox").toLowerCase();
+  const apiKey = (await getSetting("ASAAS_API_KEY")) || process.env.ASAAS_API_KEY || "";
+  const envRaw = (
+    (await getSetting("ASAAS_ENV")) ||
+    process.env.ASAAS_ENV ||
+    "sandbox"
+  ).toLowerCase();
   const env: AsaasEnv = envRaw === "production" ? "production" : "sandbox";
   const webhookToken =
     (await getSetting("ASAAS_WEBHOOK_TOKEN")) || process.env.ASAAS_WEBHOOK_TOKEN || undefined;
   const baseUrl =
-    env === "production"
-      ? "https://api.asaas.com/v3"
-      : "https://api-sandbox.asaas.com/v3";
+    env === "production" ? "https://api.asaas.com/v3" : "https://api-sandbox.asaas.com/v3";
 
   if (!apiKey) {
     throw new Error("Asaas não está configurado. Defina ASAAS_API_KEY em Admin → Integrações.");
@@ -70,6 +81,7 @@ export async function asaasFetch<T = any>(
 ): Promise<T> {
   const res = await fetch(`${cfg.baseUrl}${path}`, {
     ...init,
+    signal: init.signal || AbortSignal.timeout(20000),
     headers: {
       "Content-Type": "application/json",
       "User-Agent": "IPAG-Doacoes/1.0",
@@ -79,7 +91,11 @@ export async function asaasFetch<T = any>(
   });
   const text = await res.text();
   let json: any = {};
-  try { json = text ? JSON.parse(text) : {}; } catch { json = { raw: text }; }
+  try {
+    json = text ? JSON.parse(text) : {};
+  } catch {
+    json = { raw: text };
+  }
   if (!res.ok) {
     const msg = json?.errors?.[0]?.description || json?.message || `Asaas ${res.status}`;
     throw new Error(msg);
