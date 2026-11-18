@@ -42,20 +42,30 @@ function jsonError(message: string, request: Request, status = 400) {
 export const Route = createFileRoute("/api/public/donations/create")({
   server: {
     handlers: {
-      OPTIONS: async ({ request }) => new Response(null, { status: 204, headers: corsHeaders(request) }),
+      OPTIONS: async ({ request }) =>
+        new Response(null, { status: 204, headers: corsHeaders(request) }),
       POST: async ({ request }) => {
         let body: unknown;
-        try { body = await request.json(); } catch { return jsonError("Corpo inválido", request); }
+        try {
+          body = await request.json();
+        } catch {
+          return jsonError("Corpo inválido", request);
+        }
         const parsed = Schema.safeParse(body);
-        if (!parsed.success) return jsonError(parsed.error.issues[0]?.message || "Dados inválidos", request);
+        if (!parsed.success)
+          return jsonError(parsed.error.issues[0]?.message || "Dados inválidos", request);
         const data = parsed.data;
 
-        const { getAsaasConfig, asaasFetch, findOrCreateCustomer, mapAsaasStatus, cleanPhone } = await import("@/lib/asaas.server");
+        const { getAsaasConfig, asaasFetch, findOrCreateCustomer, mapAsaasStatus, cleanPhone } =
+          await import("@/lib/asaas.server");
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         let cfg;
-        try { cfg = await getAsaasConfig(); }
-        catch (e: any) { return jsonError(e?.message || "Asaas não configurado", request, 500); }
+        try {
+          cfg = await getAsaasConfig();
+        } catch (e: any) {
+          return jsonError(e?.message || "Asaas não configurado", request, 500);
+        }
 
         const { data: draftDonation, error: draftErr } = await supabaseAdmin
           .from("donations")
@@ -88,7 +98,10 @@ export const Route = createFileRoute("/api/public/donations/create")({
           });
         } catch (e: any) {
           console.error("[asaas customer]", e);
-          await supabaseAdmin.from("donations").update({ status: "FAILED" }).eq("id", draftDonation.id);
+          await supabaseAdmin
+            .from("donations")
+            .update({ status: "FAILED" })
+            .eq("id", draftDonation.id);
           return jsonError(e?.message || "Erro ao criar cliente", request, 502);
         }
 
@@ -105,8 +118,8 @@ export const Route = createFileRoute("/api/public/donations/create")({
         // Build payload
         const projectLabel = data.campaign || "Doação Geral";
         const description = `Doação IPAG — Projeto: ${projectLabel} — Doador: ${data.donor_name}`;
-        // externalReference: apenas o nome do projeto (limite 100 chars no Asaas)
-        const externalReference = projectLabel.slice(0, 100);
+        // Stable IPAG identity; project label remains in description.
+        const externalReference = draftDonation.id;
 
         let asaasResp: any;
         try {
@@ -174,7 +187,10 @@ export const Route = createFileRoute("/api/public/donations/create")({
           }
         } catch (e: any) {
           console.error("[asaas create]", e);
-          await supabaseAdmin.from("donations").update({ status: "FAILED" }).eq("id", draftDonation.id);
+          await supabaseAdmin
+            .from("donations")
+            .update({ status: "FAILED" })
+            .eq("id", draftDonation.id);
           return jsonError(e?.message || "Erro ao processar pagamento", request, 502);
         }
 
@@ -197,7 +213,7 @@ export const Route = createFileRoute("/api/public/donations/create")({
         }
 
         // Map status
-        const internalStatus = mapAsaasStatus(status);
+        const internalStatus = data.type === "MONTHLY" ? "PENDING" : mapAsaasStatus(status);
 
         // Atualiza a doação criada antes da cobrança, mantendo histórico mesmo em falhas
         const { data: donation, error: insErr } = await supabaseAdmin
@@ -221,37 +237,31 @@ export const Route = createFileRoute("/api/public/donations/create")({
           return jsonError("Erro ao salvar doação", request, 500);
         }
 
-        // Se já vem confirmado (típico de cartão de crédito aprovado no ato),
-        // dispara email imediatamente — webhook não chegará a tempo.
-        if (internalStatus === "CONFIRMED" && donation && !donation.confirmation_email_sent_at) {
-          try {
-            const { sendDonationConfirmedEmails } = await import("@/lib/email.server");
-            await sendDonationConfirmedEmails({
-              donor_name: donation.donor_name,
-              donor_email: donation.donor_email,
-              amount: Number(donation.amount),
-              payment_method: donation.payment_method,
-              type: donation.type,
-              campaign: donation.campaign ?? undefined,
-              asaas_id: donation.asaas_id ?? paymentId,
-            });
-            await supabaseAdmin
-              .from("donations")
-              .update({ confirmation_email_sent_at: new Date().toISOString() })
-              .eq("id", donation.id);
-          } catch (e) {
-            console.error("[email confirmação imediata]", e);
-          }
+        // A charge exists already. Ledger retries must never create another charge.
+        try {
+          const { syncDonation, notifyFirstConfirmedDonation } =
+            await import("@/lib/donations/ledger.server");
+          await syncDonation(cfg, donation);
+          if (data.type === "ONE_TIME" && internalStatus === "CONFIRMED")
+            await notifyFirstConfirmedDonation(donation.id);
+        } catch (e) {
+          console.error(
+            "[donation ledger pending reconciliation]",
+            e instanceof Error ? e.message : "failed",
+          );
         }
 
-        return Response.json({
-          success: true,
-          donation,
-          pix_qrcode: pixQrcode,
-          pix_payload: pixPayload,
-          boleto_url: bankSlipUrl,
-          invoice_url: invoiceUrl,
-        }, { headers: corsHeaders(request) });
+        return Response.json(
+          {
+            success: true,
+            donation,
+            pix_qrcode: pixQrcode,
+            pix_payload: pixPayload,
+            boleto_url: bankSlipUrl,
+            invoice_url: invoiceUrl,
+          },
+          { headers: corsHeaders(request) },
+        );
       },
     },
   },
