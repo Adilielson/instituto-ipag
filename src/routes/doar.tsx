@@ -102,7 +102,7 @@ function DoarPage() {
         const j = await r.json();
         if (!cancelled && j?.status === "CONFIRMED") {
           setConfirmed(true);
-          navigate({ to: "/doar/obrigado", search: { id } });
+          navigate({ to: "/doar/obrigado", search: { id, project: undefined } });
         }
       } catch {}
     }, 5000);
@@ -148,7 +148,7 @@ function DoarPage() {
         setResult(j);
         if (j.donation?.status === "CONFIRMED") {
           setConfirmed(true);
-          navigate({ to: "/doar/obrigado", search: { id: j.donation.id } });
+          navigate({ to: "/doar/obrigado", search: { id: j.donation.id, project: undefined } });
           return;
         }
         if (method === "BOLETO" && j.boleto_url) window.open(j.boleto_url, "_blank");

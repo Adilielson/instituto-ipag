@@ -53,7 +53,7 @@ export const Route = createFileRoute("/blog/")({
 function Blog() {
   const { posts = [] } = Route.useLoaderData() || {};
   const validPosts = (posts || []).filter((p: any) => p && p.slug && p.titulo);
-  const latestPost = validPosts[0];
+  const latestPost: any = validPosts[0];
   const heroImage = latestPost?.imagem_destaque || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop";
 
   return (

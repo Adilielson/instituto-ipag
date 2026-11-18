@@ -10,7 +10,7 @@ export const Route = createFileRoute("/$")({
         
         if (slug) {
           throw redirect({
-            to: `/${baseRoute}/${slug}`,
+            to: `/${baseRoute}/${slug}` as string as "/",
             replace: true,
           });
         }

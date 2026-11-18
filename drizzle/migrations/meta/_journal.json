@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795009448539,
+      "tag": "0000_secure_admin_access",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795009492212,
+      "tag": "0001_user_access",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795009568367,
+      "tag": "0002_reminders_cron_secret",
+      "breakpoints": true
+    }
+  ]
+}

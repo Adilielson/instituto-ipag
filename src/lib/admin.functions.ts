@@ -1,3 +1,4 @@
+import { requireArea } from "@/lib/auth/admin.middleware";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
@@ -16,6 +17,7 @@ const SETTING_KEYS = [
 ] as const;
 
 export const listSettings = createServerFn({ method: "POST" })
+  .middleware([requireArea("integracoes")])
   .inputValidator(z.object({ password: z.string() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
@@ -30,12 +32,13 @@ export const listSettings = createServerFn({ method: "POST" })
       ASAAS_API_KEY: map.ASAAS_API_KEY || "",
       ASAAS_ENV: map.ASAAS_ENV || "sandbox",
       ASAAS_WEBHOOK_TOKEN: map.ASAAS_WEBHOOK_TOKEN || "",
-      REMINDERS_ENABLED: (map.REMINDERS_ENABLED ?? "true"),
-      REMINDERS_DAYS_BEFORE: (map.REMINDERS_DAYS_BEFORE ?? "3"),
+      REMINDERS_ENABLED: map.REMINDERS_ENABLED ?? "true",
+      REMINDERS_DAYS_BEFORE: map.REMINDERS_DAYS_BEFORE ?? "3",
     };
   });
 
 export const saveSettings = createServerFn({ method: "POST" })
+  .middleware([requireArea("integracoes")])
   .inputValidator(
     z.object({
       password: z.string(),
@@ -50,11 +53,15 @@ export const saveSettings = createServerFn({ method: "POST" })
     checkSuperadmin(data.password);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const rows: { key: string; value: string }[] = [];
-    if (data.ASAAS_API_KEY !== undefined) rows.push({ key: "ASAAS_API_KEY", value: data.ASAAS_API_KEY });
+    if (data.ASAAS_API_KEY !== undefined)
+      rows.push({ key: "ASAAS_API_KEY", value: data.ASAAS_API_KEY });
     if (data.ASAAS_ENV !== undefined) rows.push({ key: "ASAAS_ENV", value: data.ASAAS_ENV });
-    if (data.ASAAS_WEBHOOK_TOKEN !== undefined) rows.push({ key: "ASAAS_WEBHOOK_TOKEN", value: data.ASAAS_WEBHOOK_TOKEN });
-    if (data.REMINDERS_ENABLED !== undefined) rows.push({ key: "REMINDERS_ENABLED", value: data.REMINDERS_ENABLED });
-    if (data.REMINDERS_DAYS_BEFORE !== undefined) rows.push({ key: "REMINDERS_DAYS_BEFORE", value: data.REMINDERS_DAYS_BEFORE });
+    if (data.ASAAS_WEBHOOK_TOKEN !== undefined)
+      rows.push({ key: "ASAAS_WEBHOOK_TOKEN", value: data.ASAAS_WEBHOOK_TOKEN });
+    if (data.REMINDERS_ENABLED !== undefined)
+      rows.push({ key: "REMINDERS_ENABLED", value: data.REMINDERS_ENABLED });
+    if (data.REMINDERS_DAYS_BEFORE !== undefined)
+      rows.push({ key: "REMINDERS_DAYS_BEFORE", value: data.REMINDERS_DAYS_BEFORE });
     if (rows.length) {
       const { error } = await supabaseAdmin.from("system_settings").upsert(rows);
       if (error) throw new Error(error.message);
@@ -63,23 +70,32 @@ export const saveSettings = createServerFn({ method: "POST" })
   });
 
 export const runRemindersNow = createServerFn({ method: "POST" })
+  .middleware([requireArea("integracoes")])
   .inputValidator(z.object({ password: z.string() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
-    // Chama a própria rota pública usando a senha como autenticação
+    const { getRemindersCronSecret } = await import("@/lib/cron-secret.server");
+    const secret = await getRemindersCronSecret();
+    if (!secret) throw new Error("Envio de lembretes não configurado.");
+    // Segredo exclusivamente servidor-servidor.
     const origin = process.env.SITE_URL || "https://institutoipag.lovable.app";
     const res = await fetch(`${origin}/api/public/donations/send-reminders`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-admin-password": data.password },
+      headers: { "Content-Type": "application/json", "x-cron-secret": secret },
     });
     const text = await res.text();
     let json: any = {};
-    try { json = JSON.parse(text); } catch { json = { raw: text }; }
+    try {
+      json = JSON.parse(text);
+    } catch {
+      json = { raw: text };
+    }
     if (!res.ok) throw new Error(json?.error || text || `Erro ${res.status}`);
     return json;
   });
 
 export const testAsaas = createServerFn({ method: "POST" })
+  .middleware([requireArea("integracoes")])
   .inputValidator(z.object({ password: z.string() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
@@ -90,6 +106,7 @@ export const testAsaas = createServerFn({ method: "POST" })
   });
 
 export const listDonations = createServerFn({ method: "POST" })
+  .middleware([requireArea("doacoes")])
   .inputValidator(
     z.object({
       password: z.string(),
@@ -100,7 +117,11 @@ export const listDonations = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    let q = supabaseAdmin.from("donations").select("*").order("created_at", { ascending: false }).limit(500);
+    let q = supabaseAdmin
+      .from("donations")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(500);
     if (data.status && data.status !== "ALL") q = q.eq("status", data.status);
     if (data.method && data.method !== "ALL") q = q.eq("payment_method", data.method);
     const { data: rows, error } = await q;
@@ -115,6 +136,7 @@ export const listDonations = createServerFn({ method: "POST" })
   });
 
 export const markDonationConfirmed = createServerFn({ method: "POST" })
+  .middleware([requireArea("doacoes")])
   .inputValidator(z.object({ password: z.string(), id: z.string().uuid() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);

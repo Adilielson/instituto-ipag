@@ -54,7 +54,7 @@ export const Route = createFileRoute("/eventos/")({
 function Eventos() {
   const { eventos = [] } = Route.useLoaderData() || {};
   const validEventos = (eventos || []).filter((e: any) => e && e.slug && e.titulo);
-  const latestEvento = validEventos[0];
+  const latestEvento: any = validEventos[0];
   const heroImage = latestEvento?.imagem_destaque || "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop";
 
   return (

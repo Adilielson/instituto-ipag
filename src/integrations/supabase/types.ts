@@ -299,6 +299,30 @@ export type Database = {
         }
         Relationships: []
       }
+      site_access: {
+        Row: {
+          active: boolean
+          areas: string[]
+          is_admin: boolean
+          name: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          areas?: string[]
+          is_admin?: boolean
+          name: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          areas?: string[]
+          is_admin?: boolean
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       system_settings: {
         Row: {
           key: string
@@ -369,12 +393,28 @@ export type Database = {
       }
     }
     Functions: {
+      can_access: { Args: { area: string }; Returns: boolean }
+      can_manage_media: {
+        Args: { bucket: string; object_owner: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      manage_site_access: {
+        Args: {
+          administrator: boolean
+          allowed_areas: string[]
+          display_name: string
+          enabled: boolean
+          remove_access?: boolean
+          target: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
