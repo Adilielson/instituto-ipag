@@ -1,10 +1,11 @@
+import { PartnerDisplay } from "@/components/institutional/PartnerDisplay";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Heart, Sparkles, Music, GraduationCap, HeartHandshake, Brain, Scissors, LifeBuoy, Users, BarChart, Globe, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/site/Counter";
 import { Reveal } from "@/components/site/Reveal";
 import { FrentesAcao } from "@/components/site/FrentesAcao";
-import { IMPACT_STATS, PARTNERS, SITE, PROJECTS, POSTS, EVENTS } from "@/data/site";
+import { IMPACT_STATS, SITE, PROJECTS, POSTS, EVENTS } from "@/data/site";
 import { supabase } from "@/integrations/supabase/client";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -528,15 +529,7 @@ function Home() {
           </Reveal>
         </div>
 
-        <div className="relative py-12 border-y border-black/5">
-          <div className="flex animate-scroll whitespace-nowrap gap-32">
-            {[...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
-              <div key={index} className="flex items-center grayscale opacity-20 hover:grayscale-0 hover:opacity-100 transition-all duration-700 cursor-pointer">
-                <span className="text-4xl md:text-5xl font-black text-dark uppercase tracking-[0.2em]">{partner}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <PartnerDisplay carousel />
       </section>
     </div>
   );
