@@ -14,6 +14,13 @@ export type Database = {
   }
   public: {
     Tables: {
+      site_access: {
+        Row: { user_id: string; name: string; is_admin: boolean; active: boolean; areas: string[] }
+        Insert: { user_id: string; name: string; is_admin?: boolean; active?: boolean; areas?: string[] }
+        Update: { name?: string; is_admin?: boolean; active?: boolean; areas?: string[] }
+        Relationships: []
+      }
+
       blog_categories: {
         Row: {
           created_at: string
@@ -369,6 +376,12 @@ export type Database = {
       }
     }
     Functions: {
+      can_access: { Args: { area: string }; Returns: boolean }
+      manage_site_access: {
+        Args: { target: string; display_name: string; administrator: boolean; enabled: boolean; allowed_areas: string[]; remove_access?: boolean }
+        Returns: undefined
+      }
+
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -1,3 +1,4 @@
+import { requireArea } from "@/lib/auth/admin.middleware";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
@@ -8,7 +9,11 @@ function checkSuperadmin(pwd: string | undefined) {
 }
 
 const templateSchema = z.object({
-  slug: z.string().min(2).max(80).regex(/^[a-z0-9_]+$/i, "Use apenas letras, números e _"),
+  slug: z
+    .string()
+    .min(2)
+    .max(80)
+    .regex(/^[a-z0-9_]+$/i, "Use apenas letras, números e _"),
   name: z.string().min(1).max(120),
   subject: z.string().min(1).max(200),
   header_image_url: z.string().url().nullable().optional(),
@@ -19,6 +24,7 @@ const templateSchema = z.object({
 });
 
 export const listEmailTemplates = createServerFn({ method: "POST" })
+  .middleware([requireArea("emails")])
   .inputValidator(z.object({ password: z.string() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
@@ -32,6 +38,7 @@ export const listEmailTemplates = createServerFn({ method: "POST" })
   });
 
 export const getEmailTemplate = createServerFn({ method: "POST" })
+  .middleware([requireArea("emails")])
   .inputValidator(z.object({ password: z.string(), id: z.string().uuid() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
@@ -47,6 +54,7 @@ export const getEmailTemplate = createServerFn({ method: "POST" })
   });
 
 export const createEmailTemplate = createServerFn({ method: "POST" })
+  .middleware([requireArea("emails")])
   .inputValidator(z.object({ password: z.string(), template: templateSchema }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
@@ -70,7 +78,10 @@ export const createEmailTemplate = createServerFn({ method: "POST" })
   });
 
 export const updateEmailTemplate = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ password: z.string(), id: z.string().uuid(), template: templateSchema.partial() }))
+  .middleware([requireArea("emails")])
+  .inputValidator(
+    z.object({ password: z.string(), id: z.string().uuid(), template: templateSchema.partial() }),
+  )
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -95,6 +106,7 @@ export const updateEmailTemplate = createServerFn({ method: "POST" })
   });
 
 export const deleteEmailTemplate = createServerFn({ method: "POST" })
+  .middleware([requireArea("emails")])
   .inputValidator(z.object({ password: z.string(), id: z.string().uuid() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);
@@ -105,6 +117,7 @@ export const deleteEmailTemplate = createServerFn({ method: "POST" })
   });
 
 export const sendTestEmail = createServerFn({ method: "POST" })
+  .middleware([requireArea("emails")])
   .inputValidator(z.object({ password: z.string(), id: z.string().uuid(), to: z.string().email() }))
   .handler(async ({ data }) => {
     checkSuperadmin(data.password);

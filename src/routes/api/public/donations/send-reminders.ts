@@ -5,8 +5,8 @@ import { createFileRoute } from "@tanstack/react-router";
  * vence em N dias (configurável em system_settings.REMINDERS_DAYS_BEFORE).
  *
  * Chamado por:
- *  - pg_cron (diariamente, com header apikey = publishable key)
- *  - Botão "Enviar agora" no admin → /admin/integracoes (com header x-admin-password)
+ *  - pg_cron (diariamente, com header x-cron-secret = REMINDERS_CRON_SECRET)
+ *  - Botão "Enviar agora" no admin → /admin/integracoes (após autenticação, com segredo exclusivo no servidor)
  */
 export const Route = createFileRoute("/api/public/donations/send-reminders")({
   server: {
@@ -14,14 +14,10 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
       POST: async ({ request }) => {
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-        // Auth: aceita publishable key (cron) OU senha superadmin (botão manual)
-        const apikey = request.headers.get("apikey");
-        const adminPwd = request.headers.get("x-admin-password");
-        const isCron = !!apikey && apikey === process.env.SUPABASE_PUBLISHABLE_KEY;
-        const isAdmin = !!adminPwd && adminPwd === process.env.SUPERADMIN_PASSWORD;
-        if (!isCron && !isAdmin) {
-          return new Response("Unauthorized", { status: 401 });
-        }
+        // A public Supabase key is not a credential for sending email.
+        const secret = process.env.REMINDERS_CRON_SECRET;
+        const isCron = !!secret && request.headers.get("x-cron-secret") === secret;
+        if (!isCron) return new Response("Unauthorized", { status: 401 });
 
         // Carrega settings
         const { data: settings } = await supabaseAdmin
@@ -31,7 +27,10 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
         const settingsMap: Record<string, string> = {};
         for (const s of settings || []) settingsMap[s.key] = s.value ?? "";
         const enabled = (settingsMap.REMINDERS_ENABLED ?? "true").toLowerCase() === "true";
-        const daysBefore = Math.max(0, Math.min(30, parseInt(settingsMap.REMINDERS_DAYS_BEFORE || "3", 10) || 3));
+        const daysBefore = Math.max(
+          0,
+          Math.min(30, parseInt(settingsMap.REMINDERS_DAYS_BEFORE || "3", 10) || 3),
+        );
 
         if (!enabled && isCron) {
           return Response.json({ ok: true, skipped: "disabled", sent: 0 });
@@ -44,8 +43,11 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
 
         const { getAsaasConfig, asaasFetch } = await import("@/lib/asaas.server");
         let cfg;
-        try { cfg = await getAsaasConfig(); }
-        catch (e: any) { return new Response(`Asaas: ${e?.message || "config"}`, { status: 500 }); }
+        try {
+          cfg = await getAsaasConfig();
+        } catch (e: any) {
+          return new Response(`Asaas: ${e?.message || "config"}`, { status: 500 });
+        }
 
         // Lista cobranças PENDENTES com vencimento exatamente no dia alvo
         let payments: any[] = [];
@@ -61,16 +63,20 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
 
         const { renderAndSendTemplate } = await import("@/lib/email.server");
 
-        const brl = (n: number) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        const brl = (n: number) =>
+          n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
         const fmtDate = (iso: string) => {
           const [y, m, d] = iso.split("-");
           return `${d}/${m}/${y}`;
         };
         const methodLabel = (m: string) =>
-          m === "PIX" ? "PIX" : m === "BOLETO" ? "Boleto" : m === "CREDIT_CARD" ? "Cartão de crédito" : m;
-
-
-
+          m === "PIX"
+            ? "PIX"
+            : m === "BOLETO"
+              ? "Boleto"
+              : m === "CREDIT_CARD"
+                ? "Cartão de crédito"
+                : m;
 
         let sent = 0;
         let skipped = 0;
@@ -78,7 +84,10 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
 
         for (const pay of payments) {
           const subId: string | undefined = pay?.subscription;
-          if (!subId) { skipped++; continue; } // só assinaturas mensais
+          if (!subId) {
+            skipped++;
+            continue;
+          } // só assinaturas mensais
 
           // Doação correspondente (asaas_id guarda o id da subscription quando MONTHLY)
           const { data: donation } = await supabaseAdmin
@@ -88,9 +97,18 @@ export const Route = createFileRoute("/api/public/donations/send-reminders")({
             .eq("type", "MONTHLY")
             .maybeSingle();
 
-          if (!donation || !donation.donor_email) { skipped++; continue; }
-          if (donation.status === "CANCELLED") { skipped++; continue; }
-          if (donation.last_reminder_charge_id === pay.id) { skipped++; continue; }
+          if (!donation || !donation.donor_email) {
+            skipped++;
+            continue;
+          }
+          if (donation.status === "CANCELLED") {
+            skipped++;
+            continue;
+          }
+          if (donation.last_reminder_charge_id === pay.id) {
+            skipped++;
+            continue;
+          }
 
           try {
             await renderAndSendTemplate({

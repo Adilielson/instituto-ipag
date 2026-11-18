@@ -10,9 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparenciaRouteImport } from './routes/transparencia'
+import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as ProjetosRouteImport } from './routes/projetos'
 import { Route as ParceirosRouteImport } from './routes/parceiros'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as EventosRouteImport } from './routes/eventos'
 import { Route as DoarRouteImport } from './routes/doar'
 import { Route as ContatoRouteImport } from './routes/contato'
@@ -48,6 +50,11 @@ const TransparenciaRoute = TransparenciaRouteImport.update({
   path: '/transparencia',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedefinirSenhaRoute = RedefinirSenhaRouteImport.update({
+  id: '/redefinir-senha',
+  path: '/redefinir-senha',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuemSomosRoute = QuemSomosRouteImport.update({
   id: '/quem-somos',
   path: '/quem-somos',
@@ -61,6 +68,11 @@ const ProjetosRoute = ProjetosRouteImport.update({
 const ParceirosRoute = ParceirosRouteImport.update({
   id: '/parceiros',
   path: '/parceiros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventosRoute = EventosRouteImport.update({
@@ -222,9 +234,11 @@ export interface FileRoutesByFullPath {
   '/contato': typeof ContatoRoute
   '/doar': typeof DoarRouteWithChildren
   '/eventos': typeof EventosRouteWithChildren
+  '/login': typeof LoginRoute
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/doacoes': typeof AdminDoacoesRoute
@@ -254,8 +268,10 @@ export interface FileRoutesByTo {
   '/bazar': typeof BazarRoute
   '/contato': typeof ContatoRoute
   '/doar': typeof DoarRouteWithChildren
+  '/login': typeof LoginRoute
   '/parceiros': typeof ParceirosRoute
   '/quem-somos': typeof QuemSomosRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/doacoes': typeof AdminDoacoesRoute
@@ -289,9 +305,11 @@ export interface FileRoutesById {
   '/contato': typeof ContatoRoute
   '/doar': typeof DoarRouteWithChildren
   '/eventos': typeof EventosRouteWithChildren
+  '/login': typeof LoginRoute
   '/parceiros': typeof ParceirosRoute
   '/projetos': typeof ProjetosRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/transparencia': typeof TransparenciaRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/doacoes': typeof AdminDoacoesRoute
@@ -326,9 +344,11 @@ export interface FileRouteTypes {
     | '/contato'
     | '/doar'
     | '/eventos'
+    | '/login'
     | '/parceiros'
     | '/projetos'
     | '/quem-somos'
+    | '/redefinir-senha'
     | '/transparencia'
     | '/admin/blog'
     | '/admin/doacoes'
@@ -358,8 +378,10 @@ export interface FileRouteTypes {
     | '/bazar'
     | '/contato'
     | '/doar'
+    | '/login'
     | '/parceiros'
     | '/quem-somos'
+    | '/redefinir-senha'
     | '/transparencia'
     | '/admin/blog'
     | '/admin/doacoes'
@@ -392,9 +414,11 @@ export interface FileRouteTypes {
     | '/contato'
     | '/doar'
     | '/eventos'
+    | '/login'
     | '/parceiros'
     | '/projetos'
     | '/quem-somos'
+    | '/redefinir-senha'
     | '/transparencia'
     | '/admin/blog'
     | '/admin/doacoes'
@@ -428,9 +452,11 @@ export interface RootRouteChildren {
   ContatoRoute: typeof ContatoRoute
   DoarRoute: typeof DoarRouteWithChildren
   EventosRoute: typeof EventosRouteWithChildren
+  LoginRoute: typeof LoginRoute
   ParceirosRoute: typeof ParceirosRoute
   ProjetosRoute: typeof ProjetosRouteWithChildren
   QuemSomosRoute: typeof QuemSomosRoute
+  RedefinirSenhaRoute: typeof RedefinirSenhaRoute
   TransparenciaRoute: typeof TransparenciaRoute
   BlogSlugRoute: typeof BlogSlugRoute
   EventosSlugRoute: typeof EventosSlugRoute
@@ -448,6 +474,13 @@ declare module '@tanstack/react-router' {
       path: '/transparencia'
       fullPath: '/transparencia'
       preLoaderRoute: typeof TransparenciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/redefinir-senha': {
+      id: '/redefinir-senha'
+      path: '/redefinir-senha'
+      fullPath: '/redefinir-senha'
+      preLoaderRoute: typeof RedefinirSenhaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quem-somos': {
@@ -469,6 +502,13 @@ declare module '@tanstack/react-router' {
       path: '/parceiros'
       fullPath: '/parceiros'
       preLoaderRoute: typeof ParceirosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/eventos': {
@@ -757,9 +797,11 @@ const rootRouteChildren: RootRouteChildren = {
   ContatoRoute: ContatoRoute,
   DoarRoute: DoarRouteWithChildren,
   EventosRoute: EventosRouteWithChildren,
+  LoginRoute: LoginRoute,
   ParceirosRoute: ParceirosRoute,
   ProjetosRoute: ProjetosRouteWithChildren,
   QuemSomosRoute: QuemSomosRoute,
+  RedefinirSenhaRoute: RedefinirSenhaRoute,
   TransparenciaRoute: TransparenciaRoute,
   BlogSlugRoute: BlogSlugRoute,
   EventosSlugRoute: EventosSlugRoute,
@@ -772,3 +814,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
