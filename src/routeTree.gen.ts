@@ -44,6 +44,7 @@ import { Route as ApiPublicDonationsWebhookRouteImport } from './routes/api/publ
 import { Route as ApiPublicDonationsStatusRouteImport } from './routes/api/public/donations/status'
 import { Route as ApiPublicDonationsSendRemindersRouteImport } from './routes/api/public/donations/send-reminders'
 import { Route as ApiPublicDonationsCreateRouteImport } from './routes/api/public/donations/create'
+import { Route as ApiPublicPartnersIdLogoRouteImport } from './routes/api/public/partners/$id/logo'
 
 const TransparenciaRoute = TransparenciaRouteImport.update({
   id: '/transparencia',
@@ -224,6 +225,11 @@ const ApiPublicDonationsCreateRoute =
     path: '/api/public/donations/create',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPartnersIdLogoRoute = ApiPublicPartnersIdLogoRouteImport.update({
+  id: '/api/public/partners/$id/logo',
+  path: '/api/public/partners/$id/logo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -261,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
+  '/api/public/partners/$id/logo': typeof ApiPublicPartnersIdLogoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -294,6 +301,7 @@ export interface FileRoutesByTo {
   '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
+  '/api/public/partners/$id/logo': typeof ApiPublicPartnersIdLogoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -332,6 +340,7 @@ export interface FileRoutesById {
   '/api/public/donations/send-reminders': typeof ApiPublicDonationsSendRemindersRoute
   '/api/public/donations/status': typeof ApiPublicDonationsStatusRoute
   '/api/public/donations/webhook': typeof ApiPublicDonationsWebhookRoute
+  '/api/public/partners/$id/logo': typeof ApiPublicPartnersIdLogoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -371,6 +380,7 @@ export interface FileRouteTypes {
     | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
+    | '/api/public/partners/$id/logo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -404,6 +414,7 @@ export interface FileRouteTypes {
     | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
+    | '/api/public/partners/$id/logo'
   id:
     | '__root__'
     | '/'
@@ -441,6 +452,7 @@ export interface FileRouteTypes {
     | '/api/public/donations/send-reminders'
     | '/api/public/donations/status'
     | '/api/public/donations/webhook'
+    | '/api/public/partners/$id/logo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -465,6 +477,7 @@ export interface RootRouteChildren {
   ApiPublicDonationsSendRemindersRoute: typeof ApiPublicDonationsSendRemindersRoute
   ApiPublicDonationsStatusRoute: typeof ApiPublicDonationsStatusRoute
   ApiPublicDonationsWebhookRoute: typeof ApiPublicDonationsWebhookRoute
+  ApiPublicPartnersIdLogoRoute: typeof ApiPublicPartnersIdLogoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -714,6 +727,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDonationsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/partners/$id/logo': {
+      id: '/api/public/partners/$id/logo'
+      path: '/api/public/partners/$id/logo'
+      fullPath: '/api/public/partners/$id/logo'
+      preLoaderRoute: typeof ApiPublicPartnersIdLogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -810,6 +830,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicDonationsSendRemindersRoute: ApiPublicDonationsSendRemindersRoute,
   ApiPublicDonationsStatusRoute: ApiPublicDonationsStatusRoute,
   ApiPublicDonationsWebhookRoute: ApiPublicDonationsWebhookRoute,
+  ApiPublicPartnersIdLogoRoute: ApiPublicPartnersIdLogoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
