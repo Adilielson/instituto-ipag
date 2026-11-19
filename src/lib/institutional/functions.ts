@@ -59,6 +59,11 @@ async function list(kind: ModuleKind, db: SupabaseClient, published = false) {
     rows.push(...batch);
     if (batch.length < 500) break;
   }
+  if (kind === "partners" && published)
+    return rows.map((row) => ({
+      ...row,
+      url: `/api/public/partners/${row.id}/logo?v=${encodeURIComponent(row.file_path)}`,
+    }));
   // Signing is server-only, after the authorized list query.
   const server = await adminDb();
   return Promise.all(

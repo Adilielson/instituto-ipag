@@ -1,3 +1,4 @@
+import { prepareLogo } from "@/lib/institutional/logo-upload";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useRouter } from "@tanstack/react-router";
@@ -37,6 +38,8 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
     [dirty, setDirty] = useState(false),
     [pendingDelete, setPendingDelete] = useState<InstitutionalItem | null>(null),
     [pdf, setPdf] = useState<{ title: string; url: string } | null>(null);
+  const [preparing, setPreparing] = useState(false);
+  const selectionVersion = useRef(0);
   const uploaded = useRef<{ file: File; path: string } | null>(null);
   async function load() {
     setLoading(true);
@@ -72,7 +75,7 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
     return () => URL.revokeObjectURL(url);
   }, [file, isPartner]);
   function close() {
-    if (busy) return;
+    if (busy || preparing) return;
     if (dirty && !window.confirm("Descartar as alterações não salvas?")) return;
     setEditing(null);
     setFile(null);
@@ -91,6 +94,7 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
   }
   async function selectFile(f: File | undefined) {
     if (!f) return;
+    const version = ++selectionVersion.current;
     const max = isPartner ? 5 : 20;
     const mime = isPartner ? ["image/png", "image/jpeg", "image/webp"] : ["application/pdf"];
     if (!mime.includes(f.type) || !f.size || f.size > max * 1024 * 1024) {
@@ -110,13 +114,22 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
       toast.error("O conteúdo do arquivo não corresponde ao formato informado.");
       return;
     }
-    setFile(f);
-    setDirty(true);
-    uploaded.current = null;
+    setPreparing(true);
+    try {
+      const selected = isPartner ? await prepareLogo(f) : f;
+      if (version !== selectionVersion.current) return;
+      setFile(selected);
+      setDirty(true);
+      uploaded.current = null;
+    } catch (e: any) {
+      toast.error(e.message);
+    } finally {
+      if (version === selectionVersion.current) setPreparing(false);
+    }
   }
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!editing) return;
+    if (!editing || preparing) return;
     setBusy(true);
     try {
       let path = editing.file_path;
@@ -284,7 +297,7 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
                     setEditing({ ...editing, [isPartner ? "name" : "title"]: e.target.value });
                     setDirty(true);
                   }}
-                  disabled={busy}
+                  disabled={busy || preparing}
                 />
               </label>
               {!isPartner && (
@@ -300,19 +313,37 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
                       setEditing({ ...editing, year: Number(e.target.value) });
                       setDirty(true);
                     }}
-                    disabled={busy}
+                    disabled={busy || preparing}
                   />
                 </label>
               )}
               <label className="block text-sm font-medium">
-                {isPartner ? "Logomarca · PNG, JPG ou WEBP, até 5 MB" : "Documento PDF · até 20 MB"}
+                {isPartner
+                  ? "Enviar logomarca · PNG, JPG ou WEBP, até 5 MB"
+                  : "Documento PDF · até 20 MB"}
                 <Input
                   type="file"
                   accept={isPartner ? "image/png,image/jpeg,image/webp" : "application/pdf"}
                   onChange={(e) => void selectFile(e.target.files?.[0])}
-                  disabled={busy}
+                  disabled={busy || preparing}
                 />
               </label>
+              {isPartner && (
+                <div className="rounded-xl bg-orange-50 p-3 text-sm">
+                  <p>
+                    <strong>Padrão recomendado: 600 × 300 px.</strong>
+                  </p>
+                  <p>
+                    Prefira PNG com fundo transparente e sem margens excessivas. Aceitamos também
+                    JPG e WEBP de até 5 MB.
+                  </p>
+                  <p>
+                    A imagem será centralizada automaticamente em 600 × 300 px, preservando as
+                    proporções, sem recortar ou ampliar imagens pequenas.
+                  </p>
+                  {preparing && <p role="status">Preparando prévia…</p>}
+                </div>
+              )}
               {isPartner && (preview || editing.url) && (
                 <img
                   alt="Prévia da logomarca"
@@ -339,7 +370,7 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
                     setEditing({ ...editing, sort_order: Number(e.target.value) });
                     setDirty(true);
                   }}
-                  disabled={busy}
+                  disabled={busy || preparing}
                 />
               </label>
               <label className="flex gap-2 items-center text-sm">
@@ -350,7 +381,7 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
                     setEditing({ ...editing, published: e.target.checked });
                     setDirty(true);
                   }}
-                  disabled={busy}
+                  disabled={busy || preparing}
                 />
                 Publicado no site
               </label>
@@ -358,10 +389,15 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
                 Rascunhos ficam disponíveis somente no painel autorizado.
               </p>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={close} disabled={busy}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={close}
+                  disabled={busy || preparing}
+                >
                   Cancelar
                 </Button>
-                <Button disabled={busy}>
+                <Button disabled={busy || preparing}>
                   {busy && <Loader2 className="size-4 animate-spin mr-2" />}Salvar
                 </Button>
               </div>
@@ -382,10 +418,14 @@ export function AdminInstitutional({ kind }: { kind: ModuleKind }) {
             não pode ser desfeita.
           </DialogDescription>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" disabled={busy} onClick={() => setPendingDelete(null)}>
+            <Button
+              variant="outline"
+              disabled={busy || preparing}
+              onClick={() => setPendingDelete(null)}
+            >
               Cancelar
             </Button>
-            <Button variant="destructive" disabled={busy} onClick={remove}>
+            <Button variant="destructive" disabled={busy || preparing} onClick={remove}>
               Excluir
             </Button>
           </div>

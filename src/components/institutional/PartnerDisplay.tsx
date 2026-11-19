@@ -46,15 +46,7 @@ export function PartnerDisplay({ carousel = false }: { carousel?: boolean }) {
         Em breve, conheça nossa rede de parceiros.
       </p>
     );
-  const logo = (row: InstitutionalItem) => (
-    <img
-      src={row.url}
-      alt={row.name}
-      title={row.name}
-      className="h-24 w-52 object-contain"
-      loading="lazy"
-    />
-  );
+  const logo = (row: InstitutionalItem) => <PartnerLogo row={row} />;
   if (!carousel || rows.length === 1)
     return (
       <div className="flex flex-wrap justify-center gap-8 p-6">
@@ -83,7 +75,7 @@ export function PartnerDisplay({ carousel = false }: { carousel?: boolean }) {
             className="ipag-partner-copy flex shrink-0 items-center gap-12 px-6"
           >
             {rows.map((row) => (
-              <img key={row.id} src={row.url} alt="" className="h-24 w-52 object-contain" />
+              <PartnerLogo key={row.id} row={row} />
             ))}
           </div>
         </div>
@@ -94,5 +86,46 @@ export function PartnerDisplay({ carousel = false }: { carousel?: boolean }) {
         </Button>
       </div>
     </div>
+  );
+}
+
+function PartnerLogo({ row }: { row: InstitutionalItem }) {
+  const [failed, setFailed] = useState(false),
+    [retry, setRetry] = useState(0);
+  useEffect(() => {
+    setFailed(false);
+    setRetry(0);
+  }, [row.url]);
+  if (failed)
+    return (
+      <div className="h-24 w-48 flex flex-col items-center justify-center gap-1 text-center">
+        <span className="font-bold text-sm">{row.name}</span>
+        <button
+          className="text-xs underline"
+          onClick={() => {
+            setFailed(false);
+            setRetry(retry + 1);
+          }}
+        >
+          Recarregar logomarca
+        </button>
+      </div>
+    );
+  const src = row.url + (retry ? `&retry=${retry}` : "");
+  return (
+    <img
+      src={src}
+      alt={row.name}
+      title={row.name}
+      width={600}
+      height={300}
+      className="h-24 w-48 object-contain"
+      loading="lazy"
+      decoding="async"
+      onError={() => {
+        if (!retry) setRetry(1);
+        else setFailed(true);
+      }}
+    />
   );
 }

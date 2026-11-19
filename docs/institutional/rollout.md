@@ -32,3 +32,11 @@ Não foram inventadas logomarcas nem documentos. Cadastros começam vazios; o ad
 Validação local: `node tests/institutional-cms.mjs`, `npx tsc --noEmit`, `npm run build`. O teste SQL usa banco descartável; não substitui upload e visualização no Storage real.
 
 Nenhuma migração, upload, edição ou exclusão de dados reais foi realizada nesta entrega.
+
+## Atualização do upload de logomarcas (19/11/2026)
+
+- O formulário aceita PNG, JPG e WEBP até 5 MB. Recomenda PNG transparente de 600 × 300 px. A imagem é decodificada e centralizada em uma tela PNG transparente de 600 × 300 px, preservando proporção, sem corte e sem ampliar originais pequenos. Imagens acima de 40 MP/16.000 px por lado são rejeitadas.
+- A Home passa a usar `/api/public/partners/{id}/logo?v={caminho}` no mesmo domínio. O servidor confere publicação e lê o Storage privado; não utiliza URLs temporárias no HTML público nem arquivos no disco temporário da Vercel. Substituições têm novo caminho e nova chave de cache. Cache máximo de 60 segundos após despublicação; erros não são armazenados.
+- No deploy da Vercel, conferir SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no servidor, apontando ao MESMO Lovable Cloud usado pelo formulário (VITE_SUPABASE_URL). Nunca expor service role em VITE_*. A aplicação depende do runtime de servidor; não publicar como exportação estática.
+- Após integrar, testar upload/publicação/substituição no domínio final, abrir o endereço da imagem e confirmar HTTP 200 com Content-Type de imagem. Repetir após nova implantação e verificar que a Home continua exibindo o arquivo. Não atribuir a falha à Vercel sem conferir logs/env/rede.
+- O print enviado mostra um formulário diferente do código main disponível nesta sessão. O PR #3 ainda estava aberto durante esta atualização. Ao incorporar no Lovable, preservar campos adicionais do formulário atual (por exemplo, Site) e adaptar ao schema real; não criar uma segunda lista de parceiros em paralelo se o Cloud já implementou outra tabela.
